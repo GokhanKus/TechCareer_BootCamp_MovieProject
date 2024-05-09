@@ -5,6 +5,7 @@ namespace TechCareer_BootCamp_MovieProject_Model.Entities
     public class Genre : BaseEntity
     {
         public string? Name { get; set; }
-        public ICollection<Movie>? Movies { get; set; } //= new List<Movie>();
+        public ICollection<GenreMovie>? GenreMovies{ get; set; }
+        //public ICollection<Movie>? Movies { get; set; } //= new List<Movie>();
     }
 }

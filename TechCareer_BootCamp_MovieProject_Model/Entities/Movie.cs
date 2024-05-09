@@ -1,4 +1,5 @@
 ﻿using TechCareer_BootCamp_MovieProject_Model.BaseEntities;
+using TechCareer_BootCamp_MovieProject_Model.Enums;
 
 namespace TechCareer_BootCamp_MovieProject_Model.Entities
 {
@@ -8,12 +9,16 @@ namespace TechCareer_BootCamp_MovieProject_Model.Entities
         public string? OriginalTitle { get; set; }
         public string? Plot { get; set; } //overview,summary
         public string? PosterPath { get; set; }
-        public string? OriginalLanguage { get; set; }
-        public int ReleaseDate { get; set; }
+        public Language OriginalLanguage { get; set; }
+        public int? ReleaseDate { get; set; }
 
         public int DirectorId { get; set; } //foreign key
         public Director? Director { get; set; } //navigation property
-        public ICollection<Actor>? Actors { get; set; }
-        public ICollection<Genre>? Genres { get; set; }
+       
+        //ef core tarafindan otomatik olusturulan ara tablolari manuel olarak biz olusturalim cunku, aktorleri filmlerle, film turlerini de filmlerle ilişkilendirmemiz lazım(id'lerini vererek)
+        public ICollection<ActorMovie>? ActorMovies{ get; set; }
+        public ICollection<GenreMovie>? GenreMovies{ get; set; } 
+        //public ICollection<Actor>? Actors { get; set; } 
+        //public ICollection<Genre>? Genres { get; set; }
     }
 }
