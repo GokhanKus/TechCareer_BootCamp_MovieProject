@@ -7,10 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Config\" />
+    <Folder Include="BaseRepos\" />
     <Folder Include="ConcreteRepos\" />
     <Folder Include="AbstractRepos\" />
-    <Folder Include="BaseRepos\" />
   </ItemGroup>
 
   <ItemGroup>
