@@ -1,3 +1,5 @@
+using TechCareer_BootCamp_MovieProject_UI.ExtensionMethods;
+
 namespace TechCareer_BootCamp_MovieProject_UI
 {
     public class Program
@@ -8,6 +10,8 @@ namespace TechCareer_BootCamp_MovieProject_UI
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.ConfigureSqlServer(builder.Configuration);
 
             var app = builder.Build();
 
