@@ -12,7 +12,7 @@ using TechCareer_BootCamp_MovieProject_Repositories.Context;
 namespace TechCareer_BootCamp_MovieProject_UI.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20240509145938_InitialCreate")]
+    [Migration("20240510182435_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -62,7 +62,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                         {
                             Id = 1,
                             Biography = "Daniel Day Lewis's Biography",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8787),
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5013),
                             DoB = new DateTime(1957, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FullName = "Daniel Day Lewis",
                             ImagePath = "DanielDayLewis.jpg",
@@ -72,7 +72,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                         {
                             Id = 2,
                             Biography = "Paul Dano's Biography",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8794),
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5018),
                             DoB = new DateTime(1975, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FullName = "Paul Dano",
                             ImagePath = "PaulDano.jpg",
@@ -82,7 +82,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                         {
                             Id = 3,
                             Biography = "Dillon Freasier's Biography",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8797),
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5020),
                             DoB = new DateTime(1996, 8, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FullName = "Dillon Freasier",
                             ImagePath = "DillonFreasier.jpg",
@@ -92,7 +92,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                         {
                             Id = 4,
                             Biography = "Erica Sullivan's Biography",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8800),
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5023),
                             DoB = new DateTime(1989, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FullName = "Erica Sullivan",
                             ImagePath = "EricaSullivan.jpg",
@@ -102,7 +102,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                         {
                             Id = 5,
                             Biography = "Russell Harvard's Biography",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8802),
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5025),
                             DoB = new DateTime(1977, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FullName = "Russell Harvard",
                             ImagePath = "RussellHarvard.jpg",
@@ -112,7 +112,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                         {
                             Id = 6,
                             Biography = "Ciarán Hinds's Biography",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8804),
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5026),
                             DoB = new DateTime(1953, 2, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FullName = "Ciarán Hinds",
                             ImagePath = "CiaranHinds.jpg",
@@ -204,7 +204,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                         {
                             Id = 1,
                             Biography = "Paul Thomas Anderson's Biography",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(1481),
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(7650),
                             DoB = new DateTime(1970, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FullName = "Paul Thomas Anderson",
                             ImagePath = "PaulThomasAnderson.jpg",
@@ -243,42 +243,42 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                             Id = 1,
                             ActorId = 1,
                             CharacterName = "Daniel Plainview",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2735)
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8936)
                         },
                         new
                         {
                             Id = 2,
                             ActorId = 2,
                             CharacterName = "Paul Sunday, Eli Sunday",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2737)
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8939)
                         },
                         new
                         {
                             Id = 3,
                             ActorId = 6,
                             CharacterName = "Fletcher",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2738)
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8940)
                         },
                         new
                         {
                             Id = 4,
                             ActorId = 3,
                             CharacterName = "Baby Plainview",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2739)
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8941)
                         },
                         new
                         {
                             Id = 5,
                             ActorId = 4,
                             CharacterName = "Signal Hill Woman",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2740)
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8943)
                         },
                         new
                         {
                             Id = 6,
                             ActorId = 5,
                             CharacterName = "Adult Plainview",
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2741)
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8944)
                         });
                 });
 
@@ -306,13 +306,13 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(3917),
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 354, DateTimeKind.Utc).AddTicks(203),
                             Name = "Drama"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(3919),
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 354, DateTimeKind.Utc).AddTicks(205),
                             Name = "Western"
                         });
                 });
@@ -358,6 +358,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                     b.Property<int>("DirectorId")
                         .HasColumnType("int");
 
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time");
+
                     b.Property<int>("OriginalLanguage")
                         .HasMaxLength(50)
                         .HasColumnType("int");
@@ -377,6 +380,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                     b.Property<int?>("ReleaseDate")
                         .HasColumnType("int");
 
+                    b.Property<double>("Score")
+                        .HasColumnType("float");
+
                     b.Property<string>("Title")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -391,13 +397,15 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedTime = new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(6216),
+                            CreatedTime = new DateTime(2024, 5, 10, 18, 24, 34, 354, DateTimeKind.Utc).AddTicks(2547),
                             DirectorId = 1,
+                            Duration = new TimeSpan(0, 2, 38, 0, 0),
                             OriginalLanguage = 2,
                             OriginalTitle = "There Will Be Blood",
                             Plot = "A story of family, religion, hatred, oil and madness, focusing on a turn-of-the-century prospector in the early days of the business.",
                             PosterPath = "ThereWillBeBlood.jpg",
                             ReleaseDate = 2007,
+                            Score = 8.4000000000000004,
                             Title = "Kan Dokulecek"
                         });
                 });

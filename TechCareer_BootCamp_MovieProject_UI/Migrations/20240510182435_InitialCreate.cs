@@ -96,6 +96,8 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                     PosterPath = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     OriginalLanguage = table.Column<int>(type: "int", maxLength: 50, nullable: false),
                     ReleaseDate = table.Column<int>(type: "int", nullable: true),
+                    Score = table.Column<double>(type: "float", nullable: false),
+                    Duration = table.Column<TimeSpan>(type: "time", nullable: false),
                     DirectorId = table.Column<int>(type: "int", nullable: false),
                     CreatedTime = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -163,26 +165,26 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                 columns: new[] { "Id", "Biography", "CreatedTime", "DoB", "FullName", "ImagePath", "PlaceOfBirth" },
                 values: new object[,]
                 {
-                    { 1, "Daniel Day Lewis's Biography", new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8787), new DateTime(1957, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Daniel Day Lewis", "DanielDayLewis.jpg", "Londra, UK" },
-                    { 2, "Paul Dano's Biography", new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8794), new DateTime(1975, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "Paul Dano", "PaulDano.jpg", "New York, USA" },
-                    { 3, "Dillon Freasier's Biography", new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8797), new DateTime(1996, 8, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dillon Freasier", "DillonFreasier.jpg", "Texas, USA" },
-                    { 4, "Erica Sullivan's Biography", new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8800), new DateTime(1989, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Erica Sullivan", "EricaSullivan.jpg", "California, USA" },
-                    { 5, "Russell Harvard's Biography", new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8802), new DateTime(1977, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Russell Harvard", "RussellHarvard.jpg", "Pasadena, Texas, USA" },
-                    { 6, "Ciarán Hinds's Biography", new DateTime(2024, 5, 9, 14, 59, 37, 909, DateTimeKind.Utc).AddTicks(8804), new DateTime(1953, 2, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ciarán Hinds", "CiaranHinds.jpg", "Belfast, Northern Ireland" }
+                    { 1, "Daniel Day Lewis's Biography", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5013), new DateTime(1957, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Daniel Day Lewis", "DanielDayLewis.jpg", "Londra, UK" },
+                    { 2, "Paul Dano's Biography", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5018), new DateTime(1975, 3, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "Paul Dano", "PaulDano.jpg", "New York, USA" },
+                    { 3, "Dillon Freasier's Biography", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5020), new DateTime(1996, 8, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Dillon Freasier", "DillonFreasier.jpg", "Texas, USA" },
+                    { 4, "Erica Sullivan's Biography", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5023), new DateTime(1989, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Erica Sullivan", "EricaSullivan.jpg", "California, USA" },
+                    { 5, "Russell Harvard's Biography", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5025), new DateTime(1977, 4, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Russell Harvard", "RussellHarvard.jpg", "Pasadena, Texas, USA" },
+                    { 6, "Ciarán Hinds's Biography", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(5026), new DateTime(1953, 2, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ciarán Hinds", "CiaranHinds.jpg", "Belfast, Northern Ireland" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Directors",
                 columns: new[] { "Id", "Biography", "CreatedTime", "DoB", "FullName", "ImagePath", "PlaceOfBirth" },
-                values: new object[] { 1, "Paul Thomas Anderson's Biography", new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(1481), new DateTime(1970, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Paul Thomas Anderson", "PaulThomasAnderson.jpg", "LA, California, USA" });
+                values: new object[] { 1, "Paul Thomas Anderson's Biography", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(7650), new DateTime(1970, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Paul Thomas Anderson", "PaulThomasAnderson.jpg", "LA, California, USA" });
 
             migrationBuilder.InsertData(
                 table: "Genres",
                 columns: new[] { "Id", "CreatedTime", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(3917), "Drama" },
-                    { 2, new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(3919), "Western" }
+                    { 1, new DateTime(2024, 5, 10, 18, 24, 34, 354, DateTimeKind.Utc).AddTicks(203), "Drama" },
+                    { 2, new DateTime(2024, 5, 10, 18, 24, 34, 354, DateTimeKind.Utc).AddTicks(205), "Western" }
                 });
 
             migrationBuilder.InsertData(
@@ -190,18 +192,18 @@ namespace TechCareer_BootCamp_MovieProject_UI.Migrations
                 columns: new[] { "Id", "ActorId", "CharacterName", "CreatedTime" },
                 values: new object[,]
                 {
-                    { 1, 1, "Daniel Plainview", new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2735) },
-                    { 2, 2, "Paul Sunday, Eli Sunday", new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2737) },
-                    { 3, 6, "Fletcher", new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2738) },
-                    { 4, 3, "Baby Plainview", new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2739) },
-                    { 5, 4, "Signal Hill Woman", new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2740) },
-                    { 6, 5, "Adult Plainview", new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(2741) }
+                    { 1, 1, "Daniel Plainview", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8936) },
+                    { 2, 2, "Paul Sunday, Eli Sunday", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8939) },
+                    { 3, 6, "Fletcher", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8940) },
+                    { 4, 3, "Baby Plainview", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8941) },
+                    { 5, 4, "Signal Hill Woman", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8943) },
+                    { 6, 5, "Adult Plainview", new DateTime(2024, 5, 10, 18, 24, 34, 353, DateTimeKind.Utc).AddTicks(8944) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Movies",
-                columns: new[] { "Id", "CreatedTime", "DirectorId", "OriginalLanguage", "OriginalTitle", "Plot", "PosterPath", "ReleaseDate", "Title" },
-                values: new object[] { 1, new DateTime(2024, 5, 9, 14, 59, 37, 910, DateTimeKind.Utc).AddTicks(6216), 1, 2, "There Will Be Blood", "A story of family, religion, hatred, oil and madness, focusing on a turn-of-the-century prospector in the early days of the business.", "ThereWillBeBlood.jpg", 2007, "Kan Dokulecek" });
+                columns: new[] { "Id", "CreatedTime", "DirectorId", "Duration", "OriginalLanguage", "OriginalTitle", "Plot", "PosterPath", "ReleaseDate", "Score", "Title" },
+                values: new object[] { 1, new DateTime(2024, 5, 10, 18, 24, 34, 354, DateTimeKind.Utc).AddTicks(2547), 1, new TimeSpan(0, 2, 38, 0, 0), 2, "There Will Be Blood", "A story of family, religion, hatred, oil and madness, focusing on a turn-of-the-century prospector in the early days of the business.", "ThereWillBeBlood.jpg", 2007, 8.4000000000000004, "Kan Dokulecek" });
 
             migrationBuilder.InsertData(
                 table: "ActorMovie",

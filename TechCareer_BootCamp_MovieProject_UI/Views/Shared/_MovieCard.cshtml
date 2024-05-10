@@ -1,0 +1,30 @@
+﻿@model MovieViewModel
+
+
+<div class="movie-card">
+	<img src="~/MoviePosters/@Model.PosterPath?" width="240" />
+	<div class="movie-card__overlay"></div>
+	<div class="movie-card__content">
+		<div class="movie-card__header">
+			<h1 class="movie-card__title">@Model.OriginalTitle</h1>
+			<div class="movie-card__info">
+
+				<h4 class="movie-card__info">@Model.ReleaseDate - 
+				@foreach (var genre in Model.Genres)
+				{
+						@genre.Name
+						@if (genre != Model.Genres.Last()) // Son genre isminden sonra boşluk bırakmamak için kontrol ekleyin
+						{
+							<span>&amp;</span> <!-- son ture kadar turler arasına "&" karakteri ekleyelim  -->
+						}
+				}
+				</h4>
+			</div>
+		</div>
+		<p class="movie-card__desc">@Model.Plot</p>
+		<div class="btn-group">
+			<button class="btn btn-outline movie-card__button" type="button">Details</button>
+			<button class="btn btn-outline movie-card__button" type="button">Favorite</button>
+		</div>
+	</div>
+</div>

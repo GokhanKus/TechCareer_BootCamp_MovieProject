@@ -37,6 +37,8 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.Config
                     PosterPath = "ThereWillBeBlood.jpg",
                     OriginalLanguage = Language.English,
                     ReleaseDate = 2007,
+                    Score = 8.4,
+                    Duration = new TimeSpan(hours:2,minutes:38,seconds:0),
                     DirectorId=1
                 });
         }
