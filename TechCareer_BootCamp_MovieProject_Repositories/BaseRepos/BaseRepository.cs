@@ -8,7 +8,7 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.BaseRepos
     public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IEntity, new()
     {
         //ben bu contexti devraldigim(kalitim) classlarda da kullanabilmek istedigim icin private yerine protected yaptım.
-        //ayrıca class abstract oldugu icin public olmasının bir anlamı yok dogru mu cunku newlenemez bir class 
+        //ayrıca class abstract oldugu icin public olmasının bir anlamı yok, cunku newlenemez bir class 
         protected readonly MovieDbContext _context; 
         protected BaseRepository(MovieDbContext context)
         {
@@ -18,7 +18,7 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.BaseRepos
         {
             _context.Set<TEntity>().Add(entity);
         }
-        public void Remove(TEntity entity)
+        public void Delete(TEntity entity)
         {
             _context.Set<TEntity>().Remove(entity);
         }
@@ -26,12 +26,12 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.BaseRepos
         {
             _context.Set<TEntity>().Update(entity);
         }
-        public IQueryable<TEntity> FindAll(bool trackChanges)
+        public IQueryable<TEntity> GetAll(bool trackChanges)
         {
             return trackChanges ? _context.Set<TEntity>() //bu, bir liste geldi ve ef core listeyi izleyecek demek
                 : _context.Set<TEntity>().AsNoTracking(); //ama eger degisiklikler izlenmeyecekse yine ilgili nesneye set olacagiz 
         }
-        public TEntity? FindByCondition(Expression<Func<TEntity, bool>> expression, bool trackChanges)
+        public TEntity? GetByCondition(Expression<Func<TEntity, bool>> expression, bool trackChanges)
         {
             return trackChanges
                 ? _context.Set<TEntity>().FirstOrDefault(expression)
