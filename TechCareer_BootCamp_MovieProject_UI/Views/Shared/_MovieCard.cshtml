@@ -23,8 +23,8 @@
 		</div>
 		<p class="movie-card__desc">@Model.Plot</p>
 		<div class="btn-group">
-			<button class="btn btn-outline movie-card__button" type="button">Details</button>
-			<button class="btn btn-outline movie-card__button" type="button">Favorite</button>
+			<a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline movie-card__button" type="button"><i class="fa-solid fa-circle-info"></i> Details</a>
+			<button class="btn btn-outline movie-card__button" type="button"><i class="fa-solid fa-heart"></i> Favorite</button>
 		</div>
 	</div>
 </div>
