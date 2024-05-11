@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BaseRepos\" />
     <Folder Include="ConcreteRepos\" />
     <Folder Include="AbstractRepos\" />
   </ItemGroup>

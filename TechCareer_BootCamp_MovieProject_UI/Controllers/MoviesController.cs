@@ -20,6 +20,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
             var movies = await _context.Movies.Include(m=>m.GenreMovies).ThenInclude(gm=>gm.Genre)
                 .Select(m => new MovieViewModel
                 {
+                    Id = m.Id,
                     OriginalTitle = m.OriginalTitle,
                     PosterPath = m.PosterPath,
                     ReleaseDate = m.ReleaseDate,
