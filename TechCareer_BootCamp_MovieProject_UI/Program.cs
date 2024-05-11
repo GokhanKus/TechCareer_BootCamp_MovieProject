@@ -12,6 +12,7 @@ namespace TechCareer_BootCamp_MovieProject_UI
             builder.Services.AddControllersWithViews();
 
             builder.Services.ConfigureSqlServer(builder.Configuration);
+            builder.Services.ConfigureRepositoryInjections();
 
             var app = builder.Build();
 
