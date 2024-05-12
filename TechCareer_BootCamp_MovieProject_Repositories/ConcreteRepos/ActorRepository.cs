@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,37 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
     {
         public ActorRepository(MovieDbContext context) : base(context)
         {
+        }
+
+        public void CreateOneActor(Actor actor)
+        {
+            CreateOneActor(actor);
+        }
+
+        public void DeleteOneActor(Actor actor)
+        {
+            DeleteOneActor(actor);
+        }
+
+        public IQueryable<Actor> GetAllActors(bool trackChanges)
+        {
+            return GetAll(trackChanges);
+        }
+
+        public Actor GetOneActorWithMovies(int id, bool trackChanges)
+        {
+            var actorWithMovies = _context.Actors.Include(a => a.ActorMovies).ThenInclude(am => am.Movie).FirstOrDefault(a => a.Id == id);
+            return actorWithMovies;
+        }
+
+        public Actor? GetOneActor(int id, bool trackChanges)
+        {
+            return GetOneActor(id, trackChanges);
+        }
+
+        public void UpdateOneActor(Actor actor)
+        {
+            UpdateOneActor(actor);
         }
     }
 }
