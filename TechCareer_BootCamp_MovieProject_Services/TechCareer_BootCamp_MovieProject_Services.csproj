@@ -8,8 +8,11 @@
 
   <ItemGroup>
     <Folder Include="Mapper\" />
-    <Folder Include="ConcreteServices\" />
-    <Folder Include="AbstractServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TechCareer_BootCamp_MovieProject_Model\TechCareer_BootCamp_MovieProject_Model.csproj" />
+    <ProjectReference Include="..\TechCareer_BootCamp_MovieProject_Repositories\TechCareer_BootCamp_MovieProject_Repositories.csproj" />
   </ItemGroup>
 
 </Project>

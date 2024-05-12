@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
-using TechCareer_BootCamp_MovieProject_Model.ViewModels;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
+using TechCareer_BootCamp_MovieProject_Model.ViewModels.SelectDropDownMenuModels;
 
 namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 {
@@ -18,6 +18,6 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
         void DeleteOneMovie(int id);
         void CreateOneMovie(MovieViewModel movieViewModel);
         void UpdateOneProduct(MovieViewModel productDto);
-        IEnumerable<ActorViewModelByIdAndName> GetActorsByIdAndName(bool trackChanges);
+        IEnumerable<ActorByIdAndName> GetActorsByIdAndName(bool trackChanges);
     }
 }

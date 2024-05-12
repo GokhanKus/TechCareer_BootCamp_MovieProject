@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
-using TechCareer_BootCamp_MovieProject_Model.ViewModels;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
+using TechCareer_BootCamp_MovieProject_Model.ViewModels.SelectDropDownMenuModels;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos;
 using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
@@ -64,10 +64,10 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ActorViewModelByIdAndName> GetActorsByIdAndName(bool trackChanges)
+        public IEnumerable<ActorByIdAndName> GetActorsByIdAndName(bool trackChanges)
         {
             var actors = _actorRepo.GetAllActors(trackChanges);
-            return actors.Select(a => new ActorViewModelByIdAndName
+            return actors.Select(a => new ActorByIdAndName
             {
                 Id = a.Id,
                 FullName = a.FullName,

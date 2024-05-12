@@ -3,6 +3,8 @@ using System.Reflection;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.Context;
+using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
+using TechCareer_BootCamp_MovieProject_Services.ConcreteServices;
 
 namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
 {
@@ -22,6 +24,10 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
             service.AddScoped<IFictionalCharacterRepository, FictionalCharacterRepository>();
             service.AddScoped<IGenreRepository, GenreRepository>();
             service.AddScoped<IMovieRepository, MovieRepository>();
+        }
+        public static void ConfigureServiceInjections(this IServiceCollection service)
+        {
+            service.AddScoped<IMovieService, MovieService>();
         }
     }
 }

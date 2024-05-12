@@ -1,105 +1,52 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using TechCareer_BootCamp_MovieProject_Model.Entities;
+using TechCareer_BootCamp_MovieProject_Model.ViewModels;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
+using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.Context;
+using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
 namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 {
-    public class MoviesController : Controller
-    {
-        private readonly MovieDbContext _context;
+	public class MoviesController : Controller
+	{
+		private readonly IMovieService _movieService;
+		public MoviesController(IMovieService movieService)
+		{
+			_movieService = movieService;
+		}
+		public IActionResult Index()
+		{
+			var movies = _movieService.GetAllMoviesWithGenres();
+			return View(movies);
+		}
+		public async Task<IActionResult> Details(int id)
+		{
+			return View();
+		}
+		public IActionResult Create()
+		{
+			var actors = _movieService.GetActorsByIdAndName(false).ToList(); 
+			
+			var selectedActorIds = new List<int>(); // Örnek olarak boş liste verdik
+													//var movie = new MovieViewModel();
+													//movie.ActorsByIdAndNames = _movieService.GetActorsByIdAndName(false).ToList();
+			ViewBag.Actors = new MultiSelectList(actors, "Id", "FullName", selectedActorIds);
+			//var actorIds = movie.ActorIds;
+			////var actorsSelectList = GetActorsByIdAndName(movie.ActorsByIdAndNames, actorIds);
+			//var actorsSelectList = new SelectList(movie.ActorsByIdAndNames, "Id", "FullName", actorIds);
+			//ViewBag.Actors = actorsSelectList;
+			//return View(movie);
+			return View();
+		}
 
-        public MoviesController(MovieDbContext context)
-        {
-            _context = context;
-        }
-
-        // GET: MoviesController
-        public async Task<IActionResult> Index()
-        {
-            var movies = await _context.Movies.Include(m=>m.GenreMovies).ThenInclude(gm=>gm.Genre)
-                .Select(m => new MovieViewModel
-                {
-                    Id = m.Id,
-                    OriginalTitle = m.OriginalTitle,
-                    PosterPath = m.PosterPath,
-                    ReleaseDate = m.ReleaseDate,
-                    Plot = m.Plot,
-                    Score = m.Score,
-                    Genres = m.GenreMovies.Select(gm=>gm.Genre).ToList()
-                })
-                .ToListAsync();
-
-            return View(movies);
-        }
-
-        // GET: MoviesController/Details/5
-        public async Task<IActionResult> Details(int id)
-        {
-            return View();
-        }
-
-        // GET: MoviesController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: MoviesController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: MoviesController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: MoviesController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: MoviesController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: MoviesController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-    }
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult Create([FromForm] MovieViewModel movieViewModel/*IFormFile*/)
+		{
+			return View();
+		}
+	}
 }
