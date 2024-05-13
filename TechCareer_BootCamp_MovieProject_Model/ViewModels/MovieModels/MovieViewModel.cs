@@ -18,8 +18,8 @@ namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels
 		public int? ReleaseDate { get; init; }
 		public double Score { get; init; }
 		public string? Plot { get; init; }
-		public IEnumerable<Genre> Genres { get; init; } = Enumerable.Empty<Genre>();
-        public IEnumerable<ActorByIdAndName>? ActorsByIdAndNames{ get; set; } = Enumerable.Empty<ActorByIdAndName>();
+		public IEnumerable<Genre> Genres { get; set; } = Enumerable.Empty<Genre>();
+        //public IEnumerable<ActorByIdAndName>? ActorsByIdAndNames{ get; set; } = Enumerable.Empty<ActorByIdAndName>();
 		public int[] ActorIds{ get; set; } = Array.Empty<int>();
         //public IEnumerable<Movie> Movies{ get; set; } = Enumerable.Empty<Movie>();
     }

@@ -13,9 +13,11 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 	public class MoviesController : Controller
 	{
 		private readonly IMovieService _movieService;
-		public MoviesController(IMovieService movieService)
+		private readonly IGenreRepository _genreService;
+		public MoviesController(IMovieService movieService, IGenreRepository genreService)
 		{
 			_movieService = movieService;
+			_genreService = genreService;
 		}
 		public IActionResult Index()
 		{
@@ -28,24 +30,44 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 		}
 		public IActionResult Create()
 		{
-			var actors = _movieService.GetActorsByIdAndName(false).ToList(); 
-			
-			var selectedActorIds = new List<int>(); // Örnek olarak boş liste verdik
-													//var movie = new MovieViewModel();
-													//movie.ActorsByIdAndNames = _movieService.GetActorsByIdAndName(false).ToList();
+			var actors = _movieService.GetActorsByIdAndName(false).ToList();
+
+			var selectedActorIds = new List<int>();
 			ViewBag.Actors = new MultiSelectList(actors, "Id", "FullName", selectedActorIds);
-			//var actorIds = movie.ActorIds;
-			////var actorsSelectList = GetActorsByIdAndName(movie.ActorsByIdAndNames, actorIds);
-			//var actorsSelectList = new SelectList(movie.ActorsByIdAndNames, "Id", "FullName", actorIds);
-			//ViewBag.Actors = actorsSelectList;
-			//return View(movie);
+			ViewBag.Genres = _genreService.GetAll(false).ToList();
+			
 			return View();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create([FromForm] MovieViewModel movieViewModel/*IFormFile*/)
+		public IActionResult Create([FromForm] MovieViewModel movieViewModel, int[] genreIds/*IFormFile*/)
 		{
+			var entityToCreate = new Movie
+			{
+				Id = movieViewModel.Id,
+				OriginalTitle = movieViewModel.OriginalTitle,
+				Plot = movieViewModel.Plot,
+				Score = movieViewModel.Score,
+				ReleaseDate = movieViewModel.ReleaseDate,
+				
+			};
+			foreach (var actorId in movieViewModel.ActorIds)
+			{
+				var actorMovie = new ActorMovie
+				{
+					MovieId = entityToCreate.Id,
+					ActorId = actorId
+				};
+			}
+			foreach (var genreId in genreIds)
+			{
+				var genreMovie = new GenreMovie
+				{
+					MovieId = entityToCreate.Id,
+					GenreId = genreId
+				};
+			}
 			return View();
 		}
 	}

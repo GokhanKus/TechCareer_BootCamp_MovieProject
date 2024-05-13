@@ -4,63 +4,73 @@
 	<div class="display-6">Create</div>
 </div>
 
-<form method="post" asp-action="Create" enctype="multipart/form-data">
+<form method="post" asp-action="Create">@* enctype="multipart/form-data" *@
 	@*dosyayi formla beraber post etmek icin enctype kullanılır*@
+	<div class="row">
+		<div class="col-md-9">
+			<div class="text-danger" asp-validation-summary="All"></div>
 
-	<div class="text-danger" asp-validation-summary="All"></div>
+			<select asp-for="ActorIds" asp-items="ViewBag.Actors" class="form-control" multiple></select>
 
-	@* <div class="form-group my-3">
-		<label asp-for="ActorIds"></label>
-		<select class="form-control" asp-for="ActorIds" multiple>
-			@foreach (var actorNames in Model.ActorsByIdAndNames)
-			{
-				<option value="@actorNames.Id">@actorNames.FullName</option>
-			}
-		</select>
-	</div> *@
+			<div class="form-group my-3">
+				<label asp-for="OriginalTitle"></label>
+				<input asp-for="OriginalTitle" class="form-control" />
+			</div>
 
-	
-	<select asp-for="ActorIds" asp-items="ViewBag.Actors" class="form-control" multiple></select>
+			<div class="form-group my-3">
+				<label asp-for="Score"></label>
+				<input asp-for="Score" class="form-control" />
+			</div>
 
+			<div class="form-group my-3">
+				<label asp-for="ReleaseDate"></label>
+				<input asp-for="ReleaseDate" class="form-control" />
+			</div>
+			<div class="form-group my-3">
+				<label asp-for="Plot"></label>
+				<input asp-for="Plot" class="form-control" />
+			</div>
 
+			<div class="form-group my-3">
+				<label asp-for="PosterPath"></label>
+				<input type="file" name="file" class="form-control" />
+			</div>
 
-	<div class="form-group my-3">
-		<label asp-for="OriginalTitle"></label>
-		<input asp-for="OriginalTitle" class="form-control" />
-	</div>
+			<div class="form-group my-3">
+				<div class="btn-group">
+					<button class="btn btn-primary" type="submit">
+						<i class="fa-regular fa-floppy-disk"></i>
+						Save
+					</button>
 
-	<div class="form-group my-3">
-		<label asp-for="Score"></label>
-		<input asp-for="Score" class="form-control" />
-	</div>
-
-	<div class="form-group my-3">
-		<label asp-for="ReleaseDate"></label>
-		<input asp-for="ReleaseDate" class="form-control" />
-	</div>
-	<div class="form-group my-3">
-		<label asp-for="Plot"></label>
-		<input asp-for="Plot" class="form-control" />
-	</div>
-
-	<div class="form-group my-3">
-		<label asp-for="PosterPath"></label>
-		<input type="file" name="file" class="form-control" />
-	</div>
-
-	<div class="form-group my-3">
-		<div class="btn-group">
-			<button class="btn btn-primary" type="submit">
-				<i class="fa-regular fa-floppy-disk"></i>
-				Save
-			</button>
-
-			<a class="btn btn-outline-primary" asp-controller="Product" asp-action="Index">
-				<i class="fa fa-list"></i>
-				Products
-			</a>
+					<a class="btn btn-outline-primary" asp-controller="Product" asp-action="Index">
+						<i class="fa fa-list"></i>
+						Products
+					</a>
+				</div>
+			</div>
 		</div>
+		<div class="col-md-3">
+			<div class="bg-white p-4">
+				@foreach (var genre in ViewBag.Genres)
+				{
+					<div class="form-check">
+						<input class="form-check-input"
+							   name="genreIds"
+							   type="checkbox"
+							   value="@genre.Id"
+							   id="genre_@genre.Id" />
+						@* @(Model.SelectedGenreIds != null && Model.SelectedGenreIds.Contains(genre.Id) ? "checked" : "")> *@
+						<label class="form-check-label" for="genre_@genre.Id">
+							@genre.Name
+						</label>
+					</div>
+				}
+			</div>
+		</div>
+
 	</div>
+
 
 </form>
 

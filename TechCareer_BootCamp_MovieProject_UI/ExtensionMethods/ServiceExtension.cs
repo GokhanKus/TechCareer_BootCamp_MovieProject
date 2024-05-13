@@ -28,6 +28,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
         public static void ConfigureServiceInjections(this IServiceCollection service)
         {
             service.AddScoped<IMovieService, MovieService>();
+            service.AddScoped<IGenreService, GenreService>();
         }
     }
 }
