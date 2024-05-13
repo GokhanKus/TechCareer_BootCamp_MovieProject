@@ -9,13 +9,14 @@ using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
 
 namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 {
-    public interface IActorService
-    {
-        IEnumerable<Actor> GetAllActors(bool trackChanges);
-        Movie GetOneActor(int id, bool trackChanges);
-        ActorViewModel GetOneActorWithMovies(int id, bool trackChanges);
-        void DeleteOneActor(int id);
-        void CreateOneActor(ActorViewModel actorViewModel);
-        void UpdateOneActor(ActorViewModel actorViewModel);
-    }
+	public interface IActorService
+	{
+		IEnumerable<Actor> GetAllActors(bool trackChanges);
+		Actor? GetOneActor(int id, bool trackChanges);
+		ActorViewModel GetOneActorWithMovies(int id, bool trackChanges);
+		void DeleteOneActor(int id);
+		void CreateOneActor(ActorViewModelForInsertion actorViewModel);
+		void UpdateOneActor(ActorViewModelForUpdate actorViewModel);
+		ActorViewModelForUpdate GetOneActorForUpdate(int id, bool trackChanges);
+	}
 }

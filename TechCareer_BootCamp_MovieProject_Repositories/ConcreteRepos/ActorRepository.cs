@@ -19,12 +19,12 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 
         public void CreateOneActor(Actor actor)
         {
-            CreateOneActor(actor);
+            Create(actor);
         }
 
         public void DeleteOneActor(Actor actor)
         {
-            DeleteOneActor(actor);
+            Delete(actor);
         }
 
         public IQueryable<Actor> GetAllActors(bool trackChanges)
@@ -40,12 +40,12 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 
         public Actor? GetOneActor(int id, bool trackChanges)
         {
-            return GetOneActor(id, trackChanges);
+            return GetByCondition(a=>a.Id == id,trackChanges);
         }
 
         public void UpdateOneActor(Actor actor)
         {
-            UpdateOneActor(actor);
+            Update(actor);
         }
     }
 }
