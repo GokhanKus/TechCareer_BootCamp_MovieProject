@@ -1,0 +1,57 @@
+﻿@model DirectorViewModelForUpdate
+
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Director</h4>
+<hr />
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+	<div class="row">
+		<div class="col-md-4">
+			<div asp-validation-summary="All" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="FullName" class="control-label"></label>
+				<input asp-for="FullName" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label asp-for="DoB" class="control-label"></label>
+				<input asp-for="DoB" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label asp-for="PlaceOfBirth" class="control-label"></label>
+				<input asp-for="PlaceOfBirth" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label asp-for="Biography" class="control-label"></label>
+				<input asp-for="Biography" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label asp-for="ImagePath" class="control-label"></label>
+				<input type="file" name="file" class="form-control" />
+			</div>
+			<input type="hidden" asp-for="Id" />
+
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</div>
+		<div class="col-md-4 my-4">
+			<img class="rounded shadow" width="300" src="/MovieActors/@Model.ImagePath" />
+		</div>
+		<input type="hidden" name="ImagePath" value="@Model.ImagePath" />
+	</div>
+</form>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

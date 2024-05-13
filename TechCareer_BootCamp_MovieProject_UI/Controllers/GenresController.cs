@@ -47,7 +47,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create([Bind("Name,Id,CreatedTime")] Genre genre)
+		public IActionResult Create(Genre genre)
 		{
 			if (ModelState.IsValid)
 			{
