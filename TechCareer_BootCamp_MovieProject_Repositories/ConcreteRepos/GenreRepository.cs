@@ -17,5 +17,25 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
         {
             
         }
-    }
+		public void CreateOneGenre(Genre genre)
+		{
+			Create(genre);
+		}
+		public void DeleteOneGenre(Genre genre)
+		{
+			Delete(genre);
+		}
+		public void UpdateOneGenre(Genre genre)
+		{
+			Update(genre);
+		}
+		public IQueryable<Genre> GetAllGenres(bool trackChanges)
+		{
+			return GetAll(trackChanges);
+		}
+		public Genre? GetOneGenre(int? id, bool trackChanges)
+		{
+			return GetByCondition(g=>g.Id == id, trackChanges);
+		}
+	}
 }

@@ -19,6 +19,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
         }
         public static void ConfigureRepositoryInjections(this IServiceCollection service)
         {
+            service.AddScoped<IRepositoryManager, RepositoryManager>();
             service.AddScoped<IActorRepository, ActorRepository>();
             service.AddScoped<IDirectorRepository, DirectorRepository>();
             service.AddScoped<IFictionalCharacterRepository, FictionalCharacterRepository>();
@@ -27,8 +28,12 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
         }
         public static void ConfigureServiceInjections(this IServiceCollection service)
         {
-            service.AddScoped<IMovieService, MovieService>();
+            service.AddScoped<IServiceManager,ServiceManager>();
+            service.AddScoped<IActorService, ActorService>();
+            service.AddScoped<IDirectorService, DirectorService>();
+            service.AddScoped<IFictionalCharacterService, FictionalCharacterService>();
             service.AddScoped<IGenreService, GenreService>();
+            service.AddScoped<IMovieService, MovieService>();
         }
     }
 }

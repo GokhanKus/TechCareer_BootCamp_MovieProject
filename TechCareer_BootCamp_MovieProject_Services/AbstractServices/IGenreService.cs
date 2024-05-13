@@ -11,6 +11,8 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
     {
         IEnumerable<Genre> GetAllGenres(bool trackChanges);
         void CreateOneGenre(Genre genre);
-        //update, delete operations..
+        Genre? GetOneGenre(int? id, bool trackChanges);
+        void UpdateOneGenre(Genre genre);
+        void DeleteOneGenre(int id);
     }
 }

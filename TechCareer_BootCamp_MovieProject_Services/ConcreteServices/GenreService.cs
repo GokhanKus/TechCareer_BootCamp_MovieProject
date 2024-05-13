@@ -9,22 +9,50 @@ using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
 namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 {
-    public class GenreService : IGenreService
-    {
-        private readonly IGenreRepository _genreRepo;
-        public GenreService(IGenreRepository genreRepo)
-        {
-            _genreRepo = genreRepo;
-        }
+	public class GenreService : IGenreService
+	{
+		private readonly IRepositoryManager _manager;
+		public GenreService(IRepositoryManager manager)
+		{
+			_manager = manager;
+		}
 
-        public void CreateOneGenre(Genre genre)
-        {
-            _genreRepo.Create(genre);
-        }
+		public void CreateOneGenre(Genre genre)
+		{
+			_manager.Genre.Create(genre);
+			_manager.Save();
+		}
 
-        public IEnumerable<Genre> GetAllGenres(bool trackChanges)
-        {
-            return _genreRepo.GetAll(trackChanges);
-        }
-    }
+		public void DeleteOneGenre(int id)
+		{
+			Genre? genre = _manager.Genre.GetOneGenre(id, trackChanges: false);
+			if (genre is not null)
+			{
+				_manager.Genre.DeleteOneGenre(genre);
+				_manager.Save();
+			}
+		}
+
+		public IEnumerable<Genre> GetAllGenres(bool trackChanges)
+		{
+			return _manager.Genre.GetAll(trackChanges);
+		}
+
+		public Genre? GetOneGenre(int? id, bool trackChanges)
+		{
+			var genre = _manager.Genre.GetOneGenre(id, trackChanges);
+			return genre;
+		}
+
+		public void UpdateOneGenre(Genre genre)
+		{
+			var genreToUpdate = _manager.Genre.GetOneGenre(genre.Id, trackChanges: true);
+			if (genreToUpdate is not null)
+			{
+				genreToUpdate.Name = genre.Name;
+				_manager.Genre.UpdateOneGenre(genreToUpdate);
+				_manager.Save();
+			}
+		}
+	}
 }
