@@ -15,14 +15,12 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 {
     public class MovieService : IMovieService
     {
-        private readonly IMovieRepository _movieRepo;
-        private readonly IActorRepository _actorRepo;
-        public MovieService(IMovieRepository movieRepo, IActorRepository actorRepository)
-        {
-            _movieRepo = movieRepo;
-            _actorRepo = actorRepository;
-        }
-        public void CreateOneMovie(MovieViewModel movieViewModel)
+        private readonly IRepositoryManager _manager;
+		public MovieService(IRepositoryManager manager)
+		{
+			_manager = manager;
+		}
+		public void CreateOneMovie(MovieViewModel movieViewModel)
         {
             throw new NotImplementedException();
         }
@@ -38,7 +36,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 
         public IEnumerable<MovieViewModel> GetAllMoviesWithGenres()
         {
-            var movies = _movieRepo.GetAllMoviesWithGenres();
+            var movies = _manager.Movie.GetAllMoviesWithGenres();
 
             // Mapping logic from Movie entity to MovieViewModel
 
@@ -66,7 +64,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 
         public IEnumerable<ActorByIdAndName> GetActorsByIdAndName(bool trackChanges)
         {
-            var actors = _actorRepo.GetAllActors(trackChanges);
+            var actors = _manager.Actor.GetAllActors(trackChanges);
             return actors.Select(a => new ActorByIdAndName
             {
                 Id = a.Id,
