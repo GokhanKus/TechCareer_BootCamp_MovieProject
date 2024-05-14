@@ -11,5 +11,10 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
     {
         void CreateOneFictionalCharacter(FictionalCharacter fictionalCharacter);
         void UpdateOneFictionalCharacter(FictionalCharacter fictionalCharacter);
-    }
+        FictionalCharacter? GetOneFictionalCharacter(int? id, bool trackChanges);
+        IEnumerable<FictionalCharacter> GetAllFictionalCharacters(bool trackChanges);
+        IEnumerable<FictionalCharacter> GetAllFictionalCharsWithActors(bool trackChanges);
+        FictionalCharacter? GetOneFictionalCharWithActor(int? id);
+        void DeleteOneFictionalCharacter(int id);   
+	}
 }
