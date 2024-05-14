@@ -1,0 +1,27 @@
+﻿.movie-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    /*gap: 20px;*/ /* İstenen boşluk miktarını ayarlayabilirsiniz */
+    justify-content: center; /* Filmleri yatay olarak ortalamak için */
+}
+
+.movie-item {
+    flex: 0 0 calc(33.33% - 20px); /* İstenen sütun sayısını ve aralıkları ayarlayabilirsiniz */
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 200px;
+    margin: 10px;
+}
+
+    .movie-item img {
+        display: block;
+        margin: 0 auto 10px;
+        border-radius: 5px;
+    }
+
+    .movie-item h4 {
+        margin: 0;
+    }

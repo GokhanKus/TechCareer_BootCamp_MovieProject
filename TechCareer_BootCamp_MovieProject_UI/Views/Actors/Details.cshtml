@@ -20,14 +20,17 @@
 			<dt class="col-sm-2">
 				@Html.DisplayNameFor(model => model.Movies)
 			</dt>
-			<dd class="col-sm-10">
-				<ul>
-					@foreach (var movie in Model.Movies)
-					{
-						<li>@movie.OriginalTitle</li>
-					}
-				</ul>
-			</dd>
+			<div class="movie-container">
+				@foreach (var movie in Model.Movies)
+				{
+					<div class="movie-item">
+						<h4>@movie.OriginalTitle</h4>
+						<img class="rounded shadow" width="150" src="~/MoviePosters/@movie.PosterPath" />
+					</div>
+				}
+				
+
+			</div>
 			<dt class="col-sm-2">
 				@Html.DisplayNameFor(model => model.DoB)
 			</dt>

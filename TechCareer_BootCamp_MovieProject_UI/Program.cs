@@ -1,39 +1,41 @@
+using TechCareer_BootCamp_MovieProject_Services.Mapper;
 using TechCareer_BootCamp_MovieProject_UI.ExtensionMethods;
 
 namespace TechCareer_BootCamp_MovieProject_UI
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+			// Add services to the container.
+			builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            builder.Services.ConfigureSqlServer(builder.Configuration);
-            builder.Services.ConfigureRepositoryInjections();
-            builder.Services.ConfigureServiceInjections();
+			builder.Services.ConfigureSqlServer(builder.Configuration);
+			builder.Services.ConfigureRepositoryInjections();
+			builder.Services.ConfigureServiceInjections();
 
-           
-            var app = builder.Build();
+			builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-            app.UseStaticFiles();
+			var app = builder.Build();
 
-            app.UseRouting();
+			// Configure the HTTP request pipeline.
+			if (!app.Environment.IsDevelopment())
+			{
+				app.UseExceptionHandler("/Home/Error");
+			}
+			app.UseStaticFiles();
 
-            app.UseAuthorization();
+			app.UseRouting();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+			app.UseAuthorization();
 
-            app.Run();
-        }
-    }
+			app.MapControllerRoute(
+				name: "default",
+				pattern: "{controller=Home}/{action=Index}/{id?}");
+
+			app.Run();
+		}
+	}
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,22 +14,28 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 	public class DirectorService : IDirectorService
 	{
 		private readonly IRepositoryManager _manager;
-
-		public DirectorService(IRepositoryManager manager)
+		private readonly IMapper _mapper;
+		public DirectorService(IRepositoryManager manager, IMapper mapper)
 		{
 			_manager = manager;
+			_mapper = mapper;
 		}
 
 		public void CreateOneDirector(DirectorViewModelForInsertion directorViewModel)
 		{
-			var director = new Director
-			{
-				FullName = directorViewModel.FullName,
-				Biography = directorViewModel.Biography,
-				DoB = directorViewModel.DoB,
-				ImagePath = directorViewModel.ImagePath,
-				PlaceOfBirth = directorViewModel.PlaceOfBirth,
-			};
+			#region AutoMapperOncesi
+			//var director = new Director
+			//{
+			//	FullName = directorViewModel.FullName,
+			//	Biography = directorViewModel.Biography,
+			//	DoB = directorViewModel.DoB,
+			//	ImagePath = directorViewModel.ImagePath,
+			//	PlaceOfBirth = directorViewModel.PlaceOfBirth,
+			//};
+			//auto mapper ile yukaridaki koda gerek kalmadi
+			#endregion
+
+			var director = _mapper.Map<Director>(directorViewModel); //modele gelen veriler, Director ile otomatik eslesecek 
 			_manager.Director.CreateOneDirector(director);
 			_manager.Save();
 		}
@@ -55,33 +62,44 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 
 		public DirectorViewModelForUpdate GetOneDirectorForUpdate(int id, bool trackChanges)
 		{
+			#region AutoMapperOncesi
+			//var director = _manager.Director.GetOneDirector(id, trackChanges);
+			//var directorViewModel = new DirectorViewModelForUpdate
+			//{
+			//	Id = director.Id,
+			//	FullName = director.FullName,
+			//	Biography = director.Biography,
+			//	DoB = director.DoB,
+			//	ImagePath = director.ImagePath,
+			//	PlaceOfBirth = director.PlaceOfBirth,
+			//};
+			#endregion
+
 			var director = _manager.Director.GetOneDirector(id, trackChanges);
-			var directorViewModel = new DirectorViewModelForUpdate
-			{
-				Id = director.Id,
-				FullName = director.FullName,
-				Biography = director.Biography,
-				DoB = director.DoB,
-				ImagePath = director.ImagePath,
-				PlaceOfBirth = director.PlaceOfBirth,
-			};
+			var directorViewModel = _mapper.Map<DirectorViewModelForUpdate>(director);
 			return directorViewModel;
 		}
 
 		public void UpdateOneDirector(DirectorViewModelForUpdate directorViewModel)
 		{
-			var directorToUpdate = _manager.Director.GetOneDirector(directorViewModel.Id, true);
-			if (directorToUpdate != null)
-			{   //Auto mapper eklenecek
-				directorToUpdate.Id = directorViewModel.Id;
-				directorToUpdate.ImagePath = directorViewModel.ImagePath;
-				directorToUpdate.Biography = directorViewModel.Biography;
-				directorToUpdate.DoB = directorViewModel.DoB;
-				directorToUpdate.FullName = directorViewModel.FullName;
-				directorToUpdate.PlaceOfBirth = directorViewModel.PlaceOfBirth;
-				_manager.Director.UpdateOneDirector(directorToUpdate);
-				_manager.Save();
-			}
+			#region AutoMapperOncesi
+			//var directorToUpdate = _manager.Director.GetOneDirector(directorViewModel.Id, true);
+			//if (directorToUpdate != null)
+			//{
+			//	directorToUpdate.Id = directorViewModel.Id;
+			//	directorToUpdate.ImagePath = directorViewModel.ImagePath;
+			//	directorToUpdate.Biography = directorViewModel.Biography;
+			//	directorToUpdate.DoB = directorViewModel.DoB;
+			//	directorToUpdate.FullName = directorViewModel.FullName;
+			//	directorToUpdate.PlaceOfBirth = directorViewModel.PlaceOfBirth;
+			//	_manager.Director.UpdateOneDirector(directorToUpdate);
+			//	_manager.Save();
+			//}
+			#endregion
+			//var directorToUpdate = _manager.Director.GetOneDirector(directorViewModel.Id, true);
+			var director = _mapper.Map<Director>(directorViewModel);
+			_manager.Director.UpdateOneDirector(director);
+			_manager.Save();
 		}
 	}
 }

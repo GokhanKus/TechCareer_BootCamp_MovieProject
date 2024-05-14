@@ -16,7 +16,6 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
     {
         //private readonly MovieDbContext _context;
         private readonly IServiceManager _manager;
-
         public DirectorsController(IServiceManager manager)
         {
             _manager = manager;
@@ -130,11 +129,6 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
             }
 
             return RedirectToAction(nameof(Index));
-        }
-        private bool DirectorExists(int id)
-        {
-            var director = _manager.DirectorService.GetOneDirector(id, false);
-            return director is not null ? true : false;
         }
     }
 }
