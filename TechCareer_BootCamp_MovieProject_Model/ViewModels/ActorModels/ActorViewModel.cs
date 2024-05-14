@@ -12,6 +12,5 @@ namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.ActorModels
         public int Id { get; init; }
         public string? FullName { get; init; }
         public string? ImagePath{ get; set; }
-        public IEnumerable<Movie> Movies{ get; init; } = Enumerable.Empty<Movie>();
     }
 }

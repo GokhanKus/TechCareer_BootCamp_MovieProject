@@ -13,7 +13,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 	{
 		IEnumerable<Actor> GetAllActors(bool trackChanges);
 		Actor? GetOneActor(int id, bool trackChanges);
-		ActorViewModel GetOneActorWithMovies(int id, bool trackChanges);
+		ActorViewModelWithDetails GetOneActorWithMovies(int id, bool trackChanges);
 		void DeleteOneActor(int id);
 		void CreateOneActor(ActorViewModelForInsertion actorViewModel);
 		void UpdateOneActor(ActorViewModelForUpdate actorViewModel);

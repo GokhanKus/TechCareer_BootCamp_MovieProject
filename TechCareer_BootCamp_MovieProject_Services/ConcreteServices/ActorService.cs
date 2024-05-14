@@ -39,14 +39,17 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			return _manager.Actor.GetAllActors(trackChanges);
 		}
 
-		public ActorViewModel GetOneActorWithMovies(int id, bool trackChanges)
+		public ActorViewModelWithDetails GetOneActorWithMovies(int id, bool trackChanges)
 		{
 			var actor = _manager.Actor.GetOneActorWithMovies(id, trackChanges);
-			var actorViewModel = new ActorViewModel
+			var actorViewModel = new ActorViewModelWithDetails
 			{
 				Id = actor.Id,
 				FullName = actor.FullName,
 				ImagePath = actor.ImagePath,
+				Biography = actor.Biography,
+				PlaceOfBirth = actor.PlaceOfBirth,
+				DoB = actor.DoB,
 				Movies = actor.ActorMovies.Select(am => new Movie //new MovieViewModel
 				{
 					Id = am.Movie.Id,
