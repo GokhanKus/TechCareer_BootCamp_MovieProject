@@ -20,7 +20,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		public void CreateOneGenre(Genre genre)
 		{
 			_manager.Genre.Create(genre);
-			_manager.Save();
+			_manager.SaveAsync();
 		}
 
 		public void DeleteOneGenre(int id)
@@ -29,13 +29,13 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			if (genre is not null)
 			{
 				_manager.Genre.DeleteOneGenre(genre);
-				_manager.Save();
+				_manager.SaveAsync();
 			}
 		}
 
-		public IEnumerable<Genre> GetAllGenres(bool trackChanges)
+		public async Task<IEnumerable<Genre>> GetAllGenres(bool trackChanges)
 		{
-			return _manager.Genre.GetAll(trackChanges);
+			return await _manager.Genre.GetAllGenres(trackChanges);
 		}
 
 		public Genre? GetOneGenre(int? id, bool trackChanges)
@@ -51,7 +51,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			{
 				genreToUpdate.Name = genre.Name;
 				_manager.Genre.UpdateOneGenre(genreToUpdate);
-				_manager.Save();
+				_manager.SaveAsync();
 			}
 		}
 	}

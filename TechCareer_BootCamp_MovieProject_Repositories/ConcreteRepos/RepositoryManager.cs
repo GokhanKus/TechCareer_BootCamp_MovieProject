@@ -31,9 +31,9 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		public IFictionalCharacterRepository FictionalCharacter => _fictionalCharacterRepo;
 		public IGenreRepository Genre => _genreRepo;
 		public IMovieRepository Movie => _movieRepo;
-		public void Save()
+		public void SaveAsync()
 		{
-			_context.SaveChanges();
+			_context.SaveChangesAsync();
 		}
 	}
 }

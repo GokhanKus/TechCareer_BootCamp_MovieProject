@@ -27,7 +27,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			#endregion
 			var actorToCreate = _mapper.Map<Actor>(actorViewModel);
 			_manager.Actor.CreateOneActor(actorToCreate);
-			_manager.Save();
+			_manager.SaveAsync();
 		}
 
 		public void DeleteOneActor(int id)
@@ -36,17 +36,18 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			if (actor is not null)
 			{
 				_manager.Actor.DeleteOneActor(actor);
-				_manager.Save();
+				_manager.SaveAsync();
 			}
 		}
 
-		public IEnumerable<Actor> GetAllActors(bool trackChanges)
+		public async Task<IEnumerable<Actor>> GetAllActors(bool trackChanges)
 		{
-			return _manager.Actor.GetAllActors(trackChanges);
+			return await _manager.Actor.GetAllActors(trackChanges);
 		}
 
-		public ActorViewModelWithDetails GetOneActorWithMovies(int id, bool trackChanges)
+		public async Task<ActorViewModelWithDetails> GetOneActorWithMovies(int id, bool trackChanges)
 		{
+			#region Automapper oncesi
 			//var actor = _manager.Actor.GetOneActorWithMovies(id, trackChanges);
 			//var actorViewModel = new ActorViewModelWithDetails
 			//{
@@ -63,7 +64,8 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			//		PosterPath = am.Movie.PosterPath,
 			//	}).ToList()
 			//};
-			var actor1 = _manager.Actor.GetOneActorWithMovies(id, trackChanges);
+			#endregion
+			var actor1 = await _manager.Actor.GetOneActorWithMovies(id, trackChanges);
 
 			var actorModel = _mapper.Map<ActorViewModelWithDetails>(actor1);
 			actorModel.Movies = actor1.ActorMovies.Select(am => new Movie
@@ -117,7 +119,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			#endregion
 			var actorToUpdate = _mapper.Map<Actor>(actorViewModel);
 			_manager.Actor.UpdateOneActor(actorToUpdate);
-			_manager.Save();
+			_manager.SaveAsync();
 		}
 	}
 }

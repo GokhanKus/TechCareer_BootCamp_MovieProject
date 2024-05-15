@@ -27,14 +27,14 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
             Delete(actor);
         }
 
-        public IQueryable<Actor> GetAllActors(bool trackChanges)
+        public async Task<IEnumerable<Actor>> GetAllActors(bool trackChanges)
         {
-            return GetAll(trackChanges);
+            return await GetAll(trackChanges).ToListAsync();
         }
 
-        public Actor GetOneActorWithMovies(int id, bool trackChanges)
+        public async Task<Actor> GetOneActorWithMovies(int id, bool trackChanges)
         {
-            var actorWithMovies = _context.Actors.Include(a => a.ActorMovies).ThenInclude(am => am.Movie).FirstOrDefault(a => a.Id == id);
+            var actorWithMovies =await _context.Actors.Include(a => a.ActorMovies).ThenInclude(am => am.Movie).FirstOrDefaultAsync(a => a.Id == id);
             return actorWithMovies;
         }
 

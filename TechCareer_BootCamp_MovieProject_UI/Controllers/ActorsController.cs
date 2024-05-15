@@ -21,15 +21,15 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			_manager = manager;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			var actors = _manager.ActorService.GetAllActors(false);
+			var actors = await _manager.ActorService.GetAllActors(false);
 			return View(actors);
 		}
 
-		public IActionResult Details(int id)
+		public async Task<IActionResult> Details(int id)
 		{
-			var actor = _manager.ActorService.GetOneActorWithMovies(id, false);
+			var actor = await _manager.ActorService.GetOneActorWithMovies(id, false);
 			if (actor == null)
 			{
 				return NotFound();

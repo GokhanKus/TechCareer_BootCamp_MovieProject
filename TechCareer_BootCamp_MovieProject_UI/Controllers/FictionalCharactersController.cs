@@ -19,20 +19,16 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			_manager = manager;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			var fictCharsWithActors = _manager.FictionalCharacter.GetAllFictionalCharsWithActors(false);
+			var fictCharsWithActors = await _manager.FictionalCharacter.GetAllFictionalCharsWithActors(false);
 			return View(fictCharsWithActors);
 		}
 
-		public IActionResult Details(int? id)
+		public async Task<IActionResult> Details(int id)
 		{
-			if (id == null)
-			{
-				return NotFound();
-			}
 
-			var fictionalCharacter = _manager.FictionalCharacter.GetOneFictionalCharWithActor(id);
+			var fictionalCharacter = await GetFictionalCharWithActor(id);
 
 			if (fictionalCharacter == null)
 			{
@@ -41,40 +37,36 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 
 			return View(fictionalCharacter);
 		}
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
-			var actors = _manager.ActorService.GetAllActors(false);
+			var actors = await _manager.ActorService.GetAllActors(false);
 			ViewData["ActorId"] = new SelectList(actors, "Id", "FullName");
 			return View();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create([Bind("CharacterName,ActorId,Id,CreatedTime")] FictionalCharacter fictionalCharacter)
+		public async Task<IActionResult> Create([Bind("CharacterName,ActorId,Id,CreatedTime")] FictionalCharacter fictionalCharacter)
 		{
 			if (ModelState.IsValid)
 			{
 				_manager.FictionalCharacter.CreateOneFictionalCharacter(fictionalCharacter);
 				return RedirectToAction(nameof(Index));
 			}
-			var actors = _manager.ActorService.GetAllActors(false);
+			var actors = await _manager.ActorService.GetAllActors(false);
 			ViewData["ActorId"] = new SelectList(actors, "Id", "FullName", fictionalCharacter.ActorId);
 			return View(fictionalCharacter);
 		}
 
-		public IActionResult Edit(int? id)
+		public async Task<IActionResult> Edit(int id)
 		{
-			if (id == null)
-			{
-				return NotFound();
-			}
 
-			var fictionalCharacter = _manager.FictionalCharacter.GetOneFictionalCharWithActor(id);
+			var fictionalCharacter = await GetFictionalCharWithActor(id);
 			if (fictionalCharacter == null)
 			{
 				return NotFound();
 			}
-			var actors = _manager.ActorService.GetAllActors(false);
+			var actors = await _manager.ActorService.GetAllActors(false);
 
 			ViewData["ActorId"] = new SelectList(actors, "Id", "FullName", fictionalCharacter.ActorId);
 			return View(fictionalCharacter);
@@ -82,7 +74,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Edit(int id, [Bind("CharacterName,ActorId,Id,CreatedTime")] FictionalCharacter fictionalCharacter)
+		public async Task<IActionResult> Edit(int id, [Bind("CharacterName,ActorId,Id,CreatedTime")] FictionalCharacter fictionalCharacter)
 		{
 			if (id != fictionalCharacter.Id)
 			{
@@ -94,18 +86,14 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 				_manager.FictionalCharacter.UpdateOneFictionalCharacter(fictionalCharacter);
 				return RedirectToAction(nameof(Index));
 			}
-			var actors = _manager.ActorService.GetAllActors(false);
+			var actors = await _manager.ActorService.GetAllActors(false);
 			ViewData["ActorId"] = new SelectList(actors, "Id", "FullName", fictionalCharacter.ActorId);
 			return View(fictionalCharacter);
 		}
-		public IActionResult Delete(int? id)
+		public async Task<IActionResult> Delete(int id)
 		{
-			if (id == null)
-			{
-				return NotFound();
-			}
 
-			var fictionalCharacter = _manager.FictionalCharacter.GetOneFictionalCharWithActor(id);
+			var fictionalCharacter = await GetFictionalCharWithActor(id);
 
 			if (fictionalCharacter == null)
 			{
@@ -117,15 +105,19 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 
 		[HttpPost, ActionName("Delete")]
 		[ValidateAntiForgeryToken]
-		public IActionResult DeleteConfirmed(int id)
+		public async Task<IActionResult> DeleteConfirmed(int id)
 		{
-			var fictionalCharacter = _manager.FictionalCharacter.GetOneFictionalCharWithActor(id);
+			var fictionalCharacter = await GetFictionalCharWithActor(id);
 			if (fictionalCharacter != null)
 			{
 				_manager.FictionalCharacter.DeleteOneFictionalCharacter(id);
 			}
 
 			return RedirectToAction(nameof(Index));
+		}
+		private async Task<FictionalCharacter>? GetFictionalCharWithActor(int id)
+		{
+			return await _manager.FictionalCharacter.GetOneFictionalCharWithActor(id);
 		}
 	}
 }

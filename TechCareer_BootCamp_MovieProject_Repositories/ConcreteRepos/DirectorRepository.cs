@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,9 +31,9 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
             Update(director);
         }
 
-        public IQueryable<Director> GetAllDirectors(bool trackChanges)
+        public async Task<IEnumerable<Director>> GetAllDirectors(bool trackChanges)
         {
-            return GetAll(trackChanges);
+            return await GetAll(trackChanges).ToListAsync();
         }
 
         public Director? GetOneDirector(int? id, bool trackChanges)

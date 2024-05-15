@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -29,9 +30,9 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		{
 			Update(genre);
 		}
-		public IQueryable<Genre> GetAllGenres(bool trackChanges)
+		public async Task<IEnumerable<Genre>> GetAllGenres(bool trackChanges)
 		{
-			return GetAll(trackChanges);
+			return await GetAll(trackChanges).ToListAsync();
 		}
 		public Genre? GetOneGenre(int? id, bool trackChanges)
 		{

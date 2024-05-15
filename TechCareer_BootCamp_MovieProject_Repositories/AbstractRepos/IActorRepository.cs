@@ -10,8 +10,8 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos
 {
     public interface IActorRepository: IBaseRepository<Actor>
     {
-        IQueryable<Actor> GetAllActors(bool trackChanges);
-        Actor GetOneActorWithMovies(int id, bool trackChanges);
+        Task<IEnumerable<Actor>> GetAllActors(bool trackChanges);
+        Task<Actor> GetOneActorWithMovies(int id, bool trackChanges);
         Actor? GetOneActor(int id, bool trackChanges);
         void CreateOneActor(Actor actor);
         void DeleteOneActor(Actor actor);

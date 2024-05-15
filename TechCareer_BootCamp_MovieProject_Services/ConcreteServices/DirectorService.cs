@@ -37,7 +37,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 
 			var director = _mapper.Map<Director>(directorViewModel); //modele gelen veriler, Director ile otomatik eslesecek 
 			_manager.Director.CreateOneDirector(director);
-			_manager.Save();
+			_manager.SaveAsync();
 		}
 
 		public void DeleteOneDiretor(int? id)
@@ -46,13 +46,13 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			if (director is not null)
 			{
 				_manager.Director.DeleteOneDirector(director);
-				_manager.Save();
+				_manager.SaveAsync();
 			}
 		}
 
-		public IEnumerable<Director> GetAllDirectors(bool trackChanges)
+		public async Task<IEnumerable<Director>> GetAllDirectors(bool trackChanges)
 		{
-			return _manager.Director.GetAllDirectors(trackChanges);
+			return await _manager.Director.GetAllDirectors(trackChanges);
 		}
 
 		public Director? GetOneDirector(int? id, bool trackChanges)
@@ -99,7 +99,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			//var directorToUpdate = _manager.Director.GetOneDirector(directorViewModel.Id, true);
 			var director = _mapper.Map<Director>(directorViewModel);
 			_manager.Director.UpdateOneDirector(director);
-			_manager.Save();
+			_manager.SaveAsync();
 		}
 	}
 }

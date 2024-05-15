@@ -10,7 +10,7 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos
 {
     public interface IFictionalCharacterRepository: IBaseRepository<FictionalCharacter>
     {
-        IEnumerable<FictionalCharacter> GetAllFictionalCharsWithActors(bool trackChanges);
-        FictionalCharacter? GetOneFictionalCharWithActor(int? id);
+        Task<IEnumerable<FictionalCharacter>> GetAllFictionalCharsWithActors(bool trackChanges);
+        Task<FictionalCharacter>? GetOneFictionalCharWithActor(int? id);
     }
 }

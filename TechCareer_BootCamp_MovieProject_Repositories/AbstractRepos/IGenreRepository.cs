@@ -10,7 +10,7 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos
 {
     public interface IGenreRepository:IBaseRepository<Genre>
     {
-		IQueryable<Genre> GetAllGenres(bool trackChanges);
+		Task<IEnumerable<Genre>> GetAllGenres(bool trackChanges);
 		Genre? GetOneGenre(int? id, bool trackChanges);
 		void CreateOneGenre(Genre genre);
 		void DeleteOneGenre(Genre genre);
