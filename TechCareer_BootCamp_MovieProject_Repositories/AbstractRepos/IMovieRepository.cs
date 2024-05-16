@@ -10,13 +10,14 @@ using TechCareer_BootCamp_MovieProject_Repositories.BaseRepos;
 
 namespace TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos
 {
-    public interface IMovieRepository : IBaseRepository<Movie>
-    {
-        IQueryable<Movie> GetAllMovies(bool trackChanges);
-        IEnumerable<Movie> GetAllMoviesWithGenres();
-        Movie? GetOneMovie(int id, bool trackChanges);
-        void CreateOneMovie(Movie movie);
-        void DeleteOneMovie(Movie movie);
-        void UpdateOneMovie(Movie movie);
-    }
+	public interface IMovieRepository : IBaseRepository<Movie>
+	{
+		IQueryable<Movie> GetAllMovies(bool trackChanges);
+		Task<IEnumerable<Movie>> GetAllMoviesWithGenres();
+		Movie? GetOneMovie(int id, bool trackChanges);
+		Task<Movie> GetOneMovieWithDetails(int id, bool trackChanges);
+		void CreateOneMovie(Movie movie);
+		void DeleteOneMovie(Movie movie);
+		void UpdateOneMovie(Movie movie);
+	}
 }

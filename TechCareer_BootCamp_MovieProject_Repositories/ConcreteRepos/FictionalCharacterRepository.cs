@@ -17,9 +17,9 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		{
 
 		}
-		public IEnumerable<FictionalCharacter> GetAllFictionalCharsWithActors(bool trackChanges)
+		public async Task<IEnumerable<FictionalCharacter>> GetAllFictionalCharsWithActors(bool trackChanges)
 		{
-			var fictCharsWithActor = _context.FictionalCharacters.Include(f => f.Actor).ToList();
+			var fictCharsWithActor = await _context.FictionalCharacters.Include(f => f.Actor).ToListAsync();
 			return fictCharsWithActor;
 		}
 		public FictionalCharacter? GetOneFictionalCharWithActor(int? id)

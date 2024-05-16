@@ -19,9 +19,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			_manager = manager;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			var fictCharsWithActors = _manager.FictionalCharacter.GetAllFictionalCharsWithActors(false);
+			var fictCharsWithActors = await _manager.FictionalCharacter.GetAllFictionalCharsWithActors(false);
 			return View(fictCharsWithActors);
 		}
 
@@ -33,7 +33,6 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			}
 
 			var fictionalCharacter = _manager.FictionalCharacter.GetOneFictionalCharWithActor(id);
-
 			if (fictionalCharacter == null)
 			{
 				return NotFound();

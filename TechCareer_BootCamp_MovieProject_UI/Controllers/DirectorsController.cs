@@ -22,9 +22,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
         }
 
         // GET: Directors
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var directors = _manager.DirectorService.GetAllDirectors(false);
+            var directors = await _manager.DirectorService.GetAllDirectors(false);
             return View(directors);
         }
 

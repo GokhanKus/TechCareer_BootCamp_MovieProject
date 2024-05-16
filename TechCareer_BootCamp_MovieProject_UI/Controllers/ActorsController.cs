@@ -21,9 +21,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			_manager = manager;
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
-			var actors = _manager.ActorService.GetAllActors(false);
+			var actors = await _manager.ActorService.GetAllActors(false);
 			return View(actors);
 		}
 

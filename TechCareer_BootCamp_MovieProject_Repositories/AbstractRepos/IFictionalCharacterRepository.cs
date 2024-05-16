@@ -8,9 +8,9 @@ using TechCareer_BootCamp_MovieProject_Repositories.BaseRepos;
 
 namespace TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos
 {
-    public interface IFictionalCharacterRepository: IBaseRepository<FictionalCharacter>
-    {
-        IEnumerable<FictionalCharacter> GetAllFictionalCharsWithActors(bool trackChanges);
-        FictionalCharacter? GetOneFictionalCharWithActor(int? id);
-    }
+	public interface IFictionalCharacterRepository : IBaseRepository<FictionalCharacter>
+	{
+		Task<IEnumerable<FictionalCharacter>> GetAllFictionalCharsWithActors(bool trackChanges);
+		FictionalCharacter? GetOneFictionalCharWithActor(int? id);
+	}
 }

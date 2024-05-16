@@ -23,6 +23,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.Mapper
 			CreateMap<DirectorViewModelForUpdate, Director>().ReverseMap();
 
 			CreateMap<MovieViewModelForInsertion, Movie>();
+			CreateMap<MovieViewModelForUpdate, Movie>().ReverseMap();
 		}
 	}
 }

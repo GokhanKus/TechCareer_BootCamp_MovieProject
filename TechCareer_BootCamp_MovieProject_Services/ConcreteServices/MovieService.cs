@@ -72,7 +72,12 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		}
 		public void DeleteOneMovie(int id)
 		{
-			throw new NotImplementedException();
+			var movie = _manager.Movie.GetOneMovie(id, false);
+			if (movie is not null)
+			{
+				_manager.Movie.DeleteOneMovie(movie);
+				_manager.Save();
+			}
 		}
 
 		public void UpdateOneProduct(MovieCardModel productDto)
@@ -80,9 +85,9 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<MovieCardModel> GetAllMoviesWithGenres()
+		public async Task<IEnumerable<MovieCardModel>> GetAllMoviesWithGenres()
 		{
-			var movies = _manager.Movie.GetAllMoviesWithGenres();
+			var movies = await _manager.Movie.GetAllMoviesWithGenres();
 
 			// Mapping logic from Movie entity to MovieViewModel
 
@@ -100,7 +105,12 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 
 		public Movie GetOneMovie(int id, bool trackChanges)
 		{
-			throw new NotImplementedException();
+			var movie = _manager.Movie.GetOneMovie(id, trackChanges);
+
+			if (movie is null)
+				throw new NullReferenceException("movie couldn't find");
+
+			return movie;
 		}
 
 		public IEnumerable<Movie> GetAllMovies(bool trackChanges)
@@ -108,14 +118,40 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			throw new NotImplementedException();
 		}
 
-		public async Task<IEnumerable<ActorByIdAndName>> GetActorsByIdAndName(bool trackChanges)
+		public async Task<MovieViewModelForUpdate>? GetOneMovieWithDetails(int id, bool trackChanges)
 		{
-			var actors = await _manager.Actor.GetAllActors(trackChanges).ToListAsync();
-			return actors.Select(a => new ActorByIdAndName
-			{
-				Id = a.Id,
-				FullName = a.FullName,
-			});
+			var movieWithDetails = await _manager.Movie.GetOneMovieWithDetails(id, trackChanges);
+			//var movieDto = new MovieViewModelWithDetails
+			//{
+			//	Id = movieWithDetails.Id,
+			//	Duration = movieWithDetails.Duration,
+			//	OriginalLanguage = movieWithDetails.OriginalLanguage,
+			//	Plot = movieWithDetails.Plot,
+			//	PosterPath = movieWithDetails.PosterPath,
+			//	OriginalTitle = movieWithDetails.OriginalTitle,
+			//	Title = movieWithDetails.Title,
+			//	ReleaseDate = movieWithDetails.ReleaseDate,
+			//	Score = movieWithDetails.Score,
+			//	DirectorId = movieWithDetails.DirectorId,
+			//	Director = movieWithDetails.Director,
+			//	Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList(),
+			//	Actors = movieWithDetails.ActorMovies.Select(am => am.Actor).ToList(),
+			//};
+			var movieViewModel = _mapper.Map<MovieViewModelForUpdate>(movieWithDetails);
+			movieViewModel.Actors = movieWithDetails.ActorMovies.Select(am=>am.Actor).ToList();
+			movieViewModel.Genres = movieWithDetails.GenreMovies.Select(gm=>gm.Genre).ToList();
+			//actors, genres, director 
+			return movieViewModel;
 		}
+
+		//public async Task<IEnumerable<ActorByIdAndName>> GetActorsByIdAndName(bool trackChanges)
+		//{
+		//	var actors = await _manager.Actor.GetAllActors(trackChanges).ToListAsync();
+		//	return actors.Select(a => new ActorByIdAndName
+		//	{
+		//		Id = a.Id,
+		//		FullName = a.FullName,
+		//	});
+		//}
 	}
 }

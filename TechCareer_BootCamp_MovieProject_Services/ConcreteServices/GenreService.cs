@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,9 +34,9 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			}
 		}
 
-		public IEnumerable<Genre> GetAllGenres(bool trackChanges)
+		public async Task<IEnumerable<Genre>> GetAllGenres(bool trackChanges)
 		{
-			return _manager.Genre.GetAll(trackChanges);
+			return await _manager.Genre.GetAll(trackChanges).ToListAsync();
 		}
 
 		public Genre? GetOneGenre(int? id, bool trackChanges)

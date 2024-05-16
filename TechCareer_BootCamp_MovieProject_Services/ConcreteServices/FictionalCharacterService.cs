@@ -39,9 +39,9 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			return _manager.FictionalCharacter.GetAll(trackChanges);
 		}
 
-		public IEnumerable<FictionalCharacter> GetAllFictionalCharsWithActors(bool trackChanges)
+		public async Task<IEnumerable<FictionalCharacter>> GetAllFictionalCharsWithActors(bool trackChanges)
 		{
-			var fictCharsWithActors = _manager.FictionalCharacter.GetAllFictionalCharsWithActors(false);
+			var fictCharsWithActors = await _manager.FictionalCharacter.GetAllFictionalCharsWithActors(false);
 			return fictCharsWithActors;
 		}
 

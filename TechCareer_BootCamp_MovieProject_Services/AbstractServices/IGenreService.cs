@@ -9,7 +9,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 {
     public interface IGenreService
     {
-        IEnumerable<Genre> GetAllGenres(bool trackChanges);
+        Task<IEnumerable<Genre>> GetAllGenres(bool trackChanges);
         void CreateOneGenre(Genre genre);
         Genre? GetOneGenre(int? id, bool trackChanges);
         void UpdateOneGenre(Genre genre);

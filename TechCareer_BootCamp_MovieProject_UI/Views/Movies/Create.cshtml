@@ -8,20 +8,23 @@
 	@* enctype="multipart/form-data" *@
 	@*dosyayi formla beraber post etmek icin enctype kullanılır*@
 	<div class="row">
-		<div class="col-md-9">
-			<div class="text-danger" asp-validation-summary="All"></div>
-
-			@* <select asp-for="ActorIds" asp-items="ViewBag.Actors" class="form-control" multiple></select> *@
-
+		<div class="col-md-4">
 			<div class="form-group my-3">
 				<label>Select Actors:</label>
-				<select asp-for="SelectedActorIds" class="form-control" asp-items="@(new SelectList(Model.AvailableActors, "Id", "FullName"))" multiple></select>
+				<select asp-for="SelectedActorIds" class="form-control" asp-items="@(new SelectList(Model.Actors, "Id", "FullName"))" multiple></select>
 			</div>
-
-			<div class="form-group">
+		</div>
+		<div class="col-md-4">
+			<div class="form-group my-3">
 				<label asp-for="DirectorId" class="control-label">Director:</label>
 				<select asp-for="DirectorId" class="form-control" asp-items="ViewBag.DirectorId"></select>
 			</div>
+
+		</div>
+		<div class="col-md-8">
+			<div class="text-danger" asp-validation-summary="All"></div>
+
+			@* <select asp-for="ActorIds" asp-items="ViewBag.Actors" class="form-control" multiple></select> *@
 
 			<div class="form-group my-3">
 				<label asp-for="OriginalTitle"></label>
@@ -61,8 +64,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<div class="bg-white p-4">
+				<h4>Genres</h4>
+				<hr />
 				@foreach (var genre in ViewBag.Genres)
 				{
 					<div class="form-check">

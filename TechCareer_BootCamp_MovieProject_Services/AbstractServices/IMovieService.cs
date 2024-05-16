@@ -13,11 +13,12 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 	public interface IMovieService
 	{
 		Movie GetOneMovie(int id, bool trackChanges);
-		IEnumerable<MovieCardModel> GetAllMoviesWithGenres();
+		Task<MovieViewModelForUpdate>? GetOneMovieWithDetails(int id, bool trackChanges);
+		Task<IEnumerable<MovieCardModel>> GetAllMoviesWithGenres();
 		IEnumerable<Movie> GetAllMovies(bool trackChanges);
 		void DeleteOneMovie(int id);
 		void CreateOneMovie(MovieViewModelForInsertion movieViewModel, int[] genreIds);
 		void UpdateOneProduct(MovieCardModel productDto);
-		Task<IEnumerable<ActorByIdAndName>> GetActorsByIdAndName(bool trackChanges);
+		//Task<IEnumerable<ActorByIdAndName>> GetActorsByIdAndName(bool trackChanges);
 	}
 }
