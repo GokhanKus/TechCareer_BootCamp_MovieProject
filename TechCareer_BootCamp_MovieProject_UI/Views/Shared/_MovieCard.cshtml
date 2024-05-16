@@ -1,4 +1,4 @@
-﻿@model MovieViewModel
+﻿@model MovieCardModel
 
 
 <div class="movie-card">
@@ -7,17 +7,19 @@
 	<div class="movie-card__content">
 		<div class="movie-card__header">
 			<h1 class="movie-card__title">@Model.OriginalTitle</h1>
+			<h4 class="movie-card__info">IMDB: @Model.Score</h4>
 			<div class="movie-card__info">
 
-				<h4 class="movie-card__info">@Model.ReleaseDate - 
-				@foreach (var genre in Model.Genres)
-				{
+				<h4 class="movie-card__info">
+					@Model.ReleaseDate -
+					@foreach (var genre in Model.Genres)
+					{
 						@genre.Name
 						@if (genre != Model.Genres.Last()) // Son genre isminden sonra boşluk bırakmamak için kontrol ekleyin
 						{
 							<span>&amp;</span> <!-- son ture kadar turler arasına "&" karakteri ekleyelim  -->
 						}
-				}
+					}
 				</h4>
 			</div>
 		</div>

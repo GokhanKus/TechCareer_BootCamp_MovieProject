@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.ActorModels;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
@@ -40,9 +41,9 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			}
 		}
 
-		public IEnumerable<Actor> GetAllActors(bool trackChanges)
+		public async Task<IEnumerable<Actor>> GetAllActors(bool trackChanges)
 		{
-			return _manager.Actor.GetAllActors(trackChanges);
+			return await _manager.Actor.GetAllActors(trackChanges).ToListAsync();
 		}
 
 		public ActorViewModelWithDetails GetOneActorWithMovies(int id, bool trackChanges)

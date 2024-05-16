@@ -16,7 +16,9 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		private readonly IFictionalCharacterRepository _fictionalCharacterRepo;
 		private readonly IGenreRepository _genreRepo;
 		private readonly IMovieRepository _movieRepo;
-		public RepositoryManager(MovieDbContext context, IActorRepository actorRepo, IDirectorRepository directorRepo, IFictionalCharacterRepository fictionalCharacterRepo, IGenreRepository genreRepo, IMovieRepository movieRepo)
+		private readonly IMovieRepository _actorMovieRepo;
+		private readonly IMovieRepository _genreMovieRepo;
+		public RepositoryManager(MovieDbContext context, IActorRepository actorRepo, IDirectorRepository directorRepo, IFictionalCharacterRepository fictionalCharacterRepo, IGenreRepository genreRepo, IMovieRepository movieRepo, IMovieRepository genreMovieRepo, IMovieRepository actorMovieRepo)
 		{
 			_context = context;
 			_actorRepo = actorRepo;
@@ -24,6 +26,8 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 			_fictionalCharacterRepo = fictionalCharacterRepo;
 			_genreRepo = genreRepo;
 			_movieRepo = movieRepo;
+			_genreMovieRepo = genreMovieRepo;
+			_actorMovieRepo = actorMovieRepo;
 		}
 
 		public IActorRepository Actor => _actorRepo;
@@ -31,6 +35,11 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		public IFictionalCharacterRepository FictionalCharacter => _fictionalCharacterRepo;
 		public IGenreRepository Genre => _genreRepo;
 		public IMovieRepository Movie => _movieRepo;
+
+		public IMovieRepository ActorMovie => _actorMovieRepo;
+
+		public IMovieRepository GenreMovie => _genreMovieRepo;
+
 		public void Save()
 		{
 			_context.SaveChanges();

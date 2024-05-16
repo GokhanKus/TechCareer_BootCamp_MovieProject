@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,9 +51,9 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			}
 		}
 
-		public IEnumerable<Director> GetAllDirectors(bool trackChanges)
+		public async Task<IEnumerable<Director>> GetAllDirectors(bool trackChanges)
 		{
-			return _manager.Director.GetAllDirectors(trackChanges);
+			return await _manager.Director.GetAllDirectors(trackChanges).ToListAsync();
 		}
 
 		public Director? GetOneDirector(int? id, bool trackChanges)

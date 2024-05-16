@@ -10,7 +10,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 {
     public interface IDirectorService
     {
-        IEnumerable<Director> GetAllDirectors(bool trackChanges);
+        Task<IEnumerable<Director>> GetAllDirectors(bool trackChanges);
         Director? GetOneDirector(int? id, bool trackChanges);
         void CreateOneDirector(DirectorViewModelForInsertion directorViewModel);
         void UpdateOneDirector(DirectorViewModelForUpdate directorViewModel);

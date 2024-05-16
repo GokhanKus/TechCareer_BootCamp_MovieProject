@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
@@ -12,63 +13,65 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 {
 	public class MoviesController : Controller
 	{
-		private readonly IMovieService _movieService;
-		private readonly IGenreRepository _genreService;
-		public MoviesController(IMovieService movieService, IGenreRepository genreService)
+		private readonly IServiceManager _manager;
+
+		public MoviesController(IServiceManager manager)
 		{
-			_movieService = movieService;
-			_genreService = genreService;
+			_manager = manager;
 		}
+
 		public IActionResult Index()
 		{
-			var movies = _movieService.GetAllMoviesWithGenres();
+			var movies = _manager.MovieService.GetAllMoviesWithGenres();
 			return View(movies);
 		}
 		public async Task<IActionResult> Details(int id)
 		{
 			return View();
 		}
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
-			var actors = _movieService.GetActorsByIdAndName(false).ToList();
+			//var actors = await _manager.MovieService.GetActorsByIdAndName(false);
+			//var selectedActorIds = new List<int>();
+			//ViewBag.Actors = new MultiSelectList(actors, "Id", "FullName", selectedActorIds);
 
-			var selectedActorIds = new List<int>();
-			ViewBag.Actors = new MultiSelectList(actors, "Id", "FullName", selectedActorIds);
-			ViewBag.Genres = _genreService.GetAll(false).ToList();
-			
-			return View();
+
+			ViewBag.Genres = _manager.GenreService.GetAllGenres(false).ToList(); //viewbag ile film turleri liste olarak sayfaya tasiyacagim
+			var viewModel = new MovieViewModelForInsertion //classtaki prop'u (List<Actor'u>) sayfaya model olarak gonderelim 
+			{
+				AvailableActors = await _manager.ActorService.GetAllActors(false)
+			};
+
+			var directors = await _manager.DirectorService.GetAllDirectors(false);
+			ViewData["DirectorId"] = new SelectList(directors, "Id", "FullName");
+
+			return View(viewModel);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create([FromForm] MovieViewModel movieViewModel, int[] genreIds/*IFormFile*/)
+		public async Task<IActionResult> Create([FromForm] MovieViewModelForInsertion movieViewModel, int[] genreIds, IFormFile? file)
 		{
-			var entityToCreate = new Movie
+			if (ModelState.IsValid)
 			{
-				Id = movieViewModel.Id,
-				OriginalTitle = movieViewModel.OriginalTitle,
-				Plot = movieViewModel.Plot,
-				Score = movieViewModel.Score,
-				ReleaseDate = movieViewModel.ReleaseDate,
-				
-			};
-			foreach (var actorId in movieViewModel.ActorIds)
-			{
-				var actorMovie = new ActorMovie
+				if (file is not null)
 				{
-					MovieId = entityToCreate.Id,
-					ActorId = actorId
-				};
-			}
-			foreach (var genreId in genreIds)
-			{
-				var genreMovie = new GenreMovie
+					string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "MoviePosters", file.FileName);
+					using (var stream = new FileStream(path, FileMode.Create))
+					{
+						await file.CopyToAsync(stream);
+					}
+					movieViewModel.PosterPath = file.FileName;
+				}
+				else
 				{
-					MovieId = entityToCreate.Id,
-					GenreId = genreId
-				};
+					movieViewModel.PosterPath = "DefaultMovie.jpg";
+				}
+				_manager.MovieService.CreateOneMovie(movieViewModel, genreIds);
+				return RedirectToAction(nameof(Index));
 			}
-			return View();
+
+			return View(movieViewModel);
 		}
 	}
 }

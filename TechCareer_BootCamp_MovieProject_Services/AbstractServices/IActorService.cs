@@ -11,7 +11,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 {
 	public interface IActorService
 	{
-		IEnumerable<Actor> GetAllActors(bool trackChanges);
+		Task<IEnumerable<Actor>> GetAllActors(bool trackChanges);
 		Actor? GetOneActor(int id, bool trackChanges);
 		ActorViewModelWithDetails GetOneActorWithMovies(int id, bool trackChanges);
 		void DeleteOneActor(int id);

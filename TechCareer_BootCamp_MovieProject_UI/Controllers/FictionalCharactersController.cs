@@ -41,28 +41,28 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 
 			return View(fictionalCharacter);
 		}
-		public IActionResult Create()
+		public async Task<IActionResult> Create()
 		{
-			var actors = _manager.ActorService.GetAllActors(false);
+			var actors = await _manager.ActorService.GetAllActors(false);
 			ViewData["ActorId"] = new SelectList(actors, "Id", "FullName");
 			return View();
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Create([Bind("CharacterName,ActorId,Id,CreatedTime")] FictionalCharacter fictionalCharacter)
+		public async Task<IActionResult> Create([Bind("CharacterName,ActorId,Id,CreatedTime")] FictionalCharacter fictionalCharacter)
 		{
 			if (ModelState.IsValid)
 			{
 				_manager.FictionalCharacter.CreateOneFictionalCharacter(fictionalCharacter);
 				return RedirectToAction(nameof(Index));
 			}
-			var actors = _manager.ActorService.GetAllActors(false);
+			var actors = await _manager.ActorService.GetAllActors(false);
 			ViewData["ActorId"] = new SelectList(actors, "Id", "FullName", fictionalCharacter.ActorId);
 			return View(fictionalCharacter);
 		}
 
-		public IActionResult Edit(int? id)
+		public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null)
 			{
@@ -74,7 +74,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			{
 				return NotFound();
 			}
-			var actors = _manager.ActorService.GetAllActors(false);
+			var actors = await _manager.ActorService.GetAllActors(false);
 
 			ViewData["ActorId"] = new SelectList(actors, "Id", "FullName", fictionalCharacter.ActorId);
 			return View(fictionalCharacter);
@@ -82,7 +82,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public IActionResult Edit(int id, [Bind("CharacterName,ActorId,Id,CreatedTime")] FictionalCharacter fictionalCharacter)
+		public async Task<IActionResult> Edit(int id, [Bind("CharacterName,ActorId,Id,CreatedTime")] FictionalCharacter fictionalCharacter)
 		{
 			if (id != fictionalCharacter.Id)
 			{
@@ -94,7 +94,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 				_manager.FictionalCharacter.UpdateOneFictionalCharacter(fictionalCharacter);
 				return RedirectToAction(nameof(Index));
 			}
-			var actors = _manager.ActorService.GetAllActors(false);
+			var actors = await _manager.ActorService.GetAllActors(false);
 			ViewData["ActorId"] = new SelectList(actors, "Id", "FullName", fictionalCharacter.ActorId);
 			return View(fictionalCharacter);
 		}
