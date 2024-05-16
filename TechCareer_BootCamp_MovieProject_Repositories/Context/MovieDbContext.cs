@@ -51,7 +51,7 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.Context
         public DbSet<Director> Directors { get; set; }
         public DbSet<Actor> Actors { get; set; }
         public DbSet<FictionalCharacter> FictionalCharacters { get; set; }
-        //public DbSet<ActorMovie> ActorMovie{ get; set; }
-        //public DbSet<GenreMovie> GenreMovie{ get; set; }
+        public DbSet<ActorMovie> ActorMovie { get; set; }
+        public DbSet<GenreMovie> GenreMovie { get; set; }
     }
 }
