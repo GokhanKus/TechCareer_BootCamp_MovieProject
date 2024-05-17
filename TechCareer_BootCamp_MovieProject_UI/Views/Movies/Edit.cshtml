@@ -37,14 +37,14 @@
 				<label asp-for="Plot" class="control-label"></label>
 				<input asp-for="Plot" class="form-control" />
 			</div>
-			<div class="form-group">
-				<label asp-for="PosterPath" class="control-label"></label>
-				<input asp-for="PosterPath" class="form-control" />
+			<div class="form-group my-3">
+				<label asp-for="PosterPath"></label>
+				<input type="file" name="file" class="form-control" />
 			</div>
-			<div class="form-group">
+			@* <div class="form-group">
 				<label asp-for="OriginalLanguage" class="control-label"></label>
 				<select asp-for="OriginalLanguage" class="form-control"></select>
-			</div>
+			</div> *@
 			<div class="form-group">
 				<label asp-for="ReleaseDate" class="control-label"></label>
 				<input asp-for="ReleaseDate" class="form-control" />
@@ -57,10 +57,7 @@
 				<label asp-for="Duration" class="control-label"></label>
 				<input asp-for="Duration" class="form-control" />
 			</div>
-			<div class="form-group">
-				<label asp-for="DirectorId" class="control-label"></label>
-				<select asp-for="DirectorId" class="form-control" asp-items="ViewBag.DirectorId"></select>
-			</div>
+			
 			<input type="hidden" asp-for="Id" />
 			<div class="form-group">
 				<input type="submit" value="Save" class="btn btn-primary" />

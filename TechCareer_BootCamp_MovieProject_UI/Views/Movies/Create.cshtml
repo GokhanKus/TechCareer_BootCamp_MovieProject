@@ -12,12 +12,14 @@
 			<div class="form-group my-3">
 				<label>Select Actors:</label>
 				<select asp-for="SelectedActorIds" class="form-control" asp-items="@(new SelectList(Model.Actors, "Id", "FullName"))" multiple></select>
+				<a class="btn btn-primary btn-sm my-2" asp-controller="Actors" asp-action="Create">Create Actor</a>
 			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="form-group my-3">
 				<label asp-for="DirectorId" class="control-label">Director:</label>
 				<select asp-for="DirectorId" class="form-control" asp-items="ViewBag.DirectorId"></select>
+				<a class="btn btn-primary btn-sm my-2" asp-controller="Directors" asp-action="Create">Create Director</a>
 			</div>
 
 		</div>
@@ -82,6 +84,7 @@
 						</label>
 					</div>
 				}
+				<a class="btn btn-primary btn-sm my-2" asp-controller="Genres" asp-action="Create">Create Genre</a>
 			</div>
 		</div>
 

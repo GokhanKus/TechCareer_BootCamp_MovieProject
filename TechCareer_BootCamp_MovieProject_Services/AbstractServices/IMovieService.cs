@@ -18,7 +18,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 		IEnumerable<Movie> GetAllMovies(bool trackChanges);
 		void DeleteOneMovie(int id);
 		void CreateOneMovie(MovieViewModelForInsertion movieViewModel, int[] genreIds);
-		void UpdateOneProduct(MovieCardModel productDto);
+		void UpdateOneMovie(MovieViewModelForUpdate movieViewModel, int[] genreIds);
 		//Task<IEnumerable<ActorByIdAndName>> GetActorsByIdAndName(bool trackChanges);
 	}
 }

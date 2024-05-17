@@ -34,7 +34,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 		{
 			var movieViewDetails = await _manager.MovieService.GetOneMovieWithDetails(id, false);
 			movieViewDetails.SelectedActorIds = movieViewDetails.Actors.Select(a => a.Id).ToList();
-			
+
 			ViewBag.Genres = await _manager.GenreService.GetAllGenres(false);
 
 			var directors = await _manager.DirectorService.GetAllDirectors(false);
@@ -42,24 +42,29 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 
 			return View(movieViewDetails);
 		}
-		public async Task<IActionResult> Create()
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit([FromForm] MovieViewModelForUpdate movieViewModel, int[] genreIds, IFormFile? file)
 		{
-			#region MultipleSelect 1. yontem for Actors
-			//var actors = await _manager.MovieService.GetActorsByIdAndName(false);
-			//var selectedActorIds = new List<int>();
-			//ViewBag.Actors = new MultiSelectList(actors, "Id", "FullName", selectedActorIds);
-			#endregion
-
-			ViewBag.Genres = await _manager.GenreService.GetAllGenres(false); //viewbag ile film turleri liste olarak sayfaya tasiyacagim
-			var viewModel = new MovieViewModelForInsertion //classtaki prop'u (List<Actor'u>) sayfaya model olarak gonderelim 
+			if (ModelState.IsValid)
 			{
-				Actors = await _manager.ActorService.GetAllActors(false)
-			};
-
-			var directors = await _manager.DirectorService.GetAllDirectors(false);
-			ViewData["DirectorId"] = new SelectList(directors, "Id", "FullName");
-
-			return View(viewModel);
+				if (file is not null)
+				{
+					string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "MoviePosters", file.FileName);
+					using (var stream = new FileStream(path, FileMode.Create))
+					{
+						await file.CopyToAsync(stream);
+					}
+					movieViewModel.PosterPath = file.FileName;
+				}
+				//else
+				//{
+				//	movieViewModel.PosterPath = "DefaultMovie.jpg";
+				//}
+				_manager.MovieService.UpdateOneMovie(movieViewModel, genreIds);
+				return RedirectToAction(nameof(MovieList));
+			}
+			return View(movieViewModel);
 		}
 
 		[HttpPost]
@@ -86,6 +91,25 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			}
 
 			return View(movieViewModel);
+		}
+		public async Task<IActionResult> Create()
+		{
+			#region MultipleSelect 1. yontem for Actors
+			//var actors = await _manager.MovieService.GetActorsByIdAndName(false);
+			//var selectedActorIds = new List<int>();
+			//ViewBag.Actors = new MultiSelectList(actors, "Id", "FullName", selectedActorIds);
+			#endregion
+
+			ViewBag.Genres = await _manager.GenreService.GetAllGenres(false); //viewbag ile film turleri liste olarak sayfaya tasiyacagim
+			var viewModel = new MovieViewModelForInsertion //classtaki prop'u (List<Actor'u>) sayfaya model olarak gonderelim 
+			{
+				Actors = await _manager.ActorService.GetAllActors(false)
+			};
+
+			var directors = await _manager.DirectorService.GetAllDirectors(false);
+			ViewData["DirectorId"] = new SelectList(directors, "Id", "FullName");
+
+			return View(viewModel);
 		}
 
 		public IActionResult Delete(int id)

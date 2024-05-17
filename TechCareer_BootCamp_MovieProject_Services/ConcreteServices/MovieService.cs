@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using TechCareer_BootCamp_MovieProject_Model.BaseEntities;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.SelectDropDownMenuModels;
@@ -48,9 +49,41 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 
 			AddToLinkTable(movieViewModel.SelectedActorIds, genreIds, movieToCreate.Id); //many to many olan ara tablolara(genremovie, actormovie)eklemeyi yapalım
 		}
-		private void AddToLinkTable(List<int> movieViewModel, int[] genreIds, int movieToCreateId)
+		public void UpdateOneMovie(MovieViewModelForUpdate movieViewModel, int[] genreIds)
 		{
-			foreach (var actorId in movieViewModel)
+			var movieToUpdate = _mapper.Map<Movie>(movieViewModel);
+			_manager.Movie.UpdateOneMovie(movieToUpdate);
+			//_manager.Save();
+			UpdateToLinkTable(movieViewModel.SelectedActorIds, genreIds, movieToUpdate.Id);
+		}
+
+		private void UpdateToLinkTable(List<int> selectedActorIds, int[] genreIds, int movieToUpdateId)
+		{
+			foreach (var actorId in selectedActorIds)
+			{
+				var actorMovie = new ActorMovie
+				{
+					MovieId = movieToUpdateId,
+					ActorId = actorId
+				};
+				_context.ActorMovie.Update(actorMovie);
+			}
+
+			foreach (var genreId in genreIds)
+			{
+				var genreMovie = new GenreMovie
+				{
+					MovieId = movieToUpdateId,
+					GenreId = genreId
+				};
+				_context.GenreMovie.Update(genreMovie);
+			}
+			_manager.Save();
+		}
+
+		private void AddToLinkTable(List<int> selectedActorIds, int[] genreIds, int movieToCreateId)
+		{
+			foreach (var actorId in selectedActorIds)
 			{
 				var actorMovie = new ActorMovie
 				{
@@ -79,12 +112,6 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 				_manager.Save();
 			}
 		}
-
-		public void UpdateOneProduct(MovieCardModel productDto)
-		{
-			throw new NotImplementedException();
-		}
-
 		public async Task<IEnumerable<MovieCardModel>> GetAllMoviesWithGenres()
 		{
 			var movies = await _manager.Movie.GetAllMoviesWithGenres();
@@ -121,6 +148,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		public async Task<MovieViewModelForUpdate>? GetOneMovieWithDetails(int id, bool trackChanges)
 		{
 			var movieWithDetails = await _manager.Movie.GetOneMovieWithDetails(id, trackChanges);
+			#region AutoMapper oncesi
 			//var movieDto = new MovieViewModelWithDetails
 			//{
 			//	Id = movieWithDetails.Id,
@@ -137,21 +165,24 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			//	Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList(),
 			//	Actors = movieWithDetails.ActorMovies.Select(am => am.Actor).ToList(),
 			//};
+			#endregion
+
 			var movieViewModel = _mapper.Map<MovieViewModelForUpdate>(movieWithDetails);
-			movieViewModel.Actors = movieWithDetails.ActorMovies.Select(am=>am.Actor).ToList();
-			movieViewModel.Genres = movieWithDetails.GenreMovies.Select(gm=>gm.Genre).ToList();
+			movieViewModel.Actors = movieWithDetails.ActorMovies.Select(am => am.Actor).ToList();
+			movieViewModel.Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList();
 			//actors, genres, director 
 			return movieViewModel;
 		}
-
-		//public async Task<IEnumerable<ActorByIdAndName>> GetActorsByIdAndName(bool trackChanges)
-		//{
-		//	var actors = await _manager.Actor.GetAllActors(trackChanges).ToListAsync();
-		//	return actors.Select(a => new ActorByIdAndName
-		//	{
-		//		Id = a.Id,
-		//		FullName = a.FullName,
-		//	});
-		//}
 	}
+	//public async Task<IEnumerable<ActorByIdAndName>> GetActorsByIdAndName(bool trackChanges)
+	//{
+	//	var actors = await _manager.Actor.GetAllActors(trackChanges).ToListAsync();
+	//	return actors.Select(a => new ActorByIdAndName
+	//	{
+	//		Id = a.Id,
+	//		FullName = a.FullName,
+	//	});
+	//}
 }
+
+
