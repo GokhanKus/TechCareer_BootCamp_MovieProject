@@ -13,7 +13,7 @@
 		<div class="col-md-4">
 			<div class="form-group my-3">
 				<label>Select Actors:</label>
-				<select asp-for="SelectedActorIds" class="form-control" asp-items="@(new SelectList(Model.Actors, "Id", "FullName"))" multiple></select>
+				<select asp-for="SelectedActorIds" class="form-control" asp-items="@(new SelectList(Model.Actors, "Id", "FullName",Model.SelectedActorIds))" multiple></select>
 			</div>
 		</div>
 		<div class="col-md-4">

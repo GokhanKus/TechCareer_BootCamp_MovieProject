@@ -33,6 +33,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 		public async Task<IActionResult> Edit(int id)
 		{
 			var movieViewDetails = await _manager.MovieService.GetOneMovieWithDetails(id, false);
+			movieViewDetails.SelectedActorIds = movieViewDetails.Actors.Select(a => a.Id).ToList();
 			
 			ViewBag.Genres = await _manager.GenreService.GetAllGenres(false);
 
