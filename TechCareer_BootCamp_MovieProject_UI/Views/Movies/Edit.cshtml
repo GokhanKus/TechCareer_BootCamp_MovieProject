@@ -74,13 +74,13 @@
 				{
 					<div class="form-check">
 						<input class="form-check-input"
+							   name="genreIds"
 							   type="checkbox"
-							   id="genre_@genre.Value"
-							   name="selectedGenres"
-							   value="@genre.Value"
-						@(genre.Selected ? "checked" : "")>
-						<label class="form-check-label" for="genre_@genre.Value">
-							@genre.Text
+							   value="@genre.Id"
+							   id="genre_@genre.Id"
+						@(Model.Genres.Any(i => i.Id == genre.Id) ? "checked" : "")>
+						<label class="form-check-label" for="genre_@genre.Id">
+							@genre.Name
 						</label>
 					</div>
 				}

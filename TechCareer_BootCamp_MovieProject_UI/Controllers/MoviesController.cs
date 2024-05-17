@@ -33,21 +33,8 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 		public async Task<IActionResult> Edit(int id)
 		{
 			var movieViewDetails = await _manager.MovieService.GetOneMovieWithDetails(id, false);
-			var selectedGenreIds = movieViewDetails.Genres.Select(g => g.Id).ToList();
-			var genres = await _manager.GenreService.GetAllGenres(false); //viewbag ile film turleri liste olarak sayfaya tasiyacagim
-																		  //ViewBag.Genres = new MultiSelectList(genres, "Id", "Name", selectedGenreIds);//ViewData["GenreId"] = new SelectList(genres, "Id", "Name");
-			List<SelectListItem> genreItems = new List<SelectListItem>();
-			foreach (var genre in genres)
-			{
-				SelectListItem item = new SelectListItem
-				{
-					Value = genre.Id.ToString(),
-					Text = genre.Name,
-					Selected = selectedGenreIds.Contains(genre.Id)
-				};
-				genreItems.Add(item);
-			}
-			ViewBag.Genres = genreItems;
+			
+			ViewBag.Genres = await _manager.GenreService.GetAllGenres(false);
 
 			var directors = await _manager.DirectorService.GetAllDirectors(false);
 			ViewData["DirectorId"] = new SelectList(directors, "Id", "FullName");
