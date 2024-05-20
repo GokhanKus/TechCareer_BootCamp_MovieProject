@@ -1,0 +1,108 @@
+﻿@model MovieViewModelWithDetails
+
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Movie</h4>
+<hr />
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group my-3">
+				<label>Select Actors:</label>
+				<select asp-for="SelectedActorIds" class="form-control" asp-items="@(new SelectList(Model.Actors, "Id", "FullName",Model.SelectedActorIds))" multiple></select>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group my-3">
+				<label asp-for="DirectorId" class="control-label">Director:</label>
+				<select asp-for="DirectorId" class="form-control" asp-items="ViewBag.DirectorId"></select>
+			</div>
+
+		</div>
+		<div class="col-md-4">
+			<div class="form-group my-3">
+				<label asp-for="OriginalLanguage" class="control-label">Language:</label>
+				<select asp-for="OriginalLanguage" class="form-control" asp-items="ViewBag.Languages"></select>
+			</div>
+
+		</div>
+
+		<div class="col-md-5">
+			<div class="text-danger" asp-validation-summary="All"></div>
+			<div class="form-group">
+				<label asp-for="Title" class="control-label"></label>
+				<input asp-for="Title" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label asp-for="OriginalTitle" class="control-label"></label>
+				<input asp-for="OriginalTitle" class="form-control" />
+			</div>
+			<div class="form-group">
+				<label asp-for="Plot" class="control-label"></label>
+				<input asp-for="Plot" class="form-control" />
+			</div>
+			<div class="form-group my-3">
+				<label asp-for="PosterPath"></label>
+				<input type="file" name="file" class="form-control" />
+			</div>
+			<div class="form-group my-3">
+				<label asp-for="ReleaseDate" class="control-label"></label>
+				<input asp-for="ReleaseDate" class="form-control" />
+			</div>
+			<div class="form-group my-3">
+				<label asp-for="Score"></label>
+				<input asp-for="Score" class="form-control" />
+			</div>
+			<div class="form-group my-3">
+				<label asp-for="Duration" class="control-label"></label>
+				<input asp-for="Duration" class="form-control" />
+			</div>
+
+			<input type="hidden" asp-for="Id" />
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</div>
+
+		<div class="col-md-4 my-4">
+			<img class="rounded shadow" width="300" src="/MoviePosters/@Model.PosterPath" />
+		</div>
+		<input type="hidden" name="PosterPath" value="@Model.PosterPath" />@*actor guncellerken resmini guncellemezsek hata aliyorduk(resmi siliniyordu), o yuzden eklendi*@
+
+		<div class="col-md-3">
+			<div class="bg-white p-4">
+				<h4>Genres</h4>
+				<hr />
+				@foreach (var genre in ViewBag.Genres)
+				{
+					<div class="form-check">
+						<input class="form-check-input"
+							   name="genreIds"
+							   type="checkbox"
+							   value="@genre.Id"
+							   id="genre_@genre.Id"
+						@(Model.Genres.Any(i => i.Id == genre.Id) ? "checked" : "")>
+						<label class="form-check-label" for="genre_@genre.Id">
+							@genre.Name
+						</label>
+					</div>
+				}
+
+			</div>
+		</div>
+	</div>
+</form>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+
+@* @section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+} *@

@@ -10,7 +10,7 @@ namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels
 		public int? ReleaseDate { get; init; }
 		public double Score { get; init; }
 		public string? Plot { get; init; }
-		public IEnumerable<Genre> Genres { get; set; } = Enumerable.Empty<Genre>();
+		public List<Genre> Genres { get; set; } = new(); //list string genre name
 		//public IEnumerable<ActorByIdAndName>? ActorsByIdAndNames{ get; set; } = Enumerable.Empty<ActorByIdAndName>();
 	}
 }

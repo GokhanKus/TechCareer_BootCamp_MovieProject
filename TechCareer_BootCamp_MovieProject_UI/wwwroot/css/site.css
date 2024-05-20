@@ -20,3 +20,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.long-text {
+    word-wrap: break-word; /* Uzun kelimeleri satýr sonuna kadar kýrpar */
+    white-space: normal; /* Boþluklarý ve dize kesmeleri korur, metni yeni satýrlara böler */
+}
+
+.table th, .table td {
+    max-width: 200px; /* Hücrelerin maksimum geniþliðini ayarlar */
+    overflow: hidden; /* Hücrenin dýþýna taþan içeriði gizler */
+    text-overflow: ellipsis; /* Hücrenin dýþýna taþan içeriði keser ve üç nokta (...) ile gösterir */
+}

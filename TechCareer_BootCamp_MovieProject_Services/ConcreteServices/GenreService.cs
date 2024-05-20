@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		public void CreateOneGenre(Genre genre)
 		{
 			_manager.Genre.Create(genre);
-			_manager.SaveAsync();
+			_manager.Save();
 		}
 
 		public void DeleteOneGenre(int id)
@@ -29,13 +30,13 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			if (genre is not null)
 			{
 				_manager.Genre.DeleteOneGenre(genre);
-				_manager.SaveAsync();
+				_manager.Save();
 			}
 		}
 
 		public async Task<IEnumerable<Genre>> GetAllGenres(bool trackChanges)
 		{
-			return await _manager.Genre.GetAllGenres(trackChanges);
+			return await _manager.Genre.GetAll(trackChanges).ToListAsync();
 		}
 
 		public Genre? GetOneGenre(int? id, bool trackChanges)
@@ -51,7 +52,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			{
 				genreToUpdate.Name = genre.Name;
 				_manager.Genre.UpdateOneGenre(genreToUpdate);
-				_manager.SaveAsync();
+				_manager.Save();
 			}
 		}
 	}

@@ -14,7 +14,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
         FictionalCharacter? GetOneFictionalCharacter(int? id, bool trackChanges);
         IEnumerable<FictionalCharacter> GetAllFictionalCharacters(bool trackChanges);
         Task<IEnumerable<FictionalCharacter>> GetAllFictionalCharsWithActors(bool trackChanges);
-        Task<FictionalCharacter>? GetOneFictionalCharWithActor(int? id);
+        FictionalCharacter? GetOneFictionalCharWithActor(int? id);
         void DeleteOneFictionalCharacter(int id);   
 	}
 }

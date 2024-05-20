@@ -1,17 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
-using TechCareer_BootCamp_MovieProject_Model.ViewModels.SelectDropDownMenuModels;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
-using TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.Context;
 using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
@@ -48,9 +38,41 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 
 			AddToLinkTable(movieViewModel.SelectedActorIds, genreIds, movieToCreate.Id); //many to many olan ara tablolara(genremovie, actormovie)eklemeyi yapalım
 		}
-		private void AddToLinkTable(List<int> movieViewModel, int[] genreIds, int movieToCreateId)
+		public void UpdateOneMovie(MovieViewModelForUpdate movieViewModel, int[] genreIds)
 		{
-			foreach (var actorId in movieViewModel)
+			var movieToUpdate = _mapper.Map<Movie>(movieViewModel);
+			_manager.Movie.UpdateOneMovie(movieToUpdate);
+			//_manager.Save();
+			UpdateToLinkTable(movieViewModel.SelectedActorIds, genreIds, movieToUpdate.Id);
+		}
+
+		private void UpdateToLinkTable(List<int> selectedActorIds, int[] genreIds, int movieToUpdateId)
+		{
+			foreach (var actorId in selectedActorIds)
+			{
+				var actorMovie = new ActorMovie
+				{
+					MovieId = movieToUpdateId,
+					ActorId = actorId
+				};
+				_context.ActorMovie.Update(actorMovie);
+			}
+
+			foreach (var genreId in genreIds)
+			{
+				var genreMovie = new GenreMovie
+				{
+					MovieId = movieToUpdateId,
+					GenreId = genreId
+				};
+				_context.GenreMovie.Update(genreMovie);
+			}
+			_manager.Save();
+		}
+
+		private void AddToLinkTable(List<int> selectedActorIds, int[] genreIds, int movieToCreateId)
+		{
+			foreach (var actorId in selectedActorIds)
 			{
 				var actorMovie = new ActorMovie
 				{
@@ -72,17 +94,16 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		}
 		public void DeleteOneMovie(int id)
 		{
-			throw new NotImplementedException();
+			var movie = _manager.Movie.GetOneMovie(id, false);
+			if (movie is not null)
+			{
+				_manager.Movie.DeleteOneMovie(movie);
+				_manager.Save();
+			}
 		}
-
-		public void UpdateOneProduct(MovieCardModel productDto)
+		public async Task<IEnumerable<MovieCardModel>> GetAllMoviesWithGenres()
 		{
-			throw new NotImplementedException();
-		}
-
-		public IEnumerable<MovieCardModel> GetAllMoviesWithGenres()
-		{
-			var movies = _manager.Movie.GetAllMoviesWithGenres();
+			var movies = await _manager.Movie.GetAllMoviesWithGenres();
 
 			// Mapping logic from Movie entity to MovieViewModel
 
@@ -100,7 +121,12 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 
 		public Movie GetOneMovie(int id, bool trackChanges)
 		{
-			throw new NotImplementedException();
+			var movie = _manager.Movie.GetOneMovie(id, trackChanges);
+
+			if (movie is null)
+				throw new NullReferenceException("movie couldn't find");
+
+			return movie;
 		}
 
 		public IEnumerable<Movie> GetAllMovies(bool trackChanges)
@@ -108,14 +134,53 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			throw new NotImplementedException();
 		}
 
-		public async Task<IEnumerable<ActorByIdAndName>> GetActorsByIdAndName(bool trackChanges)
+		public async Task<MovieViewModelWithDetails>? GetOneMovieWithDetails(int id, bool trackChanges)
 		{
-			var actors = await _manager.Actor.GetAllActors(trackChanges).ToListAsync();
-			return actors.Select(a => new ActorByIdAndName
+			var movieWithDetails = await _manager.Movie.GetOneMovieWithDetails(id, trackChanges);
+			#region AutoMapper oncesi
+			//var movieDto = new MovieViewModelWithDetails
+			//{
+			//	Id = movieWithDetails.Id,
+			//	Duration = movieWithDetails.Duration,
+			//	OriginalLanguage = movieWithDetails.OriginalLanguage,
+			//	Plot = movieWithDetails.Plot,
+			//	PosterPath = movieWithDetails.PosterPath,
+			//	OriginalTitle = movieWithDetails.OriginalTitle,
+			//	Title = movieWithDetails.Title,
+			//	ReleaseDate = movieWithDetails.ReleaseDate,
+			//	Score = movieWithDetails.Score,
+			//	DirectorId = movieWithDetails.DirectorId,
+			//	Director = movieWithDetails.Director,
+			//	Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList(),
+			//	Actors = movieWithDetails.ActorMovies.Select(am => am.Actor).ToList(),
+			//};
+			#endregion
+
+			var movieViewModel = _mapper.Map<MovieViewModelWithDetails>(movieWithDetails);
+			movieViewModel.Actors = movieWithDetails.ActorMovies.Select(am => am.Actor).ToList();
+			movieViewModel.Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList();
+
+			var fictionalCharacters = new List<FictionalCharacter>();
+
+			// Her aktör için kurgusal karakterleri toplayın
+			foreach (var actor in movieWithDetails.ActorMovies)
 			{
-				Id = a.Id,
-				FullName = a.FullName,
-			});
+				fictionalCharacters.AddRange(actor.Actor.FictionalCharacters);
+			}
+			movieViewModel.FictionalCharacters = fictionalCharacters;
+			//actors, genres, director 
+			return movieViewModel;
 		}
 	}
+	//public async Task<IEnumerable<ActorByIdAndName>> GetActorsByIdAndName(bool trackChanges)
+	//{
+	//	var actors = await _manager.Actor.GetAllActors(trackChanges).ToListAsync();
+	//	return actors.Select(a => new ActorByIdAndName
+	//	{
+	//		Id = a.Id,
+	//		FullName = a.FullName,
+	//	});
+	//}
 }
+
+

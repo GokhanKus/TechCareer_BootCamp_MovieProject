@@ -22,7 +22,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 		}
 		public async Task<IActionResult> Index()
 		{
-			var genres =await _manager.GenreService.GetAllGenres(false);
+			var genres = await _manager.GenreService.GetAllGenres(false);
 			return View(genres);
 		}
 

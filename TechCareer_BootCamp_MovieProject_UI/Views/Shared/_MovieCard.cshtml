@@ -1,32 +1,19 @@
 ﻿@model MovieCardModel
 
-
 <div class="movie-card">
-	<img src="~/MoviePosters/@Model.PosterPath?" width="240" />
-	<div class="movie-card__overlay"></div>
+	<div class="movie-card__image">
+		<img src="~/MoviePosters/@Model.PosterPath" alt="@Model.OriginalTitle" width="200"/>
+	</div>
 	<div class="movie-card__content">
-		<div class="movie-card__header">
-			<h1 class="movie-card__title">@Model.OriginalTitle</h1>
-			<h4 class="movie-card__info">IMDB: @Model.Score</h4>
-			<div class="movie-card__info">
-
-				<h4 class="movie-card__info">
-					@Model.ReleaseDate -
-					@foreach (var genre in Model.Genres)
-					{
-						@genre.Name
-						@if (genre != Model.Genres.Last()) // Son genre isminden sonra boşluk bırakmamak için kontrol ekleyin
-						{
-							<span>&amp;</span> <!-- son ture kadar turler arasına "&" karakteri ekleyelim  -->
-						}
-					}
-				</h4>
-			</div>
+		<h2 class="movie-card__title">@Model.OriginalTitle</h2>
+		<div class="movie-card__info">
+			<p>IMDB: @Model.Score</p>
+			<p>@Model.ReleaseDate - @string.Join(" & ", Model.Genres.Select(g => g.Name))</p>
 		</div>
 		<p class="movie-card__desc">@Model.Plot</p>
 		<div class="btn-group">
-			<a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline movie-card__button" type="button"><i class="fa-solid fa-circle-info"></i> Details</a>
-			<button class="btn btn-outline movie-card__button" type="button"><i class="fa-solid fa-heart"></i> Favorite</button>
+			<a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-details"><i class="fa-solid fa-circle-info"></i> Details</a>
+			<button class="btn btn-favorite" type="button"><i class="fa-solid fa-heart"></i> Favorite</button>
 		</div>
 	</div>
 </div>
