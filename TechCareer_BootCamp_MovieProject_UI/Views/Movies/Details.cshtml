@@ -71,24 +71,32 @@
 
 	<div class="col-md-12">
 		<h3>Actors</h3>
-		<div class="actor-container">
-			@foreach (var actor in Model.Actors)
+		<div class="actor-carousel-container">
+			@if (Model.Actors.Count() > 5)
 			{
-				<div class="actor-item">
-					<h4>@actor.FullName</h4>
-					<img class="rounded shadow" width="150" src="~/MovieActors/@actor.ImagePath" />
-
-					<div class="fictional-characters">
-						@foreach (var fictChar in actor.FictionalCharacters)
-						{
-							<span>@fictChar.CharacterName</span>
-						}
+				<button class="scroll-button left" id="scrollLeftButton" onclick="scrollLeft()">&#9664;</button>
+			}
+			<div class="actor-container" id="actorContainer">
+				@foreach (var actor in Model.Actors)
+				{
+					<div class="actor-item">
+						<h4>@actor.FullName</h4>
+						<img class="rounded shadow" width="150" src="~/MovieActors/@actor.ImagePath" />
+						<div class="fictional-characters">
+							@foreach (var fictChar in actor.FictionalCharacters)
+							{
+								<span>@fictChar.CharacterName</span>
+							}
+						</div>
 					</div>
-				</div>
+				}
+			</div>
+			@if (Model.Actors.Count() > 5)
+			{
+				<button class="scroll-button right" id="scrollRightButton" onclick="scrollRight()">&#9654;</button>
 			}
 		</div>
 	</div>
-
 </div>
 
 <div>
@@ -96,5 +104,4 @@
 	<a asp-action="Index">Back to List</a>
 </div>
 
-<div class="movie-container">
-</div>
+<script src="/js/scroll.js"></script>

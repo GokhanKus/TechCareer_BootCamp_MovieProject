@@ -1,19 +1,26 @@
-﻿.actor-container {
-    display: inline-flex;
+﻿.actor-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.actor-container {
+    display: flex;
     flex-wrap: nowrap;
-    /*gap: 20px;*/ /* İstenen boşluk miktarını ayarlayabilirsiniz */
-    justify-content: center; /* Filmleri yatay olarak ortalamak için */
+    overflow-x: auto;
+    scroll-behavior: smooth;
 }
 
 .actor-item {
-    flex: 0 0 calc(33.33% - 10px); /* İstenen sütun sayısını ve aralıkları ayarlayabilirsiniz */
+    flex: 0 0 auto;
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 200px;
+    width: 250px;
     margin: 10px;
+    position: relative;
 }
 
     .actor-item img {
@@ -34,3 +41,23 @@
             display: block;
             margin-bottom: 5px;
         }
+
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+    .scroll-button.left {
+        left: 0;
+    }
+
+    .scroll-button.right {
+        right: 0;
+    }
