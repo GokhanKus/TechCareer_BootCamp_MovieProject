@@ -57,10 +57,10 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 					}
 					movieViewModel.PosterPath = file.FileName;
 				}
-				//else
-				//{
-				//	movieViewModel.PosterPath = "DefaultMovie.jpg";
-				//}
+				else
+				{
+					movieViewModel.PosterPath = "DefaultMovie.jpg";
+				}
 				_manager.MovieService.UpdateOneMovie(movieViewModel, genreIds);
 				return RedirectToAction(nameof(MovieList));
 			}

@@ -1,11 +1,18 @@
 ﻿@model IEnumerable<MovieCardModel>
 
 @section styles {
+
+	
 	<link rel="stylesheet" href="~/css/MovieCard.css" />
 }
 
-<div class="row">
 
+
+@* @section styles {
+    <link rel="stylesheet" href="~/css/MovieCard.css" />
+} *@
+
+<div class="row">
 	<div class="col-md-2">
 		@*buraya film kategorileri eklenecek.*@
 		@*buraya filtreleme eklenecek.*@
@@ -15,14 +22,14 @@
 		<div class="row my-3">
 			@foreach (var movie in Model)
 			{
-				<div class="col-md-6">
+				<div class="col-md-6 col-lg-4 d-flex">
 					<partial name="_MovieCard" model="@movie" />
-					@* @await Html.PartialAsync("_ProductCard",product) *@
 				</div>
 			}
 		</div>
 	</div>
 </div>
+
 
 
 @* @section Footer {

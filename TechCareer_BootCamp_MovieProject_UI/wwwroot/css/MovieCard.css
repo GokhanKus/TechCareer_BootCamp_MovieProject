@@ -1,56 +1,58 @@
 ﻿.movie-card {
-    position: relative;
+    display: flex;
+    flex-direction: column; /* Changed from row to column for better mobile responsiveness */
     width: 100%;
-    max-width: 600px;
+    max-width: 100%; /* Ensure the card does not exceed the width of its container */
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    background-color: black;
+    margin-bottom: 1rem; /* Add margin to separate cards */
 }
 
 .movie-card__image {
+    flex: 0 0 auto; /* Allow the image to take its natural height */
     position: relative;
     overflow: hidden;
+    max-width: 100%; /* Ensure the image does not overflow */
 }
 
     .movie-card__image img {
         width: 100%;
+        height: auto;
         display: block;
     }
 
-.movie-card__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-}
-
 .movie-card__content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    flex: 1;
     padding: 1em;
     color: white;
+    display: flex;
+    flex-direction: column; /* Ensure content stacks properly */
 }
 
 .movie-card__title {
     margin-bottom: 0.5em;
     font-size: 1.2em;
+    color: #ff0050;
 }
 
 .movie-card__info p {
     margin: 0;
     font-size: 0.9em;
+    color:steelblue;
+    font-weight:bold
 }
 
 .movie-card__desc {
     margin-top: 0.5em;
     font-size: 0.9em;
+    flex-grow: 1; /* Allow description to take available space */
 }
 
 .btn-group {
     display: flex;
+    margin-top: 1em;
 }
 
 .btn {
@@ -59,21 +61,25 @@
     border-radius: 4px;
     font-size: 0.9em;
     text-transform: uppercase;
+    /*color: red;*/ /* Set font color to red */
+    /*border: 1px solid red;*/ /* Set border color to red */
+    /*background-color: transparent;*/ /* Ensure background is transparent */
 }
 
 .btn-details {
-    background-color: #2a9fff;
-    color: white;
-    border: none;
+    background-color: transparent; /* Background color for details button */
+    color: white; /* Font color for details button */
+    border: 2px solid steelblue; /* Remove border for details button */
+}
+.btn-details:hover{
+    background-color:steelblue;
 }
 
 .btn-favorite {
-    background-color: transparent;
-    color: #2a9fff;
-    border: 1px solid #2a9fff;
+    background-color: transparent; /* Transparent background for favorite button */
+    color: red; /* Font color for favorite button */
+    border: 2px solid red; /* Border color for favorite button */
 }
-
-    .btn-favorite:hover {
-        background-color: #2a9fff;
-        color: white;
-    }
+.btn-favorite:hover {
+    background-color: red;
+}
