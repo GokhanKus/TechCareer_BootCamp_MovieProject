@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using TechCareer_BootCamp_MovieProject_Model.Entities;
+using TechCareer_BootCamp_MovieProject_Model.Enums;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
 using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
@@ -33,7 +33,10 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 		public async Task<IActionResult> Edit(int id)
 		{
 			var movieViewDetails = await _manager.MovieService.GetOneMovieWithDetails(id, false);
+
 			movieViewDetails.SelectedActorIds = movieViewDetails.Actors.Select(a => a.Id).ToList();
+
+			ViewBag.Languages = new SelectList(Enum.GetValues(typeof(Language)).Cast<Language>());
 
 			ViewBag.Genres = await _manager.GenreService.GetAllGenres(false);
 
@@ -57,10 +60,10 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 					}
 					movieViewModel.PosterPath = file.FileName;
 				}
-				else
-				{
-					movieViewModel.PosterPath = "DefaultMovie.jpg";
-				}
+				//else
+				//{
+				//	movieViewModel.PosterPath = "DefaultMovie.jpg";
+				//}
 				_manager.MovieService.UpdateOneMovie(movieViewModel, genreIds);
 				return RedirectToAction(nameof(MovieList));
 			}

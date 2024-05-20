@@ -8,6 +8,5 @@ namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels
 {
 	public record MovieViewModelForUpdate : MovieViewModelWithDetails
 	{
-		public List<int> SelectedActorIds { get; set; } = new List<int>();
     }
 }

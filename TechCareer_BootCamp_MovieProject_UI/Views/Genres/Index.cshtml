@@ -1,10 +1,10 @@
-﻿@model IEnumerable<TechCareer_BootCamp_MovieProject_Model.Entities.Genre>
+﻿@model IEnumerable<Genre>
 
 @{
 	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Genres</h1>
 
 <p>
 	<a asp-action="Create">Create New</a>
@@ -32,7 +32,7 @@
 					@Html.DisplayFor(modelItem => item.CreatedTime)
 				</td>
 				<td>
-					<a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+					<a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
 					<a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a> |
 					<a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 				</td>

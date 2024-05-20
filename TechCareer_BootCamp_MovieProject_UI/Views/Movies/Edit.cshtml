@@ -1,4 +1,4 @@
-﻿@model MovieViewModelForUpdate
+﻿@model MovieViewModelWithDetails
 
 @{
 	ViewData["Title"] = "Edit";
@@ -23,7 +23,15 @@
 			</div>
 
 		</div>
-		<div class="col-md-8">
+		<div class="col-md-4">
+			<div class="form-group my-3">
+				<label asp-for="OriginalLanguage" class="control-label">Language:</label>
+				<select asp-for="OriginalLanguage" class="form-control" asp-items="ViewBag.Languages"></select>
+			</div>
+
+		</div>
+
+		<div class="col-md-5">
 			<div class="text-danger" asp-validation-summary="All"></div>
 			<div class="form-group">
 				<label asp-for="Title" class="control-label"></label>
@@ -41,10 +49,6 @@
 				<label asp-for="PosterPath"></label>
 				<input type="file" name="file" class="form-control" />
 			</div>
-			@* <div class="form-group">
-				<label asp-for="OriginalLanguage" class="control-label"></label>
-				<select asp-for="OriginalLanguage" class="form-control"></select>
-			</div> *@
 			<div class="form-group my-3">
 				<label asp-for="ReleaseDate" class="control-label"></label>
 				<input asp-for="ReleaseDate" class="form-control" />
@@ -57,13 +61,19 @@
 				<label asp-for="Duration" class="control-label"></label>
 				<input asp-for="Duration" class="form-control" />
 			</div>
-			
+
 			<input type="hidden" asp-for="Id" />
 			<div class="form-group">
 				<input type="submit" value="Save" class="btn btn-primary" />
 			</div>
 		</div>
-		<div class="col-md-4">
+
+		<div class="col-md-4 my-4">
+			<img class="rounded shadow" width="300" src="/MoviePosters/@Model.PosterPath" />
+		</div>
+		<input type="hidden" name="PosterPath" value="@Model.PosterPath" />@*actor guncellerken resmini guncellemezsek hata aliyorduk(resmi siliniyordu), o yuzden eklendi*@
+
+		<div class="col-md-3">
 			<div class="bg-white p-4">
 				<h4>Genres</h4>
 				<hr />
@@ -91,8 +101,8 @@
 	<a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
+@* @section Scripts {
 	@{
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");
 	}
-}
+} *@

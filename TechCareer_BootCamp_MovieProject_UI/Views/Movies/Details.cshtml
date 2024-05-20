@@ -7,78 +7,94 @@
 <h1>Details</h1>
 
 <div class="row">
-    <div class="col-md-4">
-        <img class="border border-light rounded" width="350" src="~/MoviePosters/@Model.PosterPath" alt="@Model.PosterPath" />
-    </div>
-    <div class="col-md-8">
-        <h4>@Html.DisplayFor(model => model.OriginalTitle)</h4>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Title)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Plot)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Plot)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.OriginalLanguage)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.OriginalLanguage)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ReleaseDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ReleaseDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Score)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Score)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Duration)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Duration)
-            </dd>
-            <dt class="col-sm-2">
-                Director
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Director.FullName)
-            </dd>
-            <dt class="col-sm-2">
-                Actors
-            </dt>
-            <dd class="col-sm-10">
-                @foreach (var actor in Model.Actors)
-                {
-                    <div>@actor.FullName</div>
-                }
-            </dd>
-            <dt class="col-sm-2">
-                Genres
-            </dt>
-            <dd class="col-sm-10">
-                @foreach (var genre in Model.Genres)
-                {
-                    <div>@genre.Name</div>
-                }
-            </dd>
-        </dl>
-    </div>
+	<div class="col-md-4">
+		<img class="border border-light rounded" width="350" src="~/MoviePosters/@Model.PosterPath" alt="@Model.PosterPath" />
+	</div>
+	<div class="col-md-8">
+		<h4>@Html.DisplayFor(model => model.OriginalTitle)</h4>
+		<hr />
+		<dl class="row">
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.Title)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.Title)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.Plot)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.Plot)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.OriginalLanguage)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.OriginalLanguage)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.ReleaseDate)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.ReleaseDate)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.Score)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.Score)
+			</dd>
+			<dt class="col-sm-2">
+				@Html.DisplayNameFor(model => model.Duration)
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.Duration)
+			</dd>
+			<dt class="col-sm-2">
+				Director
+			</dt>
+			<dd class="col-sm-10">
+				@Html.DisplayFor(model => model.Director.FullName)
+			</dd>
+
+			<dt class="col-sm-2">
+				Genres
+			</dt>
+			<dd class="col-sm-10">
+				@foreach (var genre in Model.Genres)
+				{
+					<div>@genre.Name</div>
+				}
+			</dd>
+		</dl>
+	</div>
+
+	<div class="col-md-12">
+		<h3>Actors</h3>
+		<div class="actor-container">
+			@foreach (var actor in Model.Actors)
+			{
+				<div class="actor-item">
+					<h4>@actor.FullName</h4>
+					<img class="rounded shadow" width="150" src="~/MovieActors/@actor.ImagePath" />
+
+					<div class="fictional-characters">
+						@foreach (var fictChar in actor.FictionalCharacters)
+						{
+							<span>@fictChar.CharacterName</span>
+						}
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+
 </div>
 
 <div>
 	<a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
 	<a asp-action="Index">Back to List</a>
+</div>
+
+<div class="movie-container">
 </div>

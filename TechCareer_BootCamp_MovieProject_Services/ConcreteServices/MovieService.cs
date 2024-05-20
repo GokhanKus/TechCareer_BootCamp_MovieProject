@@ -1,18 +1,7 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using TechCareer_BootCamp_MovieProject_Model.BaseEntities;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
-using TechCareer_BootCamp_MovieProject_Model.ViewModels.SelectDropDownMenuModels;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
-using TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.Context;
 using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
@@ -145,7 +134,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			throw new NotImplementedException();
 		}
 
-		public async Task<MovieViewModelForUpdate>? GetOneMovieWithDetails(int id, bool trackChanges)
+		public async Task<MovieViewModelWithDetails>? GetOneMovieWithDetails(int id, bool trackChanges)
 		{
 			var movieWithDetails = await _manager.Movie.GetOneMovieWithDetails(id, trackChanges);
 			#region AutoMapper oncesi
@@ -167,9 +156,18 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			//};
 			#endregion
 
-			var movieViewModel = _mapper.Map<MovieViewModelForUpdate>(movieWithDetails);
+			var movieViewModel = _mapper.Map<MovieViewModelWithDetails>(movieWithDetails);
 			movieViewModel.Actors = movieWithDetails.ActorMovies.Select(am => am.Actor).ToList();
 			movieViewModel.Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList();
+
+			var fictionalCharacters = new List<FictionalCharacter>();
+
+			// Her aktör için kurgusal karakterleri toplayın
+			foreach (var actor in movieWithDetails.ActorMovies)
+			{
+				fictionalCharacters.AddRange(actor.Actor.FictionalCharacters);
+			}
+			movieViewModel.FictionalCharacters = fictionalCharacters;
 			//actors, genres, director 
 			return movieViewModel;
 		}

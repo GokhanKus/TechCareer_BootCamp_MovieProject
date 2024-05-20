@@ -1,12 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
-using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.BaseRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.Context;
@@ -51,7 +44,7 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		public async Task<Movie> GetOneMovieWithDetails(int id, bool trackChanges)
 		{
 			var movieViewDetails = await _context.Movies.Where(m => m.Id == id)
-				.Include(m => m.ActorMovies).ThenInclude(am => am.Actor)
+				.Include(m => m.ActorMovies).ThenInclude(am => am.Actor).ThenInclude(maf=>maf.FictionalCharacters)
 				.Include(m => m.GenreMovies).ThenInclude(gm => gm.Genre)
 				.Include(m => m.Director)
 				.FirstOrDefaultAsync();
