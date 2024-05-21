@@ -21,7 +21,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		public void CreateOneFictionalCharacter(FictionalCharacter fictionalCharacter)
 		{
 			_manager.FictionalCharacter.Create(fictionalCharacter);
-			_manager.SaveAsync();
+			_manager.Save();
 		}
 
 		public void DeleteOneFictionalCharacter(int id)
@@ -30,7 +30,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			if (fictChar is not null)
 			{
 				_manager.FictionalCharacter.Delete(fictChar);
-				_manager.SaveAsync();
+				_manager.Save();
 			}
 		}
 
@@ -50,15 +50,15 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			return _manager.FictionalCharacter.GetByCondition(f => f.Id == id, false);
 		}
 
-		public async Task<FictionalCharacter>? GetOneFictionalCharWithActor(int? id)
+		public FictionalCharacter? GetOneFictionalCharWithActor(int? id)
 		{
-			return await _manager.FictionalCharacter.GetOneFictionalCharWithActor(id);
+			return _manager.FictionalCharacter.GetOneFictionalCharWithActor(id);
 		}
 
 		public void UpdateOneFictionalCharacter(FictionalCharacter fictionalCharacter)
 		{
 			_manager.FictionalCharacter.Update(fictionalCharacter);
-			_manager.SaveAsync();
+			_manager.Save();
 		}
 	}
 }

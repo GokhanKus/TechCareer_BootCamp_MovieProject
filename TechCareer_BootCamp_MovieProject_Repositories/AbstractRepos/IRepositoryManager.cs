@@ -13,6 +13,6 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos
 		IFictionalCharacterRepository FictionalCharacter { get; }
 		IGenreRepository Genre { get; }
 		IMovieRepository Movie { get; }
-		public void SaveAsync();
+		public void Save();
 	}
 }

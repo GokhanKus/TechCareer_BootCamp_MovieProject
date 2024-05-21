@@ -27,7 +27,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			#endregion
 			var actorToCreate = _mapper.Map<Actor>(actorViewModel);
 			_manager.Actor.CreateOneActor(actorToCreate);
-			_manager.SaveAsync();
+			_manager.Save();
 		}
 
 		public void DeleteOneActor(int id)
@@ -36,7 +36,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			if (actor is not null)
 			{
 				_manager.Actor.DeleteOneActor(actor);
-				_manager.SaveAsync();
+				_manager.Save();
 			}
 		}
 
@@ -119,7 +119,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			#endregion
 			var actorToUpdate = _mapper.Map<Actor>(actorViewModel);
 			_manager.Actor.UpdateOneActor(actorToUpdate);
-			_manager.SaveAsync();
+			_manager.Save();
 		}
 	}
 }

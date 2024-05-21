@@ -6,8 +6,10 @@
 
 <div class="row">
 	<div class="col-md-2">
-		@*buraya film kategorileri eklenecek.*@
-		@*buraya filtreleme eklenecek.*@
+		@* <vc:genre-menu></vc:genre-menu> *@
+		@* <vc:movie-filter-menu></vc:movie-filter-menu> *@
+		@await Component.InvokeAsync("GenreMenu")
+		@await Component.InvokeAsync("MovieFilterMenu")
 	</div>
 
 	<div class="col-md-10">
