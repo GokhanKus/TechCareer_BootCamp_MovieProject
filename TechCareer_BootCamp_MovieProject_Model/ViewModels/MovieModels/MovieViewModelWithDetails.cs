@@ -19,7 +19,6 @@ namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels
 		public string? Title { get; init; } //navigation property
 		public IEnumerable<Actor> Actors { get; set; } = Enumerable.Empty<Actor>(); // list string actor name
 		public List<int> SelectedActorIds { get; set; } = new List<int>();
-		public IEnumerable<FictionalCharacter> FictionalCharacters { get; set; } = Enumerable.Empty<FictionalCharacter>();
 		//public int[] ActorIds { get; init; } = Array.Empty<int>();
 	}
 }

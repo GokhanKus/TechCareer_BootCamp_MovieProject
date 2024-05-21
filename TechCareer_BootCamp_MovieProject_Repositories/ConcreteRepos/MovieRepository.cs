@@ -44,7 +44,7 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		public async Task<Movie> GetOneMovieWithDetails(int id, bool trackChanges)
 		{
 			var movieViewDetails = await _context.Movies.Where(m => m.Id == id)
-				.Include(m => m.ActorMovies).ThenInclude(am => am.Actor).ThenInclude(maf=>maf.FictionalCharacters)
+				.Include(m => m.ActorMovies).ThenInclude(am => am.Actor)
 				.Include(m => m.GenreMovies).ThenInclude(gm => gm.Genre)
 				.Include(m => m.Director)
 				.FirstOrDefaultAsync();

@@ -17,6 +17,21 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		{
 
 		}
+
+		public void CreateOneFictionalCharacter(FictionalCharacter fictionalChar)
+		{
+			Create(fictionalChar);
+		}
+
+		public void DeleteOneFictionalCharacter(FictionalCharacter fictionalChar)
+		{
+			Delete(fictionalChar);
+		}
+		public void UpdateOneFictionalCharacter(FictionalCharacter fictionalChar)
+		{
+			Update(fictionalChar);
+		}
+
 		public async Task<IEnumerable<FictionalCharacter>> GetAllFictionalCharsWithActors(bool trackChanges)
 		{
 			var fictCharsWithActor = await _context.FictionalCharacters.Include(f => f.Actor).ToListAsync();
@@ -27,5 +42,7 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 			var fictCharWithActor = _context.FictionalCharacters.Include(f => f.Actor).FirstOrDefault(f => f.Id == id);
 			return fictCharWithActor;
 		}
+
+
 	}
 }
