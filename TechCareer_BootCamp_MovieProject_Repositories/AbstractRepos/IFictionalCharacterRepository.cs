@@ -12,5 +12,8 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos
 	{
 		Task<IEnumerable<FictionalCharacter>> GetAllFictionalCharsWithActors(bool trackChanges);
 		FictionalCharacter? GetOneFictionalCharWithActor(int? id);
+		void CreateOneFictionalCharacter(FictionalCharacter fictionalChar);
+		void DeleteOneFictionalCharacter(FictionalCharacter fictionalChar);
+		void UpdateOneFictionalCharacter(FictionalCharacter fictionalChar);
 	}
 }

@@ -66,6 +66,10 @@
 					<div>@genre.Name</div>
 				}
 			</dd>
+			<div class="my-3">
+				<a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.Id"><i class="fa fa-solid fa-edit"></i> Edit</a> |
+				<a class="btn btn-primary" asp-action="Index"><i class="fa fa-solid fa-arrow-rotate-left"></i> Back to List</a>
+			</div>
 		</dl>
 	</div>
 
@@ -82,12 +86,6 @@
 					<div class="actor-item">
 						<h4>@actor.FullName</h4>
 						<img class="rounded shadow" width="150" src="~/MovieActors/@actor.ImagePath" />
-						<div class="fictional-characters">
-							@foreach (var fictChar in actor.FictionalCharacters)
-							{
-								<span>@fictChar.CharacterName</span>
-							}
-						</div>
 					</div>
 				}
 			</div>
@@ -99,9 +97,6 @@
 	</div>
 </div>
 
-<div>
-	<a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-	<a asp-action="Index">Back to List</a>
-</div>
+
 
 <script src="/js/scroll.js"></script>

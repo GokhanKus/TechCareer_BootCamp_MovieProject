@@ -160,14 +160,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			movieViewModel.Actors = movieWithDetails.ActorMovies.Select(am => am.Actor).ToList();
 			movieViewModel.Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList();
 
-			var fictionalCharacters = new List<FictionalCharacter>();
-
-			// Her aktör için kurgusal karakterleri toplayın
-			foreach (var actor in movieWithDetails.ActorMovies)
-			{
-				fictionalCharacters.AddRange(actor.Actor.FictionalCharacters);
-			}
-			movieViewModel.FictionalCharacters = fictionalCharacters;
+			
 			//actors, genres, director 
 			return movieViewModel;
 		}
