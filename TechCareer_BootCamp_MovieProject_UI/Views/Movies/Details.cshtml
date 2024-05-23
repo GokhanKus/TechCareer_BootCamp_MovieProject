@@ -54,7 +54,7 @@
 				Director
 			</dt>
 			<dd class="col-sm-10">
-				@Html.DisplayFor(model => model.Director.FullName)
+				<a asp-controller="Directors" asp-action="Details" asp-route-id="@Model.Director.Id">@Html.DisplayFor(model => model.Director.FullName)</a>
 			</dd>
 
 			<dt class="col-sm-2">
@@ -83,8 +83,10 @@
 				@foreach (var actor in Model.Actors)
 				{
 					<div class="actor-item">
-						<h4>@actor.FullName</h4>
-						<img class="rounded shadow" width="150" src="~/MovieActors/@actor.ImagePath" />
+						<a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">
+							<h4>@actor.FullName</h4>
+							<img class="rounded shadow" width="150" src="~/MovieActors/@actor.ImagePath" />
+						</a>
 					</div>
 				}
 			</div>
