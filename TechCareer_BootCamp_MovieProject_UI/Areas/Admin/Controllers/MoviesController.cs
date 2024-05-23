@@ -57,6 +57,25 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 			}
 			return View(movieViewModel);
 		}
+		public async Task<IActionResult> Create()
+		{
+			#region MultipleSelect 1. yontem for Actors
+			//var actors = await _manager.MovieService.GetActorsByIdAndName(false);
+			//var selectedActorIds = new List<int>();
+			//ViewBag.Actors = new MultiSelectList(actors, "Id", "FullName", selectedActorIds);
+			#endregion
+
+			ViewBag.Genres = _manager.GenreService.GetAllGenres(false); //viewbag ile film turleri liste olarak sayfaya tasiyacagim
+			var viewModel = new MovieViewModelForInsertion //classtaki prop'u (List<Actor'u>) sayfaya model olarak gonderelim 
+			{
+				Actors = await _manager.ActorService.GetAllActors(false)
+			};
+
+			var directors = await _manager.DirectorService.GetAllDirectors(false);
+			ViewData["DirectorId"] = new SelectList(directors, "Id", "FullName");
+
+			return View(viewModel);
+		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
@@ -78,29 +97,11 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 					movieViewModel.PosterPath = "DefaultMovie.jpg";
 				}
 				_manager.MovieService.CreateOneMovie(movieViewModel, genreIds);
+				TempData["success"] = $"{movieViewModel.OriginalTitle} has been created.";
 				return RedirectToAction(nameof(Index));
 			}
 
 			return View(movieViewModel);
-		}
-		public async Task<IActionResult> Create()
-		{
-			#region MultipleSelect 1. yontem for Actors
-			//var actors = await _manager.MovieService.GetActorsByIdAndName(false);
-			//var selectedActorIds = new List<int>();
-			//ViewBag.Actors = new MultiSelectList(actors, "Id", "FullName", selectedActorIds);
-			#endregion
-
-			ViewBag.Genres = _manager.GenreService.GetAllGenres(false); //viewbag ile film turleri liste olarak sayfaya tasiyacagim
-			var viewModel = new MovieViewModelForInsertion //classtaki prop'u (List<Actor'u>) sayfaya model olarak gonderelim 
-			{
-				Actors = await _manager.ActorService.GetAllActors(false)
-			};
-
-			var directors = await _manager.DirectorService.GetAllDirectors(false);
-			ViewData["DirectorId"] = new SelectList(directors, "Id", "FullName");
-
-			return View(viewModel);
 		}
 
 		public IActionResult Delete(int id)
@@ -122,6 +123,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 			{
 				_manager.MovieService.DeleteOneMovie(id);
 			}
+			TempData["danger"] = $"The product has been removed";
 			return RedirectToAction(nameof(Index));
 		}
 	}
