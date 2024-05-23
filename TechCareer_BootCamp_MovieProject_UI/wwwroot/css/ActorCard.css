@@ -29,6 +29,15 @@
         border-radius: 5px;
     }
 
+    .actor-item a {
+        text-decoration: none;
+        color: inherit; /* Bu, bağlantının rengini mevcut metin rengi ile aynı yapar */
+    }
+
+        .actor-item a:hover {
+            color: #007bff; /* Bu, fare ile üzerine gelindiğinde bağlantının rengini değiştirir */
+        }
+
     .actor-item h4 {
         margin: 0;
     }

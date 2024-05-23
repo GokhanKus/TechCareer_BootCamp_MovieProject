@@ -24,8 +24,10 @@
 				@foreach (var movie in Model.Movies)
 				{
 					<div class="movie-item">
-						<h4>@movie.OriginalTitle</h4>
-						<img class="rounded shadow" width="150" src="~/MoviePosters/@movie.PosterPath" />
+						<a asp-controller="Movies" asp-action="Details" asp-route-id="@movie.Id">
+							<h4>@movie.OriginalTitle</h4>
+							<img class="rounded shadow" width="150" src="~/MoviePosters/@movie.PosterPath" />
+						</a>
 					</div>
 				}
 			</div>
@@ -53,8 +55,4 @@
 		</div>
 
 	</dl>
-</div>
-<div>
-	<a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-	<a asp-action="Index">Back to List</a>
 </div>

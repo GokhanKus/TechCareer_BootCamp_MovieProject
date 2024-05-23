@@ -22,6 +22,15 @@
         border-radius: 5px;
     }
 
+    .movie-item a {
+        text-decoration: none;
+        color: inherit; /* Bu, bağlantının rengini mevcut metin rengi ile aynı yapar */
+    }
+
+        .movie-item a:hover {
+            color: #007bff; /* Bu, fare ile üzerine gelindiğinde bağlantının rengini değiştirir */
+        }
+
     .movie-item h4 {
         margin: 0;
     }
