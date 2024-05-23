@@ -34,9 +34,9 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			}
 		}
 
-		public async Task<IEnumerable<Genre>> GetAllGenres(bool trackChanges)
+		public IEnumerable<Genre> GetAllGenres(bool trackChanges)
 		{
-			return await _manager.Genre.GetAll(trackChanges).ToListAsync();
+			return _manager.Genre.GetAll(trackChanges);
 		}
 
 		public Genre? GetOneGenre(int? id, bool trackChanges)

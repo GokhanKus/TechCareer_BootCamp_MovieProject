@@ -20,9 +20,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			//_context = context;
 			_manager = manager;
 		}
-		public async Task<IActionResult> Index()
+		public IActionResult Index()
 		{
-			var genres = await _manager.GenreService.GetAllGenres(false);
+			var genres = _manager.GenreService.GetAllGenres(false);
 			return View(genres);
 		}
 

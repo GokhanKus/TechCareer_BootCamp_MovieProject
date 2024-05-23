@@ -38,7 +38,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 
 			ViewBag.Languages = new SelectList(Enum.GetValues(typeof(Language)).Cast<Language>());
 
-			ViewBag.Genres = await _manager.GenreService.GetAllGenres(false);
+			ViewBag.Genres = _manager.GenreService.GetAllGenres(false);
 
 			var directors = await _manager.DirectorService.GetAllDirectors(false);
 			ViewData["DirectorId"] = new SelectList(directors, "Id", "FullName");
@@ -103,7 +103,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			//ViewBag.Actors = new MultiSelectList(actors, "Id", "FullName", selectedActorIds);
 			#endregion
 
-			ViewBag.Genres = await _manager.GenreService.GetAllGenres(false); //viewbag ile film turleri liste olarak sayfaya tasiyacagim
+			ViewBag.Genres = _manager.GenreService.GetAllGenres(false); //viewbag ile film turleri liste olarak sayfaya tasiyacagim
 			var viewModel = new MovieViewModelForInsertion //classtaki prop'u (List<Actor'u>) sayfaya model olarak gonderelim 
 			{
 				Actors = await _manager.ActorService.GetAllActors(false)

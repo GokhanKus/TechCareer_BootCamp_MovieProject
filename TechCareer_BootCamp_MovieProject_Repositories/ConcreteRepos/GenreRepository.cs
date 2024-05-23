@@ -30,9 +30,9 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		{
 			Update(genre);
 		}
-		public async Task<IEnumerable<Genre>> GetAllGenres(bool trackChanges)
+		public IQueryable<Genre> GetAllGenres(bool trackChanges)
 		{
-			return await GetAll(trackChanges).ToListAsync();
+			return GetAll(trackChanges);
 		}
 		public Genre? GetOneGenre(int? id, bool trackChanges)
 		{
