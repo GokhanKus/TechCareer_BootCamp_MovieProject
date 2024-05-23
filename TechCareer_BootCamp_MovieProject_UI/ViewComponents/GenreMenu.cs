@@ -13,9 +13,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.ViewComponents
             _manager = manager;
         }
         //geriye bir view nesnesi dönmesini istedigim icin IViewComponentResult kullandim, illa geriye view donmek zorunda degil string bile donebilir
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
-            var genres = await _manager.GenreService.GetAllGenres(false);
+            var genres = _manager.GenreService.GetAllGenres(false);
             return View(genres);
         }
     }
