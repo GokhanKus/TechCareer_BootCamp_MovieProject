@@ -1,1 +1,56 @@
-﻿
+﻿@model IEnumerable<Director>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<h1>Director List</h1>
+
+<p>
+	<a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.FullName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.DoB)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.PlaceOfBirth)
+			</th>
+			<th>
+				Image
+			</th>
+			
+			<th>Operations</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.FullName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DoB)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.PlaceOfBirth)
+				</td>
+				<td>
+					<img class="border border-light rounded" src="/MovieActors/@item.ImagePath" alt="@item.ImagePath" width="250" />
+				</td>
+				
+				<td>
+					<a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+					<a target="_blank" class="btn btn-info btn-sm" asp-area="" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+					<a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
