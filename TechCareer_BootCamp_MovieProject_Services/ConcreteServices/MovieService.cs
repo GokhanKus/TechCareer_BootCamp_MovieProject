@@ -131,7 +131,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 
 		public IEnumerable<Movie> GetAllMovies(bool trackChanges)
 		{
-			throw new NotImplementedException();
+			return _manager.Movie.GetAllMovies(trackChanges);
 		}
 
 		public async Task<MovieViewModelWithDetails>? GetOneMovieWithDetails(int id, bool trackChanges)
