@@ -11,11 +11,6 @@
 	<link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/Movie.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/css/ActorCard.css" asp-append-version="true" />
-	<!-- Diğer stil dosyaları -->
-	@if (IsSectionDefined("styles")) @*movie => index.cshtml*@
-	{
-		@RenderSection("styles", required: false)
-	}
 </head>
 <body>
 	<header>
