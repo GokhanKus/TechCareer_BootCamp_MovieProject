@@ -1,0 +1,25 @@
+﻿body {
+    background-color: #131415;
+    color: white; /* Opsiyonel: Metin rengini beyaz yapabilirsiniz */
+}
+
+.list-group-item {
+    font-weight: bold;
+    color: steelblue;
+    background-color: #131415;
+    border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.form-control {
+    color: #212529;
+    background-color: #211c1c;
+    border: 1px solid #202122;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+    .form-control:focus {
+        background-color: black !important;
+        color: white !important;
+        border-color: #777 !important; /* Opsiyonel: Border rengini odaklandığında değiştirebilirsiniz */
+        outline: none; /* Opsiyonel: Varsayılan odaklandığında çıkan mavi outline'ı kaldırabilirsiniz */
+    }

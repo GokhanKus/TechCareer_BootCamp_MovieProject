@@ -53,6 +53,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 					movieViewModel.PosterPath = file.FileName;
 				}
 				_manager.MovieService.UpdateOneMovie(movieViewModel, genreIds);
+				TempData["info"] = $"{movieViewModel.OriginalTitle} has been modified.";
 				return RedirectToAction(nameof(Index));
 			}
 			return View(movieViewModel);

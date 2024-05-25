@@ -4,7 +4,11 @@
 	ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+@section styles {
+	<link rel="stylesheet" href="~/css/DarkMode.css" />
+}
+
+<h1 class="my-2">Details</h1>
 
 <div class="row">
 	<div class="col-md-4">
@@ -73,7 +77,7 @@
 	</div>
 
 	<div class="col-md-12">
-		<h3>Actors</h3>
+		<h3 class="my-2">Actors</h3>
 		<div class="actor-carousel-container">
 			@if (Model.Actors.Count() > 5)
 			{
