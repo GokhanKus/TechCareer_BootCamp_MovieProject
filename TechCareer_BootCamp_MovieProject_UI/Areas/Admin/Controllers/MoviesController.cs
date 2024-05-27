@@ -24,7 +24,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 		}
 		public async Task<IActionResult> Edit(int id)
 		{
-			var movieViewDetails = await _manager.MovieService.GetOneMovieWithDetails(id, false);
+			var movieViewDetails = await _manager.MovieService.GetOneMovieForUpdate(id, false);
 
 			ViewBag.Languages = new SelectList(Enum.GetValues(typeof(Language)).Cast<Language>());
 			ViewBag.Genres = _manager.GenreService.GetAllGenres(false);
