@@ -12,6 +12,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 	public interface IMovieService
 	{
 		Movie GetOneMovie(int id, bool trackChanges);
+		Task<MovieViewModelForUpdate>? GetOneMovieForUpdate(int id, bool trackChanges);
 		Task<MovieViewModelWithDetails>? GetOneMovieWithDetails(int id, bool trackChanges);
 		Task<IEnumerable<MovieCardModel>> GetAllMoviesWithGenres();
 		IEnumerable<Movie> GetAllMovies(bool trackChanges);
