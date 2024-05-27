@@ -157,9 +157,9 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			#endregion
 
 			var movieViewModel = _mapper.Map<MovieViewModelWithDetails>(movieWithDetails);
-			movieViewModel.Actors = movieWithDetails.ActorMovies.Select(am => am.Actor).ToList();
+			movieViewModel.Actors = await _manager.Actor.GetAllActors(trackChanges);//butun actorleri getirir
+			movieViewModel.SelectedActorIds = movieWithDetails.ActorMovies.Select(am=>am.ActorId).ToList(); //o filme ait actorleri getirir
 			movieViewModel.Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList();
-
 			
 			//actors, genres, director 
 			return movieViewModel;

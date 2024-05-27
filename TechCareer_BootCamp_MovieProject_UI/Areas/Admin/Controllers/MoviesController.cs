@@ -26,10 +26,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 		{
 			var movieViewDetails = await _manager.MovieService.GetOneMovieWithDetails(id, false);
 
-			movieViewDetails.SelectedActorIds = movieViewDetails.Actors.Select(a => a.Id).ToList();
-
 			ViewBag.Languages = new SelectList(Enum.GetValues(typeof(Language)).Cast<Language>());
-
 			ViewBag.Genres = _manager.GenreService.GetAllGenres(false);
 
 			var directors = await _manager.DirectorService.GetAllDirectors(false);

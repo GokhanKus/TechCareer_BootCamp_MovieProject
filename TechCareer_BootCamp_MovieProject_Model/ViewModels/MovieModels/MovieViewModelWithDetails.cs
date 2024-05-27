@@ -15,8 +15,8 @@ namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels
 		public Language OriginalLanguage { get; init; }
 		public TimeSpan Duration { get; set; }
 		public Director? Director { get; init; } //navigation property
-		public int? DirectorId { get; init; } //navigation property
-		public string? Title { get; init; } //navigation property
+		public int? DirectorId { get; init; } 
+		public string? Title { get; init; }
 		public IEnumerable<Actor> Actors { get; set; } = Enumerable.Empty<Actor>(); // list string actor name
 		public List<int> SelectedActorIds { get; set; } = new List<int>();
 		//public int[] ActorIds { get; init; } = Array.Empty<int>();
