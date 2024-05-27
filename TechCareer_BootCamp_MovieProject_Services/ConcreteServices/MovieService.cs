@@ -40,14 +40,30 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		}
 		public void UpdateOneMovie(MovieViewModelForUpdate movieViewModel, int[] genreIds)
 		{
-			var movieToUpdate = _mapper.Map<Movie>(movieViewModel);
-			_manager.Movie.UpdateOneMovie(movieToUpdate);
-			//_manager.Save();
-			UpdateToLinkTable(movieViewModel.SelectedActorIds, genreIds, movieToUpdate.Id);
+			using (var transaction = _context.Database.BeginTransaction())
+			{
+				//tum degisiklikler transaction icerisine kaydedilir hata olmasi durumunda geri alinir, basarili olmasi durumunda degisikliklerin kalici olmasi saglanir
+				//amac veri butunlugunu korumaktır.
+				try
+				{
+					var movieToUpdate = _mapper.Map<Movie>(movieViewModel);
+					_manager.Movie.UpdateOneMovie(movieToUpdate);
+					//_manager.Save();
+					UpdateToLinkTable(movieViewModel.SelectedActorIds, genreIds, movieToUpdate.Id);
+
+					transaction.Commit(); //islem basarili olursa transactionu tamamlayalim
+				}
+				catch (Exception ex)
+				{
+					transaction.Rollback(); //bir hata durumunda db'ye yapilan tum degisiklikleri geri al
+					throw new Exception(ex.Message);
+				}
+			}
 		}
 
 		private void UpdateToLinkTable(List<int> selectedActorIds, int[] genreIds, int movieToUpdateId)
 		{
+			RemoveRelations(movieToUpdateId);
 			foreach (var actorId in selectedActorIds)
 			{
 				var actorMovie = new ActorMovie
@@ -55,7 +71,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 					MovieId = movieToUpdateId,
 					ActorId = actorId
 				};
-				_context.ActorMovie.Update(actorMovie);
+				_context.ActorMovie.Add(actorMovie);
 			}
 
 			foreach (var genreId in genreIds)
@@ -65,11 +81,11 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 					MovieId = movieToUpdateId,
 					GenreId = genreId
 				};
-				_context.GenreMovie.Update(genreMovie);
+				_context.GenreMovie.Add(genreMovie);
 			}
 			_manager.Save();
 		}
-
+		//UpdateToLinkTable ve AddToLinkTable tablolarin icerigi ayni farklı metoda tasinabilir
 		private void AddToLinkTable(List<int> selectedActorIds, int[] genreIds, int movieToCreateId)
 		{
 			foreach (var actorId in selectedActorIds)
@@ -90,6 +106,14 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 				};
 				_context.GenreMovie.Add(genreMovie);
 			}
+			_manager.Save();
+		}
+		private void RemoveRelations(int movieToUpdateId)
+		{
+			var existingActorMovies = _context.ActorMovie.Where(am => am.MovieId == movieToUpdateId).ToList();
+			var existingGenreMovies = _context.GenreMovie.Where(gm => gm.MovieId == movieToUpdateId).ToList();
+			_context.ActorMovie.RemoveRange(existingActorMovies);
+			_context.GenreMovie.RemoveRange(existingGenreMovies);
 			_manager.Save();
 		}
 		public void DeleteOneMovie(int id)
@@ -118,7 +142,6 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 				Genres = m.GenreMovies.Select(gm => gm.Genre).ToList()
 			}).ToList();
 		}
-
 		public Movie GetOneMovie(int id, bool trackChanges)
 		{
 			var movie = _manager.Movie.GetOneMovie(id, trackChanges);
@@ -128,13 +151,11 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 
 			return movie;
 		}
-
 		public IEnumerable<Movie> GetAllMovies(bool trackChanges)
 		{
 			return _manager.Movie.GetAllMovies(trackChanges);
 		}
-
-		public async Task<MovieViewModelWithDetails>? GetOneMovieWithDetails(int id, bool trackChanges)
+		public async Task<MovieViewModelForUpdate>? GetOneMovieForUpdate(int id, bool trackChanges)
 		{
 			var movieWithDetails = await _manager.Movie.GetOneMovieWithDetails(id, trackChanges);
 			#region AutoMapper oncesi
@@ -156,12 +177,20 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			//};
 			#endregion
 
-			var movieViewModel = _mapper.Map<MovieViewModelWithDetails>(movieWithDetails);
+			var movieViewModel = _mapper.Map<MovieViewModelForUpdate>(movieWithDetails);
 			movieViewModel.Actors = await _manager.Actor.GetAllActors(trackChanges);//butun actorleri getirir
-			movieViewModel.SelectedActorIds = movieWithDetails.ActorMovies.Select(am=>am.ActorId).ToList(); //o filme ait actorleri getirir
+			movieViewModel.SelectedActorIds = movieWithDetails.ActorMovies.Select(am => am.ActorId).ToList(); //o filme ait actorlerin id'sini getirir
 			movieViewModel.Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList();
-			
+
 			//actors, genres, director 
+			return movieViewModel;
+		}
+		public async Task<MovieViewModelWithDetails>? GetOneMovieWithDetails(int id, bool trackChanges)
+		{
+			var movieWithDetails = await _manager.Movie.GetOneMovieWithDetails(id, trackChanges);
+			var movieViewModel = _mapper.Map<MovieViewModelWithDetails>(movieWithDetails);
+			movieViewModel.Actors = movieWithDetails.ActorMovies.Select(am => am.Actor).ToList(); //secili actorleri getirir
+			movieViewModel.Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList();
 			return movieViewModel;
 		}
 	}
@@ -175,5 +204,3 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 	//	});
 	//}
 }
-
-
