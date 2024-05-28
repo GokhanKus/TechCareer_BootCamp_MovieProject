@@ -4,16 +4,19 @@
 	ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+@* @section styles {
+	<link rel="stylesheet" href="~/css/MultSelectDropDown.css" />
+} *@
 
-<h4>Movie</h4>
+<h1>Edit Movie</h1>
 <hr />
+
 <form asp-action="Edit" method="post" enctype="multipart/form-data">
 	<div class="row">
 		<div class="col-md-4">
 			<div class="form-group my-3">
 				<label>Select Actors:</label>
-				<select asp-for="SelectedActorIds" class="form-control" asp-items="@(new SelectList(Model.Actors, "Id", "FullName",Model.SelectedActorIds))" multiple></select>
+				<select asp-for="SelectedActorIds" id="actors"class="form-control" asp-items="@(new SelectList(Model.Actors, "Id", "FullName",Model.SelectedActorIds))" multiple></select>
 			</div>
 		</div>
 		<div class="col-md-4">
@@ -101,8 +104,27 @@
 	<a asp-action="Index">Back to List</a>
 </div>
 
-@* @section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
-} *@
+@section scripts {
+	<script src="~/js/MultSelectDropDown.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			if (typeof MultiSelectTag !== 'undefined') {
+				new MultiSelectTag('actors', {
+					rounded: true,    // default true
+					shadow: true,      // default false
+					placeholder: 'Search',  // default Search...
+					tagColor: {
+						textColor: '#327b2c',
+						borderColor: '#92e681',
+						bgColor: '#eaffe6',
+					},
+					onChange: function (values) {
+						console.log(values);
+					}
+				});
+			} else {
+				console.error("MultiSelectTag is not defined");
+			}
+		});
+	</script>
+}

@@ -4,6 +4,10 @@
 	<div class="display-6">Create</div>
 </div>
 
+@* @section styles {
+	<link rel="stylesheet" href="~/css/MultSelectDropDown.css" />
+} *@
+
 <form method="post" asp-action="Create" enctype="multipart/form-data">
 	@* enctype="multipart/form-data" *@
 	@*dosyayi formla beraber post etmek icin enctype kullanılır*@
@@ -11,7 +15,7 @@
 		<div class="col-md-4">
 			<div class="form-group my-3">
 				<label>Select Actors:</label>
-				<select asp-for="SelectedActorIds" class="form-control" asp-items="@(new SelectList(Model.Actors, "Id", "FullName"))" multiple></select>
+				<select asp-for="SelectedActorIds" id="actors" class="form-control" asp-items="@(new SelectList(Model.Actors, "Id", "FullName"))" multiple></select>
 				<a class="btn btn-primary btn-sm my-2" asp-controller="Actors" asp-action="Create">Create Actor</a>
 			</div>
 		</div>
@@ -67,29 +71,33 @@
 			</div>
 		</div>
 		<div class="col-md-4">
-			<div class="bg-white p-4">
-				<h4>Genres</h4>
-				<hr />
-				@foreach (var genre in ViewBag.Genres)
-				{
-					<div class="form-check">
-						<input class="form-check-input"
-							   name="genreIds"
-							   type="checkbox"
-							   value="@genre.Id"
-							   id="genre_@genre.Id" />
-						@* @(Model.SelectedGenreIds != null && Model.SelectedGenreIds.Contains(genre.Id) ? "checked" : "")> *@
-						<label class="form-check-label" for="genre_@genre.Id">
-							@genre.Name
-						</label>
-					</div>
-				}
-				<a class="btn btn-primary btn-sm my-2" asp-controller="Genres" asp-action="Create">Create Genre</a>
-			</div>
+			@*burada genre seciyorduk, artik create ederken degil update ederken secilmesini istiyorum*@
 		</div>
 
 	</div>
-
-
 </form>
 
+@section scripts {
+	<script src="~/js/MultSelectDropDown.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			if (typeof MultiSelectTag !== 'undefined') {
+				new MultiSelectTag('actors', {
+					rounded: true,    // default true
+					shadow: true,      // default false
+					placeholder: 'Search',  // default Search...
+					tagColor: {
+						textColor: '#327b2c',
+						borderColor: '#92e681',
+						bgColor: '#eaffe6',
+					},
+					onChange: function (values) {
+						console.log(values);
+					}
+				});
+			} else {
+				console.error("MultiSelectTag is not defined");
+			}
+		});
+	</script>
+}
