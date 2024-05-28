@@ -1,10 +1,13 @@
-﻿using TechCareer_BootCamp_MovieProject_Model.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+using TechCareer_BootCamp_MovieProject_Model.Entities;
 
 namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels
 {
     public record MovieCardModel
 	{
 		public int Id { get; init; }
+
+		[Required]
 		public string? OriginalTitle { get; init; }
 		public string? PosterPath { get; set; }
 		public int? ReleaseDate { get; init; }

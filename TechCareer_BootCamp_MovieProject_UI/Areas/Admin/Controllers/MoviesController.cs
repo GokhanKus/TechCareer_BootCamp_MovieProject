@@ -53,6 +53,8 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 				TempData["info"] = $"{movieViewModel.OriginalTitle} has been modified.";
 				return RedirectToAction(nameof(Index));
 			}
+
+			ViewBag.Genres = _manager.GenreService.GetAllGenres(false);
 			return View(movieViewModel);
 		}
 		public async Task<IActionResult> Create()
@@ -63,10 +65,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 			//ViewBag.Actors = new MultiSelectList(actors, "Id", "FullName", selectedActorIds);
 			#endregion
 
-			ViewBag.Genres = _manager.GenreService.GetAllGenres(false); //viewbag ile film turleri liste olarak sayfaya tasiyacagim
 			var viewModel = new MovieViewModelForInsertion //classtaki prop'u (List<Actor'u>) sayfaya model olarak gonderelim 
 			{
-				Actors = await _manager.ActorService.GetAllActors(false)
+				Actors = await _manager.ActorService.GetAllActors(false),
 			};
 
 			var directors = await _manager.DirectorService.GetAllDirectors(false);
@@ -77,7 +78,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([FromForm] MovieViewModelForInsertion movieViewModel, int[] genreIds, IFormFile? file)
+		public async Task<IActionResult> Create([FromForm] MovieViewModelForInsertion movieViewModel, IFormFile? file)
 		{
 			if (ModelState.IsValid)
 			{
@@ -94,11 +95,15 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 				{
 					movieViewModel.PosterPath = "DefaultMovie.jpg";
 				}
-				_manager.MovieService.CreateOneMovie(movieViewModel, genreIds);
+				_manager.MovieService.CreateOneMovie(movieViewModel);
 				TempData["success"] = $"{movieViewModel.OriginalTitle} has been created.";
 				return RedirectToAction(nameof(Index));
 			}
 
+			// Eğer ModelState geçerli değilse, director ve actor verilerini tekrar yükleyin
+			movieViewModel.Actors = await _manager.ActorService.GetAllActors(false); // Actor verilerini tekrar yükleyin
+			var directors = await _manager.DirectorService.GetAllDirectors(false);
+			ViewData["DirectorId"] = new SelectList(directors, "Id", "FullName");
 			return View(movieViewModel);
 		}
 

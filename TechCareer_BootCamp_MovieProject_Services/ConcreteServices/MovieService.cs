@@ -18,7 +18,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			_context = context;
 			_mapper = mapper;
 		}
-		public void CreateOneMovie(MovieViewModelForInsertion movieViewModel, int[] genreIds)
+		public void CreateOneMovie(MovieViewModelForInsertion movieViewModel)
 		{
 			#region AutoMapper Oncesi
 			//var movieToCreate = new Movie
@@ -36,7 +36,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			_manager.Movie.CreateOneMovie(movieToCreate);
 			_manager.Save();
 
-			AddToLinkTable(movieViewModel.SelectedActorIds, genreIds, movieToCreate.Id); //many to many olan ara tablolara(genremovie, actormovie)eklemeyi yapalım
+			AddToLinkTable(movieViewModel.SelectedActorIds, movieToCreate.Id); //many to many olan ara tablolara(genremovie, actormovie)eklemeyi yapalım
 		}
 		public void UpdateOneMovie(MovieViewModelForUpdate movieViewModel, int[] genreIds)
 		{
@@ -86,7 +86,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			_manager.Save();
 		}
 		//UpdateToLinkTable ve AddToLinkTable tablolarin icerigi ayni farklı metoda tasinabilir
-		private void AddToLinkTable(List<int> selectedActorIds, int[] genreIds, int movieToCreateId)
+		private void AddToLinkTable(List<int> selectedActorIds, int movieToCreateId)
 		{
 			foreach (var actorId in selectedActorIds)
 			{
@@ -96,15 +96,6 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 					ActorId = actorId
 				};
 				_context.ActorMovie.Add(actorMovie);
-			}
-			foreach (var genreId in genreIds)
-			{
-				var genreMovie = new GenreMovie
-				{
-					MovieId = movieToCreateId,
-					GenreId = genreId
-				};
-				_context.GenreMovie.Add(genreMovie);
 			}
 			_manager.Save();
 		}
