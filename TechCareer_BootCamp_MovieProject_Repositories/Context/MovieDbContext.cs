@@ -1,11 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
 using TechCareer_BootCamp_MovieProject_Repositories.Config;
 
 namespace TechCareer_BootCamp_MovieProject_Repositories.Context
 {
-    public class MovieDbContext : DbContext
+    public class MovieDbContext : IdentityDbContext<IdentityUser>
     {
         public MovieDbContext(DbContextOptions<MovieDbContext> options) : base(options)
         {
@@ -13,8 +15,16 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //efcore tarafından many to many iliskilerde ara tablolar otomatik olusturulur, fakat bir verileri birbiri ile iliskilendirecegimiz zaman manuel olarak olusturmaya ihtiyac duyabiliriz
-            modelBuilder.Entity<ActorMovie>()
+			base.OnModelCreating(modelBuilder);
+			#region Migration hatasi
+			/*
+			IdentityDbContext'ten kalitim aldiktan sonra migration alirken;
+			base.OnModelCreating(modelBuilder); yazmalıyız
+			*/
+			#endregion
+
+			//efcore tarafından many to many iliskilerde ara tablolar otomatik olusturulur, fakat bir verileri birbiri ile iliskilendirecegimiz zaman manuel olarak olusturmaya ihtiyac duyabiliriz
+			modelBuilder.Entity<ActorMovie>()
                 .HasKey(am => new { am.ActorId, am.MovieId });
 
             modelBuilder.Entity<ActorMovie>()

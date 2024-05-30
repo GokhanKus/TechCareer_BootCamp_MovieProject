@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos;
@@ -16,10 +17,29 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
 			service.AddDbContext<MovieDbContext>(options =>
 			{
 				options.UseSqlServer(connectionString, migr => migr.MigrationsAssembly(nameof(TechCareer_BootCamp_MovieProject_UI)));
+				options.EnableSensitiveDataLogging(true);
+				//app gelistirme asamasinda username password gibi hassas bilgileri loglara yansitmaya ihtiyac duyabiliriz. simdilik true yapalim
 				options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 				//cannot be tracked because another instance with the same key value for {'Id'} is already being tracked. hatasi ustteki no tracking ile duzeldi?
 			});
 			//migration Assembly yazmamızın sebebi: migration klasorunu UI'da olusturamıyorduk Repositories de olusturabiliyorduk.. artik UI'da Migration Klasoru olusuyor
+		}
+		public static void ConfigureIdentityDbContext(this IServiceCollection service)
+		{
+			service.AddIdentity<IdentityUser, IdentityRole>(options =>
+			{
+				options.SignIn.RequireConfirmedAccount = false; //ileride maile acvitation kodu gonderilirse burayı true yapariz smtp mail server
+				options.User.RequireUniqueEmail = true; //mailler unique olsun her userin maili kendine ait olsun vs.
+				options.Password.RequireUppercase = true;	//buyuk harf zorunlu
+				options.Password.RequireLowercase = true;	//kucuk	  "		"
+				options.Password.RequireNonAlphanumeric = true;//. , & % + gibi karakterler zorunlu 
+				options.Password.RequireDigit = true;
+
+				options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
+				options.Lockout.MaxFailedAccessAttempts = 5;   //eger user giris icin 5 kere hatali girisimde bulunursa hesabi 2 dk boyunca kitlensin.
+				options.Password.RequiredLength = 8;        //min 8 karakter zorunlu
+			})
+				.AddEntityFrameworkStores<MovieDbContext>();// Identity veritabanı işlemleri için MovieDbContext kullanılır
 		}
 		public static void ConfigureRepositoryInjections(this IServiceCollection service)
 		{

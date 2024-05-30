@@ -15,6 +15,7 @@ namespace TechCareer_BootCamp_MovieProject_UI
 			builder.Services.ConfigureSqlServer(builder.Configuration);
 			builder.Services.ConfigureRepositoryInjections();
 			builder.Services.ConfigureServiceInjections();
+			builder.Services.ConfigureIdentityDbContext();
 
 			builder.Services.AddAutoMapper(typeof(MappingProfile));
 

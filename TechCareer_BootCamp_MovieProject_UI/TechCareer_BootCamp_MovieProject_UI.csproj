@@ -9,14 +9,14 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
-      <PrivateAssets>all</PrivateAssets>
+
+		<PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TechCareer_BootCamp_MovieProject_Repositories\TechCareer_BootCamp_MovieProject_Repositories.csproj" />
     <ProjectReference Include="..\TechCareer_BootCamp_MovieProject_Services\TechCareer_BootCamp_MovieProject_Services.csproj" />
   </ItemGroup>
 
