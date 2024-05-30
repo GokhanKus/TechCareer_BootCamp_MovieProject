@@ -1,0 +1,27 @@
+﻿
+@if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+	<li class="nav-item">
+		<a class="nav-link active" aria-current="page" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin Panel</a>
+	</li>
+}
+@if(User.Identity.IsAuthenticated)
+{
+	<a class="nav-link active" aria-current="page"
+	   asp-area=""
+	   asp-controller="Account"
+	   asp-action="Logout"
+	   asp-route-returnUrl="@Context.Request.PathAndQuery()">
+		Logout
+	</a>
+}
+else
+{
+	<a class="nav-link active" aria-current="page"
+	   asp-area=""
+	   asp-controller="Account"
+	   asp-action="Login"
+	   asp-route-returnUrl="@Context.Request.PathAndQuery()">
+		Login
+	</a>
+}

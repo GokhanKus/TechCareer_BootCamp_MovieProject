@@ -9,6 +9,9 @@
 				<a class="nav-link " aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
 				<a class="nav-link " asp-area="" asp-controller="Movies" asp-action="Index">Movies</a>
 			</div>
+			<div class="navbar-nav ms-auto"> @*navbarin sagina yapissin*@
+				<partial name="_LoginMenu" />
+			</div>
 		</div>
 	</div>
 </nav>
