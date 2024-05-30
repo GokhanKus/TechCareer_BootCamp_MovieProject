@@ -7,7 +7,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
         //bu class'a degisikliklerin db'ye yansitilmasini saglayan update-database komutunu oto olarak gerceklestirecek
         //ConfigureAndCheckMigration() metodu yazilabilir
        
-		public static async void ConfigureDefaultAdminUser(this IApplicationBuilder app,IConfiguration configuration)
+		public static async void ConfigureDefaultAdminUser(this IApplicationBuilder app)
 		{
 			 string adminUser = "Admin";
 			 string adminPassword = "Admin.123456";

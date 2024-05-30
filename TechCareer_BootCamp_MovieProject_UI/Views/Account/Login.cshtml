@@ -1,0 +1,45 @@
+﻿@model LoginViewModel
+
+<div class="text-center my-7">
+	<h6 class="display-6">
+		<i class="fa-solid text-white fa-right-to-bracket bg-secondary p-3 rounded-5"></i>
+		<br />
+		Login
+	</h6>
+</div>
+
+<div class="row">
+	<div class="col-md-3">
+	</div>
+	<div class="col-md-6">
+		<form method="post" asp-controller="Account" asp-action="Login">
+			<div>
+				<div class="text-danger" asp-validation-summary="All"></div>
+			</div>
+			<input type="hidden" asp-for="ReturnUrl" />
+			<div class="form-group my-3">
+				<label asp-for="UserName"></label>
+				<input class="form-control" asp-for="UserName" />
+			</div>
+
+			<div class="form-group my-3">
+				<label asp-for="Password"></label>
+				<input type="password" class="form-control" asp-for="Password" />
+			</div>
+
+			<div class="form-group my-3">
+				<label asp-for="RememberMe" class="form-check-label"></label>
+				<input asp-for="RememberMe" class="form-check-input" />
+			</div>
+
+			<div class="form-group my-3 d-flex justify-content-center">
+				<button type="submit" class="btn btn-primary">
+					<i class="fa-solid fa-right-to-bracket"></i>
+					Login
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-3">
+	</div>
+</div>
