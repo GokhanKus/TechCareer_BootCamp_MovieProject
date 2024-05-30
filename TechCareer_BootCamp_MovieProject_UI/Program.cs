@@ -42,7 +42,8 @@ namespace TechCareer_BootCamp_MovieProject_UI
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}"
 			);
-
+			
+			app.ConfigureDefaultAdminUser();
 			//app.MapControllerRoute(
 			//	name: "default",
 			//	pattern: "{controller=Home}/{action=Index}/{id?}");
