@@ -1,0 +1,15 @@
+﻿@page
+@model TechCareer_BootCamp_MovieProject_UI.Pages.RolesModel
+@{
+}
+
+<div class="text-center my-3">
+	<h6 class="display-6">Roles</h6>
+</div>
+
+<ul class="list-group my-3">
+	@foreach (var role in Model.Roles)
+	{
+		<li class="list-group-item">@role.Name</li>
+	}
+</ul>

@@ -12,6 +12,8 @@ namespace TechCareer_BootCamp_MovieProject_UI
 			// Add services to the container.
 			builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+			builder.Services.AddRazorPages();
+
 			builder.Services.ConfigureSqlServer(builder.Configuration);
 			builder.Services.ConfigureRepositoryInjections();
 			builder.Services.ConfigureServiceInjections();
@@ -42,11 +44,11 @@ namespace TechCareer_BootCamp_MovieProject_UI
 				name: "default",
 				pattern: "{controller=Home}/{action=Index}/{id?}"
 			);
-			
+
+			app.MapRazorPages(); //routing mekanizmasýnda bir problem yasamamamak icin ve endpointlerin uyusmasi icin bu satiri yazdýk.
+
 			app.ConfigureDefaultAdminUser();
-			//app.MapControllerRoute(
-			//	name: "default",
-			//	pattern: "{controller=Home}/{action=Index}/{id?}");
+
 			app.Run();
 		}
 	}
