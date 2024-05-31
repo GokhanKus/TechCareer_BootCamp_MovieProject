@@ -1,11 +1,10 @@
-﻿
-@if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+﻿@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
 {
 	<li class="nav-item">
 		<a class="nav-link active" aria-current="page" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin Panel</a>
 	</li>
 }
-@if(User.Identity.IsAuthenticated)
+@if (User.Identity.IsAuthenticated)
 {
 	<a class="nav-link active" aria-current="page"
 	   asp-area=""
@@ -24,4 +23,11 @@ else
 	   asp-route-returnUrl="@Context.Request.PathAndQuery()">
 		Login
 	</a>
-}
+
+	<a class="nav-link active" aria-current="page"
+	   asp-area=""
+	   asp-controller="Account"
+	   asp-action="Register">
+		Register
+	</a>
+	}

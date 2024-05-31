@@ -63,5 +63,40 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			await _signInManager.SignOutAsync();
 			return Redirect(ReturnUrl);
 		}
+
+		public IActionResult Register()
+		{
+			return View();
+		}
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Register([FromForm] RegisterViewModel registerViewModel)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = new IdentityUser
+				{
+					UserName = registerViewModel.UserName,
+					Email = registerViewModel.Email
+				};
+
+				var result = await _userManager.CreateAsync(user, registerViewModel.Password);
+
+				if (result.Succeeded)
+				{
+					var roleResult = await _userManager.AddToRoleAsync(user, "User");
+					if (roleResult.Succeeded)
+						return RedirectToAction("Login");
+				}
+				else
+				{
+					foreach (IdentityError err in result.Errors) //ilgili hata mesajlarını yazdıralım eğer valid değilse
+					{
+						ModelState.AddModelError("", err.Description);
+					}
+				}
+			}
+			return View();
+		}
 	}
 }
