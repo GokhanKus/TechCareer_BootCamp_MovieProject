@@ -13,5 +13,6 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 		IFictionalCharacterService FictionalCharacter { get; }
 		IGenreService GenreService { get; }
 		IMovieService MovieService { get; }
+		IAuthService AuthService { get; }
 	}
 }

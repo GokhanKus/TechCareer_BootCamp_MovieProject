@@ -30,8 +30,8 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
 			{
 				options.SignIn.RequireConfirmedAccount = false; //ileride maile acvitation kodu gonderilirse burayı true yapariz smtp mail server
 				options.User.RequireUniqueEmail = true; //mailler unique olsun her userin maili kendine ait olsun vs.
-				options.Password.RequireUppercase = true;	//buyuk harf zorunlu
-				options.Password.RequireLowercase = true;	//kucuk	  "		"
+				options.Password.RequireUppercase = true;   //buyuk harf zorunlu
+				options.Password.RequireLowercase = true;   //kucuk	  "		"
 				options.Password.RequireNonAlphanumeric = false;//. , & % + gibi karakterler zorunlu degil
 				options.Password.RequireDigit = true;
 
@@ -58,6 +58,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
 			service.AddScoped<IFictionalCharacterService, FictionalCharacterService>();
 			service.AddScoped<IGenreService, GenreService>();
 			service.AddScoped<IMovieService, MovieService>();
+			service.AddScoped<IAuthService, AuthService>();
 		}
 	}
 }
