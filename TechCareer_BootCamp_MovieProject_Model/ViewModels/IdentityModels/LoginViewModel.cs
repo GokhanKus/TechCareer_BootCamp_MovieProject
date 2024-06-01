@@ -11,7 +11,7 @@ namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.IdentityModels
 	{
 		//set yerine private set yaparsam sadece bu class icerisinde deger ataması yapabilirim diger yerlerde degistirilmesine izin verilmez
 		[Required]
-		public string? UserName { get; private set; }
+		public string? UserName { get; init; }//private set olursa sayfa uzerinden deger ataması da yapamayız null gelir
 		[Required]
 		public string? Password { get; set; }
 		public bool RememberMe{ get; set; }
@@ -22,5 +22,5 @@ namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.IdentityModels
 			get { return _returnUrl ?? "/"; }
 			set { _returnUrl = value; }
 		}
-	}
+    }
 }

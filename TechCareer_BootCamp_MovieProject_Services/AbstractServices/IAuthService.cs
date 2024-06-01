@@ -18,5 +18,6 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 		Task<UserViewModelForUpdate> GetOneUserForUpdate(string userName);
 		Task UpdateUserAsync(UserViewModelForUpdate user);
 		Task<IdentityResult> CreateUserAsync(UserViewModelForInsertion userModel);
+		Task<IdentityResult> ResetPasswordAsync(ResetPasswordViewModel resetPasswordModel);
 	}
 }

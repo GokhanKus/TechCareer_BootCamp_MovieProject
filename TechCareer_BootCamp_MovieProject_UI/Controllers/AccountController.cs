@@ -23,7 +23,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+		public async Task<IActionResult> Login([FromForm]LoginViewModel loginViewModel)
 		{
 			//bu metot cok kalabaliklasti service katmanında yazilabilir
 			if (ModelState.IsValid)

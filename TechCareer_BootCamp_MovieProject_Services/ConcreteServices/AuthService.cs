@@ -38,7 +38,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		public async Task<IdentityResult> CreateUserAsync(UserViewModelForInsertion userModel)
 		{
 			var user = _mapper.Map<IdentityUser>(userModel);
-			var result = await _userManager.CreateAsync(user, userModel.Password);
+			var result = await _userManager.CreateAsync(user, userModel.Password!);
 			if (result.Succeeded)
 			{
 				if (userModel.Roles.Count > 0)
@@ -75,16 +75,29 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			var user = await GetOneUserAsync(userModel.UserName!);
 			var userDto = _mapper.Map(userModel, user);
 			var result = await _userManager.UpdateAsync(userDto);
-
 			if (userModel.Roles.Count > 0)
 			{
 				var userRoles = await _userManager.GetRolesAsync(userDto);//updateden once userin ne kadar rolu varsa alalım
 				var r1 = await _userManager.RemoveFromRolesAsync(userDto, userRoles);//burada da o rollerin hepsini kaldiralim
 				var r2 = await _userManager.AddToRolesAsync(userDto, userModel.Roles); //rol tanimi, rol atamasi yapmadan mevcut rolleri kaldırıp oyle rol ekleme islemi yapiliyor
 			}
-
 			return;
+		}
 
+		public async Task<IdentityResult> ResetPasswordAsync(ResetPasswordViewModel resetPasswordModel)
+		{
+			var user = await GetOneUserAsync(resetPasswordModel.UserName!);
+			if (user is not null)
+			{
+				await _userManager.RemovePasswordAsync(user);
+				var result = await _userManager.AddPasswordAsync(user, resetPasswordModel.Password!);
+
+				//if (!result.Succeeded)
+				//	throw new Exception("an error occured");
+
+				return result;
+			}
+			throw new Exception("user could not be found");
 		}
 	}
 }
