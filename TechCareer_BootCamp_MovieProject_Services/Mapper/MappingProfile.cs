@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.ActorModels;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.DirectorModels;
+using TechCareer_BootCamp_MovieProject_Model.ViewModels.IdentityModels;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
 
 namespace TechCareer_BootCamp_MovieProject_Services.Mapper
@@ -20,6 +22,8 @@ namespace TechCareer_BootCamp_MovieProject_Services.Mapper
 			CreateMap<Movie, MovieViewModelWithDetails>();
 			CreateMap<MovieViewModelForInsertion, Movie>();
 			CreateMap<MovieViewModelForUpdate, Movie>().ReverseMap();
+
+			CreateMap<UserViewModelForInsertion, IdentityUser>();
 		}
 	}
 }

@@ -3,8 +3,8 @@ namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.ActorModels
 {
 	public record ActorViewModelForUpdate : ActorViewModel
 	{
-		public DateTime DoB { get; set; } //Date of Birth
-		public string? PlaceOfBirth { get; set; }
-		public string? Biography { get; set; }
+		public DateTime DoB { get; init; } //Date of Birth
+		public string? PlaceOfBirth { get; init; }
+		public string? Biography { get; init; }
 	}
 }
