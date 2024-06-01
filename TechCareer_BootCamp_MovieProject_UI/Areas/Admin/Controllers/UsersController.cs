@@ -24,7 +24,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 		{
 			var userModel = new UserViewModelForInsertion
 			{
-				Roles = GetRolesLikeHashSetStringType()
+				Roles = _manager.AuthService.GetAllRolesWithHashSetStringType()
 			};
 			return View(userModel);
 		}
@@ -34,11 +34,8 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 		public async Task<IActionResult> Create([FromForm] UserViewModelForInsertion userModel)
 		{
 			//TODO: AuthService'de throw new Exception yerine daha farklı yaklasim izlenebilir hata yonetimi icin (asagidaki modelstate errorlara girmeden hata alıyoruzt)
-			userModel.Roles = GetRolesLikeHashSetStringType();
-			if (ModelState.IsValid)
-			{
+			userModel.Roles = _manager.AuthService.GetAllRolesWithHashSetStringType();
 				var result = await _manager.AuthService.CreateUserAsync(userModel);
-
 				if (!result.Succeeded)
 				{
 					foreach (IdentityError err in result.Errors)
@@ -48,15 +45,45 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 					return View(userModel);
 				}
 				return RedirectToAction("Index");
-			}
-			else
-			{
-				return View(userModel);
-			}
+			
+			//userModel.Roles = _manager.AuthService.GetAllRolesWithHashSetStringType();
+			//if (ModelState.IsValid)
+			//{
+			//	var result = await _manager.AuthService.CreateUserAsync(userModel);
+
+			//	if (!result.Succeeded)
+			//	{
+			//		foreach (IdentityError err in result.Errors)
+			//		{
+			//			ModelState.AddModelError("", err.Description);
+			//		}
+			//		return View(userModel);
+			//	}
+			//	return RedirectToAction("Index");
+			//}
+			//else
+			//{
+			//	return View(userModel);
+			//}
 		}
-		private HashSet<string> GetRolesLikeHashSetStringType()
+
+		public async Task<IActionResult> Update(string username)//[FromRoute(Name = "username")] bunu yazınca hata veriyor ya da bunu yazarsak: [FromRoute(Name = "id")] string id seklinde yazmalıyız 
 		{
-			return _manager.AuthService.GetAllRoles().Select(r => r.Name!).ToList().ToHashSet();
+			var user = await _manager.AuthService.GetOneUserForUpdate(username);
+			return View(user);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Update([FromForm] UserViewModelForUpdate userModel)
+		{
+			if (ModelState.IsValid)
+			{
+				await _manager.AuthService.UpdateUserAsync(userModel);
+				return RedirectToAction("Index");
+			}
+			//eger valid degilse girilen hatali bilgileri kaybolmasin sayfada tutalim
+			return View(userModel);
 		}
 	}
 }

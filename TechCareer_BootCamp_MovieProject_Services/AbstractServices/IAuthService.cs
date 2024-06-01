@@ -12,7 +12,11 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 	{
 		//TODO: Rollerle ilgili temel crud islemlerini yap.
 		IEnumerable<IdentityRole> GetAllRoles();
+		HashSet<string> GetAllRolesWithHashSetStringType();
 		IEnumerable<IdentityUser> GetAllUsers();
+		Task<IdentityUser> GetOneUserAsync(string userName);
+		Task<UserViewModelForUpdate> GetOneUserForUpdate(string userName);
+		Task UpdateUserAsync(UserViewModelForUpdate user);
 		Task<IdentityResult> CreateUserAsync(UserViewModelForInsertion userModel);
 	}
 }

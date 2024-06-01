@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +27,10 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		{
 			return _roleManager.Roles.ToList();
 		}
+		public HashSet<string> GetAllRolesWithHashSetStringType()
+		{
+			return _roleManager.Roles.Select(r => r.Name!).ToList().ToHashSet();
+		}
 		public IEnumerable<IdentityUser> GetAllUsers()
 		{
 			return _userManager.Users.ToList();
@@ -44,6 +50,41 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 				return result;
 			}
 			return result;
+		}
+
+		public async Task<IdentityUser> GetOneUserAsync(string userName)
+		{
+			var user = await _userManager.FindByNameAsync(userName);
+			if (user == null)
+				throw new Exception("User not found");
+			return user;
+		}
+
+		public async Task<UserViewModelForUpdate> GetOneUserForUpdate(string userName)
+		{
+			var user = await GetOneUserAsync(userName);
+			var userViewModel = _mapper.Map<UserViewModelForUpdate>(user);
+			userViewModel.Roles = GetAllRolesWithHashSetStringType(); //butun roller alindi
+			userViewModel.UserRoles = new HashSet<string>(await _userManager.GetRolesAsync(user)); //usera ait roller alindi
+
+			return userViewModel;
+		}
+
+		public async Task UpdateUserAsync(UserViewModelForUpdate userModel)
+		{
+			var user = await GetOneUserAsync(userModel.UserName!);
+			var userDto = _mapper.Map(userModel, user);
+			var result = await _userManager.UpdateAsync(userDto);
+
+			if (userModel.Roles.Count > 0)
+			{
+				var userRoles = await _userManager.GetRolesAsync(userDto);//updateden once userin ne kadar rolu varsa alalım
+				var r1 = await _userManager.RemoveFromRolesAsync(userDto, userRoles);//burada da o rollerin hepsini kaldiralim
+				var r2 = await _userManager.AddToRolesAsync(userDto, userModel.Roles); //rol tanimi, rol atamasi yapmadan mevcut rolleri kaldırıp oyle rol ekleme islemi yapiliyor
+			}
+
+			return;
+
 		}
 	}
 }

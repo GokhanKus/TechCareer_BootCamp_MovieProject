@@ -21,5 +21,5 @@ namespace TechCareer_BootCamp_MovieProject_Model.ViewModels.IdentityModels
 		public string? PhoneNumber { get; init; }
 		public HashSet<string> Roles { get; set; } = new HashSet<string>(); //get;set; yapip yazmaya izin verelim
 		//hashset ile tanimlarsak ayni veriyi eklemeye izin vermez hata da vermez orn rollere admin, user, editor,admin atadik 3 rol olur admini bir daha almaz etc.
-    }
+	}
 }
