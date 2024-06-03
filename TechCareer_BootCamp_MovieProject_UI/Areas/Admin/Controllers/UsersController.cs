@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.IdentityModels;
 using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
@@ -35,7 +36,6 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 		{
 			//TODO: AuthService'de throw new Exception yerine daha farklı yaklasim izlenebilir hata yonetimi icin (asagidaki modelstate errorlara girmeden hata alıyoruzt)
 
-			userModel.Roles = _manager.AuthService.GetAllRolesWithHashSetStringType();
 			if (ModelState.IsValid)
 			{
 				var result = await _manager.AuthService.CreateUserAsync(userModel);
@@ -50,12 +50,13 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 				}
 				return RedirectToAction("Index");
 			}
+			userModel.Roles = _manager.AuthService.GetAllRolesWithHashSetStringType();
 			return View(userModel);
 		}
 
 		public async Task<IActionResult> Update(string username)//[FromRoute(Name = "username")] bunu yazınca hata veriyor ya da bunu yazarsak: [FromRoute(Name = "id")] string id seklinde yazmalıyız 
 		{
-			var user = await _manager.AuthService.GetOneUserForUpdate(username);
+			var user = await _manager.AuthService.GetOneUserForUpdateAsync(username);
 			return View(user);
 		}
 

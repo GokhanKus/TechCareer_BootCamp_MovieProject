@@ -33,7 +33,9 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		}
 		public IEnumerable<IdentityUser> GetAllUsers()
 		{
-			return _userManager.Users.ToList();
+			return _userManager.Users.OrderBy(user => user.UserName).ToList();
+			//sıralama işlemi, veritabanı seviyesinde yapılır ve ardından sıralanmış sonuçlar belleğe alınarak bir liste oluşturulur.
+			//sıralama işlemini ToList metodundan sonra yapilirsa, tüm veriler belleğe alinir sonra sıralama yapılır, bu da performans kaybına neden olabilir.
 		}
 		public async Task<IdentityResult> CreateUserAsync(UserViewModelForInsertion userModel)
 		{
@@ -52,15 +54,9 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			return result;
 		}
 
-		public async Task<IdentityUser> GetOneUserAsync(string userName)
-		{
-			var user = await _userManager.FindByNameAsync(userName);
-			if (user == null)
-				throw new Exception("User not found");
-			return user;
-		}
 
-		public async Task<UserViewModelForUpdate> GetOneUserForUpdate(string userName)
+
+		public async Task<UserViewModelForUpdate> GetOneUserForUpdateAsync(string userName)
 		{
 			var user = await GetOneUserAsync(userName);
 			var userViewModel = _mapper.Map<UserViewModelForUpdate>(user);
