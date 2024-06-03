@@ -1,4 +1,4 @@
-﻿using TechCareer_BootCamp_MovieProject_Services.Mapper;
+using TechCareer_BootCamp_MovieProject_Services.Mapper;
 using TechCareer_BootCamp_MovieProject_UI.ExtensionMethods;
 
 namespace TechCareer_BootCamp_MovieProject_UI
@@ -32,8 +32,8 @@ namespace TechCareer_BootCamp_MovieProject_UI
 
 			app.UseRouting();
 
+			app.UseAuthentication(); //UseAuthentication() önce UseAuthorization() sonra yazılır
 			app.UseAuthorization(); //bu iki middleware Routing() ile EndPoints() arasýnda olmali
-			app.UseAuthentication();
 
 			app.MapAreaControllerRoute(
 				name: "Admin",

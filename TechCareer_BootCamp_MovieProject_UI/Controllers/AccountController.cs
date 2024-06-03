@@ -98,5 +98,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 			}
 			return View();
 		}
+		public IActionResult AccessDenied()
+		{
+			return View();
+		}
 	}
 }
