@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
@@ -59,6 +60,16 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
 			service.AddScoped<IGenreService, GenreService>();
 			service.AddScoped<IMovieService, MovieService>();
 			service.AddScoped<IAuthService, AuthService>();
+		}
+		public static void ConfigureApplicationCookie(this IServiceCollection service)
+		{
+			service.ConfigureApplicationCookie(options =>
+			{
+				options.LoginPath = new PathString("/Account/Login");
+				options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+				options.ExpireTimeSpan = TimeSpan.FromDays(10);//remember me ozelligi sadece 10 gunlugune aktif; default 14gundur yani oturum 10 gun sonra otomatik olarak sonlanacak
+				options.AccessDeniedPath = new PathString("/Account/AccessDenied");
+			});
 		}
 	}
 }

@@ -18,6 +18,7 @@ namespace TechCareer_BootCamp_MovieProject_UI
 			builder.Services.ConfigureRepositoryInjections();
 			builder.Services.ConfigureServiceInjections();
 			builder.Services.ConfigureIdentityDbContext();
+			builder.Services.ConfigureApplicationCookie();
 
 			builder.Services.AddAutoMapper(typeof(MappingProfile));
 
