@@ -23,7 +23,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Login([FromForm]LoginViewModel loginViewModel)
+		public async Task<IActionResult> Login([FromForm] LoginViewModel loginViewModel)
 		{
 			//bu metot cok kalabaliklasti service katmanında yazilabilir
 			if (ModelState.IsValid)
@@ -33,7 +33,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 				{
 					await _signInManager.SignOutAsync();
 					//user'in bilgileri hatirlansin ve belli sayida fail yaparsa kilitlensin
-					var signInResult = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, true, true);
+					var signInResult = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, loginViewModel.RememberMe, true);
 					if (signInResult.Succeeded)
 					{
 						await _userManager.ResetAccessFailedCountAsync(user);

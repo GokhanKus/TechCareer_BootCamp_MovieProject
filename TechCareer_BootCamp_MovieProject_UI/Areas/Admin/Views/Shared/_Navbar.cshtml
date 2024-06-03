@@ -35,11 +35,27 @@
 				<li class="nav-item">
 					<a class="nav-link text-black" aria-current="page" asp-controller="Users" asp-action="Index">Users</a>
 				</li>
+
 				<li class="nav-item">
 					<a class="nav-link text-black" aria-current="page" asp-page="/Roles" target="_blank">Roles</a>
 				</li>
+
 				<li class="nav-item">
 					<a target="_blank" class="nav-link text-black" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">Web</a>@*asp-area yazmazsak ulasamiyor, target =_blank yan sekme*@
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link text-black" aria-current="page">@User.Identity!.Name</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link text-black" aria-current="page"
+					   asp-area=""
+					   asp-controller="Account"
+					   asp-action="Logout">
+						<i class="fa-solid fa-right-from-bracket"></i>
+						Logout
+					</a>
 				</li>
 			</ul>
 		</div>
