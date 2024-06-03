@@ -97,5 +97,15 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 			}
 			return View(resetPasswordModel);
 		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteUser([FromForm] string userName)
+		{
+			var result = await _manager.AuthService.DeleteUser(userName);
+			return result.Succeeded
+				? RedirectToAction(nameof(Index))
+				: View();
+		}
 	}
 }

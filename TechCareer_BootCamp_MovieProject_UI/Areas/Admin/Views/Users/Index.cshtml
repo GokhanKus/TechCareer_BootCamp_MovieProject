@@ -27,7 +27,14 @@
 					<div class="btn-group gap-2">
 						<a class="btn btn-sm btn-warning" asp-controller="Users" asp-action="Update" asp-route-username="@user.UserName">Update</a>
 						<a class="btn btn-sm btn-info" asp-controller="Users" asp-action="ResetPassword" asp-route-username="@user.UserName">Reset Password</a>
-						<a class="btn btn-sm btn-danger">Delete</a>
+						<form method="post" asp-action="DeleteUser">
+							<input type="hidden" name="username" value="@user.UserName" />
+							<button type="submit" class="btn btn-sm btn-danger rounded-0">
+								<i class="fa fa-solid fa-trash"></i>
+								Delete
+							</button>
+						</form>
+
 					</div>
 				</td>
 			</tr>

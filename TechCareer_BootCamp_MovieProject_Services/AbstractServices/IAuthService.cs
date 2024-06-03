@@ -14,10 +14,11 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 		IEnumerable<IdentityRole> GetAllRoles();
 		HashSet<string> GetAllRolesWithHashSetStringType();
 		IEnumerable<IdentityUser> GetAllUsers();
-		Task<IdentityUser> GetOneUserAsync(string userName);
-		Task<UserViewModelForUpdate> GetOneUserForUpdate(string userName);
+		//Task<IdentityUser> GetOneUserAsync(string userName);
+		Task<UserViewModelForUpdate> GetOneUserForUpdateAsync(string userName);
 		Task UpdateUserAsync(UserViewModelForUpdate user);
 		Task<IdentityResult> CreateUserAsync(UserViewModelForInsertion userModel);
 		Task<IdentityResult> ResetPasswordAsync(ResetPasswordViewModel resetPasswordModel);
+		Task<IdentityResult> DeleteUser(string userName);
 	}
 }

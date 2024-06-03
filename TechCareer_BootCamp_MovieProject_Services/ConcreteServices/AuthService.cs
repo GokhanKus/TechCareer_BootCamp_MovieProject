@@ -99,5 +99,18 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			}
 			throw new Exception("user could not be found");
 		}
+
+		public async Task<IdentityResult> DeleteUser(string userName)
+		{
+			var user = await GetOneUserAsync(userName);
+			return await _userManager.DeleteAsync(user);
+		}
+		private async Task<IdentityUser> GetOneUserAsync(string userName)
+		{
+			var user = await _userManager.FindByNameAsync(userName);
+			if (user == null)
+				throw new Exception("User not found");
+			return user;
+		}
 	}
 }
