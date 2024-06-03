@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.ActorModels;
 using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
 namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 {
+	//sadece [Authorize] yazarsak login olmus any user girebilir demek
+	[Authorize(Roles = "Admin,Editor")] // Varsayılan olarak Admin ve Editor rollerine yetki verildi (action bazında da authorize islemi yapilabilir)
 	[Area("Admin")]
 	public class ActorsController : Controller
 	{
@@ -16,6 +19,7 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 		{
 			return View();
 		}
+		//[AllowAnonymous]//giris yapmis veya yapmamis any user erisebilir bu actiona
 		public async Task<IActionResult> Index()
 		{
 			var actors = await _manager.ActorService.GetAllActors(false);

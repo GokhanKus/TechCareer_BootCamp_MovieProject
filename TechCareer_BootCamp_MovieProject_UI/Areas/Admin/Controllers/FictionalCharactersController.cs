@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
 using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
 namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 {
+	[Authorize(Roles = "Admin,Editor")]
 	[Area("Admin")]
 	public class FictionalCharactersController : Controller
 	{

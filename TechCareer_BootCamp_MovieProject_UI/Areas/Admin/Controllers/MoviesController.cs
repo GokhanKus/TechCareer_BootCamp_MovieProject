@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TechCareer_BootCamp_MovieProject_Model.Enums;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
@@ -6,6 +7,7 @@ using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
 namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 {
+	[Authorize(Roles = "Admin,Editor")]
 	[Area("Admin")]//bu attributeyi yazarak bu controllerin Areas/Admin icerisinde bulundugunu belirtiriz
 				   //ayrica ayni isimdeki controller cakismalarini da onler ve farklı route'u tanimlar (Admin/Movies/Index..)
 	public class MoviesController : Controller

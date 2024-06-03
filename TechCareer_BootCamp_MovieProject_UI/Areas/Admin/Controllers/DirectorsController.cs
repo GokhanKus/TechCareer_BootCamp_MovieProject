@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.DirectorModels;
 using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
 namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 {
+	[Authorize(Roles = "Admin,Editor")]
 	[Area("Admin")]
 	public class DirectorsController : Controller
 	{
