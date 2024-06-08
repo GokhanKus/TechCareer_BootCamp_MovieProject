@@ -8,23 +8,23 @@ html {
   }
 }
 
-@media (max-width: 768px) { /* Küçük ekranlar için */
-    .col-md-4 {
-        width: 50%; /* Ýki sütun */
-    }
+/*@media (max-width: 768px) {*/ /* Küçük ekranlar için */
+    /*.col-md-4 {
+        width: 50%;*/ /* Ýki sütun */
+    /*}
 }
 
-@media (min-width: 768px) and (max-width: 992px) { /* Orta ekranlar için */
-    .col-md-4 {
-        width: 33.3333%; /* Üç sütun */
-    }
+@media (min-width: 768px) and (max-width: 992px) {*/ /* Orta ekranlar için */
+    /*.col-md-4 {
+        width: 33.3333%;*/ /* Üç sütun */
+    /*}
 }
 
-@media (min-width: 992px) { /* Büyük ekranlar için */
-    .col-md-4 {
-        width: 25%; /* Dört sütun */
-    }
-}
+@media (min-width: 992px) {*/ /* Büyük ekranlar için */
+    /*.col-md-4 {
+        width: 25%;*/ /* Dört sütun */
+    /*}
+}*/
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;

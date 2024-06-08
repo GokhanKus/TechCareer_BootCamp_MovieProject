@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TechCareer_BootCamp_MovieProject_Model.Enums;
+using TechCareer_BootCamp_MovieProject_Model.RequestParameters;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
 using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
@@ -19,9 +20,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 			_manager = manager;
 		}
 
-		public async Task<IActionResult> Index()
+		public IActionResult Index([FromQuery] MovieRequestParameters p)
 		{
-			var movies = await _manager.MovieService.GetAllMoviesWithGenres();
+			var movies = _manager.MovieService.GetAllMoviesWithDetails(p);
 			return View(movies);
 		}
 		public async Task<IActionResult> Edit(int id)

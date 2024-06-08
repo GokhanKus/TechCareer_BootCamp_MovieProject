@@ -8,10 +8,17 @@
 </div>
 
 <ul class="list-group my-4">
+	<li class="list-group-item">
+		<a asp-controller="Movies" asp-action="Index">
+			All Movies
+		</a>
+	</li>
 	@foreach (var genre in Model)
 	{
 		<li class="list-group-item">
-			@genre.Name
+			<a asp-controller="Movies" asp-action="Index" asp-route-genreId="@genre.Id">
+				@genre.Name
+			</a>
 		</li>
 	}
 </ul>

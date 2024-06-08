@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
+using TechCareer_BootCamp_MovieProject_Model.RequestParameters;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
 
 namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
@@ -14,7 +15,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 		Movie GetOneMovie(int id, bool trackChanges);
 		Task<MovieViewModelForUpdate>? GetOneMovieForUpdate(int id, bool trackChanges);
 		Task<MovieViewModelWithDetails>? GetOneMovieWithDetails(int id, bool trackChanges);
-		Task<IEnumerable<MovieCardModel>> GetAllMoviesWithGenres();
+		IEnumerable<MovieCardModel> GetAllMoviesWithDetails(MovieRequestParameters p);
 		IEnumerable<Movie> GetAllMovies(bool trackChanges);
 		void DeleteOneMovie(int id);
 		void CreateOneMovie(MovieViewModelForInsertion movieViewModel);

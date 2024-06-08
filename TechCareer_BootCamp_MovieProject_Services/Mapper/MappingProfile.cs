@@ -21,6 +21,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.Mapper
 
 			CreateMap<Movie, MovieViewModelWithDetails>();
 			CreateMap<MovieViewModelForInsertion, Movie>();
+			CreateMap<Movie, MovieCardModel>();
 			CreateMap<MovieViewModelForUpdate, Movie>().ReverseMap();
 
 			CreateMap<UserViewModelForInsertion, IdentityUser>();

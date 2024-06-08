@@ -10,6 +10,14 @@
     border: 1px solid rgba(0, 0, 0, .125);
 }
 
+.list-group-item a{
+    font-weight: bold;
+    color: steelblue;
+    background-color: #131415;
+    border: 1px solid rgba(0, 0, 0, .125);
+    text-decoration-line:none;
+}
+
 .form-control {
     color: #212529;
     background-color: #211c1c;

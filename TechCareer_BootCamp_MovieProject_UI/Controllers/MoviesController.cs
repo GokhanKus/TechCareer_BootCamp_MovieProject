@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TechCareer_BootCamp_MovieProject_Model.RequestParameters;
 using TechCareer_BootCamp_MovieProject_Services.AbstractServices;
 
 namespace TechCareer_BootCamp_MovieProject_UI.Controllers
@@ -10,9 +11,9 @@ namespace TechCareer_BootCamp_MovieProject_UI.Controllers
 		{
 			_manager = manager;
 		}
-		public async Task<IActionResult> Index()
+		public IActionResult Index(MovieRequestParameters p)
 		{
-			var movies = await _manager.MovieService.GetAllMoviesWithGenres();
+			var movies = _manager.MovieService.GetAllMoviesWithDetails(p);
 			return View(movies);
 		}
 		public async Task<IActionResult> Details(int id)

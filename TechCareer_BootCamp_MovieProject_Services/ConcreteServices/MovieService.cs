@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using TechCareer_BootCamp_MovieProject_Model.Entities;
+using TechCareer_BootCamp_MovieProject_Model.RequestParameters;
 using TechCareer_BootCamp_MovieProject_Model.ViewModels.MovieModels;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.Context;
@@ -116,11 +118,9 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 				_manager.Save();
 			}
 		}
-		public async Task<IEnumerable<MovieCardModel>> GetAllMoviesWithGenres()
+		public IEnumerable<MovieCardModel> GetAllMoviesWithDetails(MovieRequestParameters p)
 		{
-			var movies = await _manager.Movie.GetAllMoviesWithGenres();
-
-			// Mapping logic from Movie entity to MovieViewModel
+			var movies = _manager.Movie.GetAllMoviesWithDetails(p);
 
 			return movies.Select(m => new MovieCardModel
 			{
