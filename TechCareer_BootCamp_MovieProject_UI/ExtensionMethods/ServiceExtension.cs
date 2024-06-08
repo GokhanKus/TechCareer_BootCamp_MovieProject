@@ -61,6 +61,14 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
 			service.AddScoped<IMovieService, MovieService>();
 			service.AddScoped<IAuthService, AuthService>();
 		}
+		public static void ConfigureRouting(this IServiceCollection service)
+		{
+			service.AddRouting(options =>
+			{
+				options.LowercaseUrls = true;
+				options.AppendTrailingSlash = false;
+			});
+		}
 		public static void ConfigureApplicationCookie(this IServiceCollection service)
 		{
 			service.ConfigureApplicationCookie(options =>
