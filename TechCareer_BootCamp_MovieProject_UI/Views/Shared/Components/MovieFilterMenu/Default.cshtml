@@ -1,6 +1,6 @@
 ﻿<div class="my-2">
 	<form method="get" asp-action="Index">
-		<div asp-validation-summary="All"></div> @*min price maxpricedan fazla oldugunda hata versin*@
+		<div asp-validation-summary="All"></div>
 		<input type="hidden" name="genreId" value="@(Context.Request.Query["genreId"])" />
 		<div class="form-group my-2">
 			<input class="form-control" name="SearchingTerm" placeholder="Search" />

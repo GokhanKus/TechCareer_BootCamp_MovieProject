@@ -37,9 +37,10 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		}
 		public IQueryable<Movie> GetAllMoviesWithDetails(MovieRequestParameters p)
 		{
-			return _context.Movies.FilteredByCategoryId(p.GenreId); //bizim yazdigimiz metot Movie genisletildi
+			return _context.Movies
+				.FilteredByCategoryId(p.GenreId) //bizim yazdigimiz metot Movie genisletildi
+				.FilteredBySearchingTerm(p.SearchingTerm);
 		}
-
 		public async Task<Movie> GetOneMovieWithDetails(int id, bool trackChanges)
 		{
 			var movieViewDetails = await _context.Movies.Where(m => m.Id == id)

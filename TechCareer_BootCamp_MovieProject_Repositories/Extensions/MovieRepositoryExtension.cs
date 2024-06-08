@@ -16,5 +16,14 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.Extensions
 			else
 				return movies.Where(m => m.GenreMovies.Any(mg => mg.GenreId.Equals(genreId)));
 		}
+		public static IQueryable<Movie> FilteredBySearchingTerm(this IQueryable<Movie> movies, string searchingTerm)
+		{
+			if (string.IsNullOrEmpty(searchingTerm))
+				return movies;
+
+			else
+				return movies.Where(m => m.OriginalTitle.ToLower().Contains(searchingTerm.ToLower()) //film orijinal adi veya local adina gore arama yapilabilsin
+					  || m.Title.ToLower().Contains(searchingTerm.ToLower()));
+		}
 	}
 }

@@ -10,5 +10,6 @@ namespace TechCareer_BootCamp_MovieProject_Model.RequestParameters
 	{
 		//ileriki processlerde movie haric baska entityler icin de filtrelemeler olabilir, o yüzden bir tane soyut bir class olusturalim
 		//burada ortak olabilecek metotlar proplar vs. tanimlanabilir 
+		public string? SearchingTerm { get; set; }
 	}
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TechCareer_BootCamp_MovieProject_Model.RequestParameters
 {
-	public class MovieRequestParameters
+	public class MovieRequestParameters:RequestParameters
 	{
 		public int? GenreId { get; set; }
 	}
