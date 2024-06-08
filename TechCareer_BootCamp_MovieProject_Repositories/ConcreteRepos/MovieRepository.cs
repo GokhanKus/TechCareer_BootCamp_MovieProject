@@ -4,6 +4,7 @@ using TechCareer_BootCamp_MovieProject_Model.RequestParameters;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.BaseRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.Context;
+using TechCareer_BootCamp_MovieProject_Repositories.Extensions;
 
 namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 {
@@ -36,19 +37,7 @@ namespace TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos
 		}
 		public IQueryable<Movie> GetAllMoviesWithDetails(MovieRequestParameters p)
 		{
-			if (p.GenreId is null) //user eger bir genre belirtmemisse (orn dram turundeki filmleri listelemediyse) butun filmler genreleriyle beraber gelsin
-			{
-				return _context.Movies
-					   .Include(m => m.GenreMovies)
-					   .ThenInclude(gm => gm.Genre);
-			}
-			else //eger bir turdeki filmleri istediyse o türe ait filmlerin listesi gelsin
-			{
-				return _context.Movies
-						.Include(m => m.GenreMovies)
-						.ThenInclude(gm => gm.Genre)
-						.Where(m => m.GenreMovies.Any(mg => mg.GenreId == p.GenreId));
-			}
+			return _context.Movies.FilteredByCategoryId(p.GenreId); //bizim yazdigimiz metot Movie genisletildi
 		}
 
 		public async Task<Movie> GetOneMovieWithDetails(int id, bool trackChanges)
