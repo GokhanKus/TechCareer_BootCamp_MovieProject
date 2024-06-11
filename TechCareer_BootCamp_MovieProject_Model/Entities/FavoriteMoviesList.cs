@@ -13,7 +13,7 @@ namespace TechCareer_BootCamp_MovieProject_Model.Entities
 		{
 			FavoriteMovies = new List<FavoriteMovie>();
 		}
-		public void AddItem(Movie movie)//metot imzası ilerde virtual olabilir, cunku bu metodu ezebiliriz.
+		public virtual void AddItem(Movie movie)//metot imzası ilerde virtual olabilir, cunku bu metodu ezebiliriz.
 		{
 			//FavoriteMovie? favMovie = FavoriteMovies.Where(fm => fm.Movie.Id == movie.Id).FirstOrDefault();
 			//if (favMovie is null) //bu kontrolün amaci, ayni itemi tekrar eklemeyi onlemek amaciyla yapilmasidir
@@ -34,10 +34,10 @@ namespace TechCareer_BootCamp_MovieProject_Model.Entities
 				});
 			}
 		}
-		public void RemoveItem(Movie movie) =>
+		public virtual void RemoveItem(Movie movie) =>
 			FavoriteMovies.RemoveAll(fm => fm.Movie.Id == movie.Id);
 
-		public void Clear() =>
+		public virtual void Clear() =>
 			FavoriteMovies.Clear();
 	}
 }

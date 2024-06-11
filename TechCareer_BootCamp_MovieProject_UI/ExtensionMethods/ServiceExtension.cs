@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using TechCareer_BootCamp_MovieProject_Model.Entities;
 using TechCareer_BootCamp_MovieProject_Repositories.AbstractRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.ConcreteRepos;
 using TechCareer_BootCamp_MovieProject_Repositories.Context;
@@ -78,6 +80,25 @@ namespace TechCareer_BootCamp_MovieProject_UI.ExtensionMethods
 				options.ExpireTimeSpan = TimeSpan.FromDays(10);//remember me ozelligi sadece 10 gunlugune aktif; default 14gundur yani oturum 10 gun sonra otomatik olarak sonlanacak
 				options.AccessDeniedPath = new PathString("/Account/AccessDenied");
 			});
+		}
+		public static void ConfigureSession(this IServiceCollection service)
+		{
+			service.AddDistributedMemoryCache();//onbellek ekler, session icin user bilgilerini ram'de saklamak ve paylasmak icin tercih edilebilir
+												//Oturum yönetimi, kullanicilarin app icindeki etkilesimleri sirasinda, belirli bilgileri tutma ve paylasma mekanizmasi.
+			service.AddSession(options =>
+			{
+				options.Cookie.Name = "MovieApp.Session";
+				options.IdleTimeout = TimeSpan.FromMinutes(10);//userdan 10 dk icerisinden fresh bir request gelmezse oturumu sonlandir.
+			});
+			//builder.Services.AddHttpContextAccessor();
+			service.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			#region HttpContextAccessor
+			/*
+			 * HttpContext nesnesine erisim saglar, bu nesne bir http requestin icerisinde barindirabilecegi cesitli bilgileri ve durumu temsil eder; 
+			 * userin browserdan gonderdigi veriler, oturum bilgileri, url talebi vs
+			 * HttpContextAccessor bu httpcontext nesnesine erisim saglar
+			 */
+			#endregion
 		}
 	}
 }
