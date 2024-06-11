@@ -1,9 +1,5 @@
-﻿@if (User.Identity?.IsAuthenticated == true && (User.IsInRole("Admin") || (User.IsInRole("Editor")))) //kisi giris yapti ve (admin ya da editor rolundeyse);
+﻿@if (User.Identity?.IsAuthenticated == true) //kisi giris yaptiysa;
 {
-	<li class="nav-item">
-		<a class="nav-link active" aria-current="page" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin Panel</a>
-	</li>
-
 	<li class="nav-item">
 		<a class="nav-link text-white" aria-current="page">@User.Identity.Name</a>
 	</li>
@@ -15,22 +11,6 @@
 		   asp-action="Logout"
 		   asp-route-returnUrl="@Context.Request.PathAndQuery()">
 			Logout
-		</a>
-	</li>
-}
-else if (User.Identity?.IsAuthenticated == true) //kisi giris yaptiysa;
-{
-	<li class="nav-item">
-		<a class="nav-link text-white" aria-current="page">@User.Identity.Name</a>
-	</li>
-
-	<li class="nav-item">
-		<a class="nav-link active" aria-current="page"
-		   asp-area=""
-		   asp-controller="Account"
-		   asp-action="Logout"
-		   asp-route-returnUrl="@Context.Request.PathAndQuery()">
-		   	Logout
 		</a>
 	</li>
 }
@@ -50,4 +30,10 @@ else //kisi giris yapmadiysa
 	   asp-action="Register">
 		Register
 	</a>
+}
+@if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+{
+	<li class="nav-item">
+		<a class="nav-link active" aria-current="page" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Admin Panel</a>
+	</li>
 }

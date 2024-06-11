@@ -128,8 +128,8 @@ namespace TechCareer_BootCamp_MovieProject_UI.Areas.Admin.Controllers
 			if (movie != null)
 			{
 				_manager.MovieService.DeleteOneMovie(id);
+				TempData["danger"] = $"{movie.OriginalTitle} has been removed";
 			}
-			TempData["danger"] = $"The product has been removed";
 			return RedirectToAction(nameof(Index));
 		}
 	}
