@@ -1,4 +1,46 @@
 ﻿@page
-@model FavoriteMoviesModel
+
+@model FavoriteMoviesListModel
 @{
 }
+
+<div class="text-center display-6">
+	Favorite Movies
+</div>
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>Original Title</th>
+			<th>Title</th>
+			<th>Score</th>
+			<th>Release Date</th>
+			<th>Original Language</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var favMovie in Model.FavoriteMoviesList.FavoriteMovies ?? Enumerable.Empty<FavoriteMovie>()) @*FavoriteMovies ifadesi null mı? nullsa bos bir FavoriteMovies koleksiyonu olusturalım (hata almamak icin null kontrolu yapılıyor kısacası)*@
+		{
+			<tr>
+				<td>@favMovie.Movie.OriginalTitle</td>
+				<td>@favMovie.Movie.Title</td>
+				<td>@favMovie.Movie.Score</td>
+				<td>@favMovie.Movie.ReleaseDate</td>
+				<td>@favMovie.Movie.OriginalLanguage</td>
+				<td>
+					<form method="post" asp-page-handler="Remove">
+						@*bu form bizi OnPostRemove() metoduna goturecek*@
+						<input type="hidden" name="Id" value="@favMovie.Movie.Id" />
+						<input type="hidden" name="stringUrl" value="@Model.ReturnUrl" />
+						<button type="submit" class="btn btn-sm btn-danger">
+							<i class="fa fa-trash"></i>
+							Remove
+						</button>
+					</form>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>

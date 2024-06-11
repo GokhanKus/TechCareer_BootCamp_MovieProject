@@ -2,7 +2,7 @@
 
 <div class="movie-card">
 	<div class="movie-card__image">
-		<img src="~/MoviePosters/@Model.PosterPath" alt="@Model.OriginalTitle" width="200"/>
+		<img src="~/MoviePosters/@Model.PosterPath" alt="@Model.OriginalTitle" width="200" />
 	</div>
 	<div class="movie-card__content">
 		<h2 class="movie-card__title">@Model.OriginalTitle</h2>
@@ -13,7 +13,11 @@
 		<p class="movie-card__desc">@Model.Plot</p>
 		<div class="btn-group">
 			<a asp-controller="Movies" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-details"><i class="fa-solid fa-circle-info"></i> Details</a>
-			<button class="btn btn-favorite" type="button"><i class="fa-solid fa-heart"></i> Favorite</button>
+			<form id="@Model.Id" asp-page="/FavoriteMoviesList" method="post">
+				<input type="hidden" asp-for="Id" />
+				<input type="hidden" name="stringUrl" value="/Movie/Details/@Model.Id" />
+				<button class="btn btn-favorite" type="submit"><i class="fa-solid fa-heart"></i> Favorite</button>
+			</form>
 		</div>
 	</div>
 </div>
