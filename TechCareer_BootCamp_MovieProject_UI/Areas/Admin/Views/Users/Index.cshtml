@@ -22,7 +22,7 @@
 				<td>@user.Id</td>
 				<td>@user.UserName</td>
 				<td>@user.Email</td>
-				<td>-</td>
+				<td asp-role-users="@user.UserName"></td>
 				<td>
 					<div class="btn-group gap-2">
 						<a class="btn btn-sm btn-warning" asp-controller="Users" asp-action="Update" asp-route-username="@user.UserName">Update</a>
