@@ -121,7 +121,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 		public IEnumerable<MovieCardModel> GetAllMoviesWithDetails(MovieRequestParameters p)
 		{
 			var movies = _manager.Movie.GetAllMoviesWithDetails(p);
-
+				
 			return movies.Select(m => new MovieCardModel
 			{
 				Id = m.Id,
@@ -183,6 +183,12 @@ namespace TechCareer_BootCamp_MovieProject_Services.ConcreteServices
 			movieViewModel.Actors = movieWithDetails.ActorMovies.Select(am => am.Actor).ToList(); //secili actorleri getirir
 			movieViewModel.Genres = movieWithDetails.GenreMovies.Select(gm => gm.Genre).ToList();
 			return movieViewModel;
+		}
+
+		public IEnumerable<Movie> GetLastestMovies(int count, bool trackChanges)
+		{
+			var lastestMovies = _manager.Movie.GetAllMovies(trackChanges).OrderByDescending(m => m.Id).Take(count);
+			return lastestMovies;
 		}
 	}
 	//public async Task<IEnumerable<ActorByIdAndName>> GetActorsByIdAndName(bool trackChanges)

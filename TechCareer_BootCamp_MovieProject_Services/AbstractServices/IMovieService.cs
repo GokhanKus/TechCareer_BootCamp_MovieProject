@@ -17,6 +17,7 @@ namespace TechCareer_BootCamp_MovieProject_Services.AbstractServices
 		Task<MovieViewModelWithDetails>? GetOneMovieWithDetails(int id, bool trackChanges);
 		IEnumerable<MovieCardModel> GetAllMoviesWithDetails(MovieRequestParameters p);
 		IEnumerable<Movie> GetAllMovies(bool trackChanges);
+		IEnumerable<Movie> GetLastestMovies(int count, bool trackChanges);
 		void DeleteOneMovie(int id);
 		void CreateOneMovie(MovieViewModelForInsertion movieViewModel);
 		void UpdateOneMovie(MovieViewModelForUpdate movieViewModel, int[] genreIds);
