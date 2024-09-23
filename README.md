@@ -13,17 +13,21 @@ one-to-many & many-to-many relations between table
 - **BootStrap**
 
 
-**Relationships between the tables in the database;**
+### **Relationships between the tables in the database;**
 ![image](https://github.com/GokhanKus/TechCareer_BootCamp_MovieProject/assets/40137766/2354f0fb-5f96-493a-881e-3dda3321e2fe)
 
-**HomePage**
-![image](https://github.com/GokhanKus/TechCareer_BootCamp_MovieProject/assets/40137766/d0c7d807-cb4b-47bc-93d9-2d1789c76879)
+### **HomePage**
+![image](https://github.com/user-attachments/assets/6072b2a8-e9eb-4b88-875a-8117eb0e60d3)
 
-**GenreList Page**
+### **GenreList Page**
 ![image](https://github.com/GokhanKus/TechCareer_BootCamp_MovieProject/assets/40137766/b243a443-42bd-4b40-ae97-7d416fb9ecaa)
 
-**ActorDetails Page**
-![image](https://github.com/GokhanKus/TechCareer_BootCamp_MovieProject/assets/40137766/7b9b2dbc-5ca1-4888-b242-0fe66d6be650)
+### **ActorDetails Page**
+![image](https://github.com/user-attachments/assets/90f8190f-c77c-4776-9c03-656e0635b20b)
 
-**MovieDetails Page**
-![image](https://github.com/GokhanKus/TechCareer_BootCamp_MovieProject/assets/40137766/cc1e2aad-82dc-4cd2-9807-5a56b0f33c53)
+### **MovieDetails Page**
+![image](https://github.com/user-attachments/assets/63bc715e-753b-499d-8f81-fed2a751f782)
+
+### **Admin Panel Page**
+![image](https://github.com/user-attachments/assets/a5313cfc-a2d9-4678-a1f3-9f283dce2f02)
+
